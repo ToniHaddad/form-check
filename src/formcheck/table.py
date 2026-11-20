@@ -487,7 +487,10 @@ def _labelled_value(boxes: list[_Box], labels: list[str], cell) -> tuple[Cell | 
     tail = rest.split()
     if tail and looks_numeric(tail[-1]):
         return cell([lab], tail[-1]), lab
-    right = [b for b in boxes if b is not lab and _same_line(lab, b) and b.x0 > lab.x1 - 5 and looks_numeric(b.text)]
+    # Take the nearest box to the right that has a digit in it, even if it does
+    # not parse: a misread total should be shown and flagged, not lost.
+    right = [b for b in boxes if b is not lab and _same_line(lab, b) and b.x0 > lab.x1 - 5
+             and re.search(r"\d", b.text)]
     if not right:
         return None, lab
     return cell([min(right, key=lambda b: b.x0)]), lab

@@ -6,7 +6,6 @@ import json
 import threading
 import uuid
 from collections import OrderedDict
-from importlib import resources
 from pathlib import Path
 
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
@@ -17,7 +16,7 @@ from .checks import run_checks, summary
 from .pipeline import check_bytes
 from .table import Note
 
-PKG = Path(str(resources.files("formcheck")))
+PKG = Path(__file__).resolve().parent
 STATIC = PKG / "static"
 SAMPLES = PKG / "samples"
 MAX_UPLOAD = 15 * 1024 * 1024

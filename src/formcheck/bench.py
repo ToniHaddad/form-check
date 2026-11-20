@@ -69,7 +69,7 @@ def score_form(truth, note, flags) -> dict:
             if v is not None and v == getattr(trow, key):
                 r["number cells"][0] += 1
             elif v is not None:
-                misreads.append((f"row{(i or 0) + 1}.{key}", (i or 0) + 1))
+                misreads.append((f"row{(i or 0) + 1}.{key}", (i or 0) + 1, c.text, str(getattr(trow, key))))
     for key, truth_val in (("total_qty", truth.total_qty), ("grand_total", truth.grand_total)):
         r["totals"][1] += 1
         c = getattr(note, key)
@@ -77,18 +77,17 @@ def score_form(truth, note, flags) -> dict:
         if v is not None and v == truth_val:
             r["totals"][0] += 1
         elif v is not None:
-            misreads.append((key, None))
+            misreads.append((key, None, c.text, str(truth_val)))
     r["rows found"] = [int(len(note.rows) == len(truth.rows)), 1]
 
     error_flags = [f for f in flags if f.severity == "error"]
     flagged_cells = {c for f in flags for c in f.cells}
     flagged_rows = {f.row for f in flags if f.row}
-    silent = 0
-    for loc, row in misreads:
+    silent = []
+    for loc, row, read, true in misreads:
         if loc in flagged_cells or (row and row in flagged_rows):
-            continue
-        # a misread total is caught by the sum check; a misread line cell by the line check
-        silent += 1
+            continue  # a flag on that line or total points the reviewer at it
+        silent.append({"cell": loc, "read": read, "printed": true})
 
     planted = truth.error
     outcome = None
@@ -110,7 +109,7 @@ def score_form(truth, note, flags) -> dict:
             outcome = "flagged elsewhere"
         else:
             outcome = "missed"
-    return {"fields": dict(r), "silent_misreads": silent, "misreads": len(misreads),
+    return {"fields": dict(r), "silent_misreads": len(silent), "silent": silent, "misreads": len(misreads),
             "planted": planted["type"] if planted else None, "outcome": outcome,
             "any_flag": bool(flags), "error_flag": bool(error_flags)}
 
@@ -118,6 +117,7 @@ def score_form(truth, note, flags) -> dict:
 def main(per_level: int = 30, seed: int = 5000, out: str | None = "docs/benchmark.json", keep: str | None = None) -> int:
     report = {}
     lines = []
+    details = []
     p = plan(per_level)
     for li, level in enumerate(DIFFICULTIES):
         agg = defaultdict(lambda: [0, 0])
@@ -137,6 +137,10 @@ def main(per_level: int = 30, seed: int = 5000, out: str | None = "docs/benchmar
             flags = run_checks(note)
             secs += time.perf_counter() - t0
             sc = score_form(form, note, flags)
+            if keep:
+                (Path(keep) / f"{form.form_id}.ocr.json").write_text(page.to_json(), encoding="utf-8")
+            details.append({"form": form.form_id, "planted": form.error, "outcome": sc["outcome"],
+                            "flags": [f.message for f in flags], "silent_misreads": sc["silent"]})
             for g, (a, b) in sc["fields"].items():
                 agg[g][0] += a
                 agg[g][1] += b
@@ -162,6 +166,7 @@ def main(per_level: int = 30, seed: int = 5000, out: str | None = "docs/benchmar
         print(lines[-1], flush=True)
     totals = _overall(report)
     report["overall"] = totals
+    report["forms"] = details
     lines.append(_format_overall(totals))
     print(lines[-1])
     if out:
