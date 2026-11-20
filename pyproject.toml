@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "formcheck"
+version = "0.1.0"
+description = "Reads a photographed delivery note, checks the arithmetic, and shows where on the photo a number does not add up."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+dependencies = [
+    "rapidocr-onnxruntime>=1.3",
+    "numpy",
+    "pillow>=10.1",
+    "fastapi>=0.110",
+    "uvicorn>=0.29",
+    "python-multipart>=0.0.9",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "httpx>=0.27"]
+
+[project.scripts]
+formcheck = "formcheck.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+formcheck = ["static/*", "samples/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

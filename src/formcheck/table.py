@@ -1,0 +1,451 @@
+"""Rebuild the delivery note from OCR word boxes.
+
+Input: word boxes on the flattened page (``OcrPage``). Output: a ``Note`` with
+header fields, a table of rows and columns, and the printed totals, each cell
+carrying its text, OCR confidence and its outline on the original photo.
+
+The steps:
+
+1. Measure any skew left after flattening from the slope of the long text
+   boxes, and rotate box centres so text lines run horizontally.
+2. Find the table header line by its labels (Qty, Unit price, Line total...)
+   and use the header positions as column ranges.
+3. Group the boxes between the header and the totals into rows by height.
+4. Place each box in the column whose range it overlaps most. A box that the
+   OCR merged across two columns is split at its spaces first.
+"""
+
+from __future__ import annotations
+
+import math
+import re
+from dataclasses import dataclass, field
+from difflib import SequenceMatcher
+
+from decimal import Decimal
+
+from .numbers import DOT, format_number, infer_style, looks_numeric, parse_number
+from .ocr import OcrPage, Word
+
+COLUMN_KEYS = ["no", "item", "unit", "qty", "unit_value", "line_total"]
+NUMERIC = ("qty", "unit_value", "line_total")
+HEADER_FIELDS = {
+    "waybill": ["waybill no.", "waybill no", "waybill"],
+    "date": ["date"],
+    "driver": ["driver"],
+    "origin": ["origin"],
+    "destination": ["destination"],
+}
+
+
+@dataclass
+class Cell:
+    text: str
+    conf: float = 1.0
+    poly: list[list[float]] | None = None  # outline on the photo
+
+    def to_dict(self) -> dict:
+        return {"text": self.text, "conf": self.conf, "poly": self.poly}
+
+    @classmethod
+    def from_dict(cls, d: dict | None) -> "Cell | None":
+        if d is None:
+            return None
+        return cls(text=str(d.get("text", "")), conf=float(d.get("conf", 1.0)), poly=d.get("poly"))
+
+
+@dataclass
+class Note:
+    style: str
+    header: dict[str, Cell]
+    rows: list[dict[str, Cell]]
+    total_qty: Cell | None
+    grand_total: Cell | None
+    labels: dict[str, str] = field(default_factory=dict)  # printed column names
+    row_polys: list[list[list[float]] | None] = field(default_factory=list)
+    skew_deg: float = 0.0
+
+    def to_dict(self) -> dict:
+        return {
+            "style": self.style,
+            "header": {k: c.to_dict() for k, c in self.header.items()},
+            "rows": [{k: c.to_dict() for k, c in r.items()} for r in self.rows],
+            "total_qty": self.total_qty.to_dict() if self.total_qty else None,
+            "grand_total": self.grand_total.to_dict() if self.grand_total else None,
+            "labels": self.labels,
+            "row_polys": self.row_polys,
+            "skew_deg": self.skew_deg,
+        }
+
+    @classmethod
+    def from_dict(cls, d: dict) -> "Note":
+        return cls(
+            style=d.get("style", "dot"),
+            header={k: Cell.from_dict(c) for k, c in d.get("header", {}).items()},
+            rows=[{k: Cell.from_dict(c) for k, c in r.items() if c is not None} for r in d.get("rows", [])],
+            total_qty=Cell.from_dict(d.get("total_qty")),
+            grand_total=Cell.from_dict(d.get("grand_total")),
+            labels=d.get("labels", {}),
+            row_polys=d.get("row_polys", []),
+            skew_deg=float(d.get("skew_deg", 0.0)),
+        )
+
+
+# Pieces of a label the OCR may return as a separate box ("Waybill" + "No.").
+_LABEL_LEFTOVERS = {"no", "no.", "n0", "n0.", "number", ":", "."}
+
+# ---------------------------------------------------------------- helpers
+
+def _norm(s: str) -> str:
+    return re.sub(r"[^a-z0-9. ]", "", s.lower()).strip()
+
+
+def _similar(a: str, b: str) -> float:
+    return SequenceMatcher(None, a, b).ratio()
+
+
+@dataclass
+class _Box:
+    """A word in deskewed page coordinates."""
+    word: Word
+    text: str
+    x0: float
+    x1: float
+    cy: float
+    h: float
+
+    @property
+    def cx(self) -> float:
+        return (self.x0 + self.x1) / 2
+
+
+def estimate_skew(words: list[Word]) -> float:
+    """Median slope, in degrees, of the top edges of long text boxes."""
+    angles = []
+    for w in words:
+        (a, b, _, _) = w.poly
+        dx, dy = b[0] - a[0], b[1] - a[1]
+        if dx > 3 * max(w.height, 1):
+            angles.append(math.degrees(math.atan2(dy, dx)))
+    if not angles:
+        return 0.0
+    angles.sort()
+    return angles[len(angles) // 2]
+
+
+def _deskew(words: list[Word], deg: float, centre: tuple[float, float]) -> list[_Box]:
+    t = math.radians(-deg)
+    c, s = math.cos(t), math.sin(t)
+    cx0, cy0 = centre
+    boxes = []
+    for w in words:
+        pts = [((x - cx0) * c - (y - cy0) * s + cx0, (x - cx0) * s + (y - cy0) * c + cy0) for x, y in w.poly]
+        xs = [p[0] for p in pts]
+        ys = [p[1] for p in pts]
+        boxes.append(_Box(w, w.text.strip(), min(xs), max(xs), sum(ys) / 4, max(w.height, 1.0)))
+    return boxes
+
+
+def _same_line(a: _Box, b: _Box) -> bool:
+    return abs(a.cy - b.cy) < 0.6 * max(a.h, b.h)
+
+
+def _find_label(boxes: list[_Box], variants: list[str], min_ratio: float = 0.8) -> tuple[_Box, str] | None:
+    """Find a box whose text starts with one of ``variants``. Returns (box, rest of text)."""
+    best = None
+    for b in boxes:
+        t = _norm(b.text)
+        for v in variants:
+            head = t[: len(v)]
+            r = _similar(head, v)
+            if r >= min_ratio and (best is None or r > best[0]):
+                rest = b.text.strip()[len(v):].lstrip(" .:;-")
+                best = (r, b, rest)
+    return (best[1], best[2]) if best else None
+
+
+# ---------------------------------------------------------------- main
+
+def rebuild(page: OcrPage) -> Note:
+    words = [w for w in page.words if w.text.strip()]
+    skew = estimate_skew(words)
+    centre = (page.flat_size[0] / 2, page.flat_size[1] / 2)
+    boxes = _deskew(words, skew, centre)
+    med_h = sorted(b.h for b in boxes)[len(boxes) // 2] if boxes else 20.0
+
+    def cell(parts: list[_Box], text: str | None = None) -> Cell:
+        pts = [p for b in parts for p in b.word.poly]
+        xs, ys = [p[0] for p in pts], [p[1] for p in pts]
+        rect = [[min(xs), min(ys)], [max(xs), min(ys)], [max(xs), max(ys)], [min(xs), max(ys)]]
+        return Cell(
+            text=text if text is not None else " ".join(b.text for b in sorted(parts, key=lambda b: b.x0)),
+            conf=round(min(b.word.conf for b in parts), 4),
+            poly=page.poly_to_photo(rect),
+        )
+
+    # --- header fields: label box, value is the rest of the box or the next box to the right
+    header: dict[str, Cell] = {}
+    for key, variants in HEADER_FIELDS.items():
+        found = _find_label(boxes, variants)
+        if not found:
+            continue
+        lab, rest = found
+        if len(rest) >= 2:
+            header[key] = cell([lab], rest)
+            continue
+        right = [b for b in boxes if b is not lab and _same_line(lab, b) and b.x0 > lab.x1 - 5
+                 and b.x0 - lab.x1 < 8 * med_h and _norm(b.text) not in _LABEL_LEFTOVERS]
+        if right:
+            nearest = min(right, key=lambda b: b.x0)
+            header[key] = cell([nearest])
+
+    # --- table header line, anchored on the most distinctive label
+    columns, labels, head_line = _find_columns(boxes, med_h)
+
+    # --- totals
+    total_qty, lab1 = _labelled_value(boxes, ["total quantity", "total qty"], cell)
+    grand_total, lab2 = _labelled_value(boxes, ["grand total", "total weight", "total amount"], cell)
+
+    # --- rows: everything between the header line and the first totals label
+    stop_y = min([lab.cy for lab in (lab1, lab2) if lab is not None] or [float("inf")])
+    top_y = head_line if head_line is not None else max(
+        [c_y for c_y in (_label_y(boxes, v) for v in HEADER_FIELDS.values()) if c_y is not None] or [0.0])
+    body_lines = []
+    for line in _group_lines(boxes):
+        y = sum(b.cy for b in line) / len(line)
+        if top_y + 0.9 * med_h < y < stop_y - 0.5 * med_h and any(re.search(r"\d", b.text) for b in line):
+            body_lines.append(line)  # lines with no digit are captions such as "(USD)"
+
+    width = page.flat_size[0]
+    left_limit = columns["unit"][1] if "unit" in columns else 0.45 * width
+    if head_line is None:
+        # No table heading found: keep only lines that carry at least two
+        # numbers in the right half, which drops the waybill block above.
+        body_lines = [ln for ln in body_lines
+                      if sum(looks_numeric(t.text) and t.x1 > left_limit for b in ln for t in _tokens(b)) >= 2]
+    columns = _numeric_columns_from_data(body_lines, columns, left_limit, med_h)
+    if "item" not in columns and body_lines:
+        # Without an "Item" heading, text left of the numbers is the item.
+        x_start = columns["no"][1] + 4 if "no" in columns else min(b.x0 for ln in body_lines for b in ln)
+        x_end = columns["unit"][0] - 4 if "unit" in columns else left_limit
+        if x_end > x_start:
+            columns["item"] = (x_start, x_end)
+    numeric_cols = {k: v for k, v in columns.items() if k in NUMERIC}
+    text_cols = {k: v for k, v in columns.items() if k not in NUMERIC} or columns
+
+    rows: list[dict[str, Cell]] = []
+    row_polys = []
+    for line in body_lines:
+        assigned: dict[str, list[_Box]] = {}
+        for b in line:
+            for part in _split_across(b, columns):
+                numeric = looks_numeric(part.text) and part.x1 > left_limit
+                key = _best_column(part, numeric_cols if numeric and numeric_cols else text_cols)
+                if key:
+                    assigned.setdefault(key, []).append(part)
+        if not any(k in assigned for k in NUMERIC):
+            continue
+        rows.append({k: cell(v) for k, v in assigned.items()})
+        row_polys.append(cell(line).poly)
+
+    style = infer_style([c.text for r in rows for k, c in r.items() if k in NUMERIC]
+                        + [c.text for c in (total_qty, grand_total) if c])
+    for r in rows:
+        for k in ("unit_value", "line_total"):
+            if k in r:
+                _repair_money(r[k], style)
+    if grand_total:
+        _repair_money(grand_total, style)
+    return Note(style=style, header=header, rows=rows, total_qty=total_qty, grand_total=grand_total,
+                labels=labels, row_polys=row_polys, skew_deg=round(skew, 2))
+
+
+def _label_y(boxes: list[_Box], variants: list[str]) -> float | None:
+    found = _find_label(boxes, variants)
+    return found[0].cy if found else None
+
+
+def _repair_money(c: Cell, style: str) -> None:
+    """Money and weight columns always print two decimals. When the OCR lost the
+    decimal mark ("12,70" read as "1270"), put it back and lower the confidence
+    so the cell is tinted for review. A wrong repair still has to pass the
+    arithmetic, so it cannot hide an error by itself."""
+    dec = "." if style == DOT else ","
+    t = c.text.strip()
+    ok = parse_number(t, style) is not None and dec in t[-3:]
+    digits = re.sub(r"\D", "", t)
+    if ok or len(digits) < 3 or not looks_numeric(t):
+        return
+    c.text = format_number(Decimal(digits) / 100, style)
+    c.conf = round(min(c.conf, 0.8), 4)
+
+
+def _numeric_columns_from_data(lines, columns, left_limit, med_h):
+    """Numbers are right-aligned, so their right edges stack up in clusters.
+    The three rightmost clusters are quantity, unit value and line total. This
+    still works when the OCR garbled a column heading."""
+    toks = []
+    for line in lines:
+        for b in line:
+            for part in _tokens(b):
+                if looks_numeric(part.text) and part.x1 > left_limit:
+                    toks.append(part)
+    if not toks:
+        return columns
+    toks.sort(key=lambda t: t.x1)
+    clusters = [[toks[0]]]
+    for t in toks[1:]:
+        if t.x1 - clusters[-1][-1].x1 > 1.5 * med_h:
+            clusters.append([t])
+        else:
+            clusters[-1].append(t)
+    strong = [c for c in clusters if len(c) >= max(2, 0.4 * len(lines))]
+    if len(strong) < 3:
+        return columns
+    out = dict(columns)
+    for key, c in zip(NUMERIC, strong[-3:]):
+        out[key] = (min(t.x0 for t in c), max(t.x1 for t in c))
+    return out
+
+
+def _tokens(b: _Box) -> list[_Box]:
+    words = b.text.split()
+    if len(words) < 2:
+        return [b]
+    total = sum(len(t) for t in words) + len(words) - 1
+    width = b.x1 - b.x0
+    out, pos = [], 0
+    for t in words:
+        out.append(_Box(b.word, t, b.x0 + width * pos / total, b.x0 + width * (pos + len(t)) / total, b.cy, b.h))
+        pos += len(t) + 1
+    return out
+
+
+def _classify_header(text: str) -> str | None:
+    t = _norm(text)
+    if not t:
+        return None
+    if re.search(r"(price|wt|weight|rate)", t) and ("unit" in t or t.startswith("un")):
+        return "unit_value"
+    if re.search(r"(line|total|amount)", t):
+        return "line_total"
+    if _similar(t, "qty") >= 0.66 or t.startswith("quant"):
+        return "qty"
+    if _similar(t, "item") >= 0.75 or t.startswith("descr"):
+        return "item"
+    if _similar(t, "unit") >= 0.75:
+        return "unit"
+    if t in ("no.", "no", "n0", "#", "n.", "no:"):
+        return "no"
+    return None
+
+
+def _find_columns(boxes: list[_Box], med_h: float):
+    """Locate the table header line and return column ranges, printed labels and its height."""
+    lines = _group_lines(boxes)
+    best = None
+    for line in lines:
+        if not any(_classify_header(b.text) == "qty" for b in line):
+            continue
+        found = {}
+        for p in _merge_phrases(line, med_h):
+            k = _classify_header(p.text)
+            if k and k not in found:
+                found[k] = p
+        if best is None or len(found) > len(best[0]):
+            best = (found, sum(b.cy for b in line) / len(line))
+    if not best:
+        return {}, {}, None
+    found, y = best
+    columns = {k: (p.x0, p.x1) for k, p in found.items()}
+    labels = {k: p.text for k, p in found.items()}
+    return columns, labels, y
+
+
+def _merge_phrases(line: list[_Box], med_h: float) -> list[_Box]:
+    """Join two neighbouring boxes only when together they name a column, e.g. "Unit" + "price"."""
+    out: list[_Box] = []
+    for b in line:
+        if out and b.x0 - out[-1].x1 < 1.2 * med_h:
+            p = out[-1]
+            joined = _Box(p.word, f"{p.text} {b.text}", p.x0, b.x1, (p.cy + b.cy) / 2, max(p.h, b.h))
+            k = _classify_header(joined.text)
+            if k in ("unit_value", "line_total") and _classify_header(p.text) != k and _classify_header(b.text) != k:
+                out[-1] = joined
+                continue
+        out.append(b)
+    return out
+
+
+def _group_lines(boxes: list[_Box]) -> list[list[_Box]]:
+    """Chain boxes left to right into text lines.
+
+    Each box joins the line whose last box is closest in height, so a line can
+    drift up or down across the page (residual perspective, a curled sheet)
+    without being cut in two.
+    """
+    chains: list[list[_Box]] = []
+    for b in sorted(boxes, key=lambda b: b.x0):
+        best = None
+        for ch in chains:
+            last = ch[-1]
+            if _overlap(last.x0, last.x1, b.x0, b.x1) > 0.3 * min(last.x1 - last.x0, b.x1 - b.x0):
+                continue  # stacked above or below, not beside
+            d = abs(b.cy - last.cy)
+            if d < 0.5 * max(b.h, last.h) and (best is None or d < best[0]):
+                best = (d, ch)
+        if best:
+            best[1].append(b)
+        else:
+            chains.append([b])
+    chains.sort(key=lambda ch: sum(b.cy for b in ch) / len(ch))
+    return chains
+
+
+def _overlap(a0: float, a1: float, b0: float, b1: float) -> float:
+    return max(0.0, min(a1, b1) - max(a0, b0))
+
+
+def _best_column(b: _Box, columns: dict[str, tuple[float, float]]) -> str | None:
+    if not columns:
+        return None
+    scored = [(_overlap(b.x0, b.x1, x0, x1), -abs(b.cx - (x0 + x1) / 2), k) for k, (x0, x1) in columns.items()]
+    scored.sort(reverse=True)
+    return scored[0][2]
+
+
+def _split_across(b: _Box, columns: dict[str, tuple[float, float]]) -> list[_Box]:
+    """Split a box the OCR merged across columns, e.g. "bag 1,200" over Unit and Qty."""
+    tokens = b.text.split()
+    if len(tokens) < 2 or not columns:
+        return [b]
+    hit = [k for k, (x0, x1) in columns.items() if _overlap(b.x0, b.x1, x0, x1) > 0.3 * (x1 - x0)]
+    numeric_tail = looks_numeric(tokens[-1])
+    if len(hit) < 2 and not (numeric_tail and not looks_numeric(tokens[0])):
+        return [b]
+    # Estimate each token's extent from its share of the characters.
+    parts = _tokens(b)
+    # Re-join neighbouring tokens that land in the same column ("Rice, 25 kg bag").
+    merged: list[_Box] = []
+    for p in parts:
+        k = _best_column(p, columns)
+        if merged and _best_column(merged[-1], columns) == k:
+            m = merged[-1]
+            merged[-1] = _Box(m.word, f"{m.text} {p.text}", m.x0, p.x1, m.cy, m.h)
+        else:
+            merged.append(p)
+    return merged
+
+
+def _labelled_value(boxes: list[_Box], labels: list[str], cell) -> tuple[Cell | None, _Box | None]:
+    found = _find_label(boxes, labels, 0.8)
+    if not found:
+        return None, None
+    lab, rest = found
+    tail = rest.split()
+    if tail and looks_numeric(tail[-1]):
+        return cell([lab], tail[-1]), lab
+    right = [b for b in boxes if b is not lab and _same_line(lab, b) and b.x0 > lab.x1 - 5 and looks_numeric(b.text)]
+    if not right:
+        return None, lab
+    return cell([min(right, key=lambda b: b.x0)]), lab
