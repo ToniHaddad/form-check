@@ -1,0 +1,101 @@
+[
+  {
+    "file": "clean-easy.jpg",
+    "title": "Clean note",
+    "difficulty": "easy",
+    "description": "Every line adds up. Nothing should be flagged.",
+    "seed": 30,
+    "planted_error": null,
+    "style": "dot"
+  },
+  {
+    "file": "line-total-easy.jpg",
+    "title": "Wrong line total",
+    "difficulty": "easy",
+    "description": "One line total does not match quantity times unit price.",
+    "seed": 14,
+    "planted_error": {
+      "type": "line_total",
+      "row": 2,
+      "field": "line_total",
+      "correct": "19040.40",
+      "written": "24040.40"
+    },
+    "style": "dot"
+  },
+  {
+    "file": "digit-medium.jpg",
+    "title": "Changed digit",
+    "difficulty": "medium",
+    "description": "One digit on the note was changed.",
+    "seed": 50,
+    "planted_error": {
+      "type": "digit_changed",
+      "row": 7,
+      "field": "qty",
+      "correct": "87",
+      "written": "57"
+    },
+    "style": "dot"
+  },
+  {
+    "file": "skipped-line-medium.jpg",
+    "title": "Line left out of total",
+    "difficulty": "medium",
+    "description": "The grand total leaves one line out.",
+    "seed": 70,
+    "planted_error": {
+      "type": "grand_total",
+      "row": null,
+      "field": "grand_total",
+      "correct": "55235.08",
+      "written": "55186.36"
+    },
+    "style": "comma"
+  },
+  {
+    "file": "comma-medium.jpg",
+    "title": "Decimal commas",
+    "difficulty": "medium",
+    "description": "Numbers written as 1.234,50, with one wrong line total.",
+    "seed": 94,
+    "planted_error": {
+      "type": "line_total",
+      "row": 7,
+      "field": "line_total",
+      "correct": "460.80",
+      "written": "406.80"
+    },
+    "style": "comma"
+  },
+  {
+    "file": "hard.jpg",
+    "title": "Hard photo",
+    "difficulty": "hard",
+    "description": "Strong angle, shadow, blur and heavy JPEG.",
+    "seed": 113,
+    "planted_error": {
+      "type": "digit_changed",
+      "row": 1,
+      "field": "line_total",
+      "correct": "1277.04",
+      "written": "1227.04"
+    },
+    "style": "dot"
+  },
+  {
+    "file": "glare-fails.jpg",
+    "title": "Where it fails: glare",
+    "difficulty": "medium",
+    "description": "Flash glare washes out part of the table. See the README.",
+    "seed": 200,
+    "planted_error": {
+      "type": "line_total",
+      "row": 4,
+      "field": "line_total",
+      "correct": "854.90",
+      "written": "864.90"
+    },
+    "style": "dot"
+  }
+]

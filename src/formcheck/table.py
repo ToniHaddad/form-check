@@ -300,12 +300,48 @@ def _numeric_columns_from_data(lines, columns, left_limit, med_h):
         else:
             clusters[-1].append(t)
     strong = [c for c in clusters if len(c) >= max(2, 0.4 * len(lines))]
-    if len(strong) < 3:
+    hdr = {k: columns[k] for k in NUMERIC if k in columns}
+    if len(strong) == 3 or (not hdr and len(strong) > 3):
+        # The usual case: three clear number columns. Their order settles which
+        # is which, even when the OCR garbled a heading into another heading.
+        return {**columns, **{k: _span(c) for k, c in zip(NUMERIC, strong[-3:])}}
+    if not hdr:
         return columns
+
+    # Match each cluster to the heading whose right edge it lines up with.
     out = dict(columns)
-    for key, c in zip(NUMERIC, strong[-3:]):
-        out[key] = (min(t.x0 for t in c), max(t.x1 for t in c))
+    free = []
+    for c in strong:
+        right = max(t.x1 for t in c)
+        k = min(hdr, key=lambda k: abs(hdr[k][1] - right))
+        if abs(hdr[k][1] - right) < 2.5 * med_h:
+            x0, x1 = _span(c)
+            out[k] = (min(out[k][0], x0), max(out[k][1], x1))
+        else:
+            free.append(c)
+    # A heading the OCR missed: take the one free cluster that sits between
+    # the neighbouring columns it does know.
+    i = 0
+    while i < len(NUMERIC):
+        if NUMERIC[i] in out:
+            i += 1
+            continue
+        j = i
+        while j < len(NUMERIC) and NUMERIC[j] not in out:
+            j += 1
+        run = NUMERIC[i:j]  # consecutive columns with no heading
+        lo = max([out[n][1] for n in NUMERIC[:i] if n in out] or [-1.0])
+        hi = min([out[n][0] for n in NUMERIC[j:] if n in out] or [float("inf")])
+        fits = [c for c in free if lo < _span(c)[0] and _span(c)[1] < hi]
+        if len(fits) == len(run):
+            for k, c in zip(run, sorted(fits, key=lambda c: _span(c)[0])):
+                out[k] = _span(c)
+        i = j
     return out
+
+
+def _span(c: list[_Box]) -> tuple[float, float]:
+    return (min(t.x0 for t in c), max(t.x1 for t in c))
 
 
 def _tokens(b: _Box) -> list[_Box]:
@@ -347,6 +383,12 @@ def _find_columns(boxes: list[_Box], med_h: float):
     for line in lines:
         if not any(_classify_header(b.text) == "qty" for b in line):
             continue
+        # Two-line headings ("Unit price" over "(USD)") sit a little higher
+        # than one-line headings, so take everything near the line's height.
+        y = sum(b.cy for b in line) / len(line)
+        near = [b for b in boxes if b not in line and abs(b.cy - y) < 0.8 * med_h
+                and _classify_header(b.text) is not None]
+        line = sorted(line + near, key=lambda b: b.x0)
         found = {}
         for p in _merge_phrases(line, med_h):
             k = _classify_header(p.text)

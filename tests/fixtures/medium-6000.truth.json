@@ -1,0 +1,158 @@
+{
+ "form_id": "medium-6000",
+ "seed": 6000,
+ "difficulty": "medium",
+ "style": "comma",
+ "variant": "price",
+ "synthetic": true,
+ "header": {
+  "waybill": "NR-LB-52994",
+  "date": "24/03/2026",
+  "origin": "Beirut Central Warehouse",
+  "destination": "Zahle Field Office",
+  "driver": "Ziad Saleh"
+ },
+ "rows": [
+  {
+   "no": 1,
+   "item": "Tarpaulin, 4 x 6 m",
+   "unit": "roll",
+   "qty": "2165",
+   "unit_value": "17.55",
+   "line_total": "37995.75",
+   "printed": {
+    "no": "1",
+    "item": "Tarpaulin, 4 x 6 m",
+    "unit": "roll",
+    "qty": "2.165",
+    "unit_value": "17,55",
+    "line_total": "37.995,75"
+   }
+  },
+  {
+   "no": 2,
+   "item": "Foam mattress",
+   "unit": "pcs",
+   "qty": "72",
+   "unit_value": "27.95",
+   "line_total": "2012.40",
+   "printed": {
+    "no": "2",
+    "item": "Foam mattress",
+    "unit": "pcs",
+    "qty": "72",
+    "unit_value": "27,95",
+    "line_total": "2.012,40"
+   }
+  },
+  {
+   "no": 3,
+   "item": "Solar lamp",
+   "unit": "pcs",
+   "qty": "153",
+   "unit_value": "12.70",
+   "line_total": "1943.10",
+   "printed": {
+    "no": "3",
+    "item": "Solar lamp",
+    "unit": "pcs",
+    "qty": "153",
+    "unit_value": "12,70",
+    "line_total": "1.943,10"
+   }
+  },
+  {
+   "no": 4,
+   "item": "Thermal blanket",
+   "unit": "pcs",
+   "qty": "157",
+   "unit_value": "13.45",
+   "line_total": "2111.65",
+   "printed": {
+    "no": "4",
+    "item": "Thermal blanket",
+    "unit": "pcs",
+    "qty": "157",
+    "unit_value": "13,45",
+    "line_total": "2.111,65"
+   }
+  },
+  {
+   "no": 5,
+   "item": "Chlorine solution, 1 L",
+   "unit": "bottle",
+   "qty": "1451",
+   "unit_value": "2.80",
+   "line_total": "4062.80",
+   "printed": {
+    "no": "5",
+    "item": "Chlorine solution, 1 L",
+    "unit": "bottle",
+    "qty": "1.451",
+    "unit_value": "2,80",
+    "line_total": "4.062,80"
+   }
+  },
+  {
+   "no": 6,
+   "item": "Infant formula, 400 g",
+   "unit": "tin",
+   "qty": "173",
+   "unit_value": "10.80",
+   "line_total": "1868.40",
+   "printed": {
+    "no": "6",
+    "item": "Infant formula, 400 g",
+    "unit": "tin",
+    "qty": "173",
+    "unit_value": "10,80",
+    "line_total": "1.868,40"
+   }
+  },
+  {
+   "no": 7,
+   "item": "Family hygiene kit",
+   "unit": "kit",
+   "qty": "150",
+   "unit_value": "33.70",
+   "line_total": "4555.00",
+   "printed": {
+    "no": "7",
+    "item": "Family hygiene kit",
+    "unit": "kit",
+    "qty": "150",
+    "unit_value": "33,70",
+    "line_total": "4.555,00"
+   }
+  },
+  {
+   "no": 8,
+   "item": "Water purification tabs",
+   "unit": "box",
+   "qty": "8",
+   "unit_value": "5.70",
+   "line_total": "45.60",
+   "printed": {
+    "no": "8",
+    "item": "Water purification tabs",
+    "unit": "box",
+    "qty": "8",
+    "unit_value": "5,70",
+    "line_total": "45,60"
+   }
+  }
+ ],
+ "total_qty": "4329",
+ "grand_total": "54594.70",
+ "printed_totals": {
+  "total_qty": "4.329",
+  "grand_total": "54.594,70"
+ },
+ "error": {
+  "type": "line_total",
+  "row": 7,
+  "field": "line_total",
+  "correct": "5055.00",
+  "written": "4555.00"
+ }
+}

@@ -1,0 +1,126 @@
+{
+ "form_id": "easy-5000",
+ "seed": 5000,
+ "difficulty": "easy",
+ "style": "comma",
+ "variant": "weight",
+ "synthetic": true,
+ "header": {
+  "waybill": "NR-LB-69677",
+  "date": "04/09/2026",
+  "origin": "Beirut Central Warehouse",
+  "destination": "Baalbek Field Office",
+  "driver": "Rami Nasser"
+ },
+ "rows": [
+  {
+   "no": 1,
+   "item": "Foam mattress",
+   "unit": "pcs",
+   "qty": "170",
+   "unit_value": "3.10",
+   "line_total": "527.00",
+   "printed": {
+    "no": "1",
+    "item": "Foam mattress",
+    "unit": "pcs",
+    "qty": "170",
+    "unit_value": "3,10",
+    "line_total": "527,00"
+   }
+  },
+  {
+   "no": 2,
+   "item": "Tarpaulin, 4 x 6 m",
+   "unit": "roll",
+   "qty": "8",
+   "unit_value": "3.60",
+   "line_total": "27.80",
+   "printed": {
+    "no": "2",
+    "item": "Tarpaulin, 4 x 6 m",
+    "unit": "roll",
+    "qty": "8",
+    "unit_value": "3,60",
+    "line_total": "27,80"
+   }
+  },
+  {
+   "no": 3,
+   "item": "Sugar, 10 kg",
+   "unit": "bag",
+   "qty": "53",
+   "unit_value": "10.10",
+   "line_total": "535.30",
+   "printed": {
+    "no": "3",
+    "item": "Sugar, 10 kg",
+    "unit": "bag",
+    "qty": "53",
+    "unit_value": "10,10",
+    "line_total": "535,30"
+   }
+  },
+  {
+   "no": 4,
+   "item": "Water purification tabs",
+   "unit": "box",
+   "qty": "78",
+   "unit_value": "0.55",
+   "line_total": "42.90",
+   "printed": {
+    "no": "4",
+    "item": "Water purification tabs",
+    "unit": "box",
+    "qty": "78",
+    "unit_value": "0,55",
+    "line_total": "42,90"
+   }
+  },
+  {
+   "no": 5,
+   "item": "Wheat flour, 50 kg",
+   "unit": "sack",
+   "qty": "91",
+   "unit_value": "50.30",
+   "line_total": "4577.30",
+   "printed": {
+    "no": "5",
+    "item": "Wheat flour, 50 kg",
+    "unit": "sack",
+    "qty": "91",
+    "unit_value": "50,30",
+    "line_total": "4.577,30"
+   }
+  },
+  {
+   "no": 6,
+   "item": "Solar lamp",
+   "unit": "pcs",
+   "qty": "162",
+   "unit_value": "0.42",
+   "line_total": "68.04",
+   "printed": {
+    "no": "6",
+    "item": "Solar lamp",
+    "unit": "pcs",
+    "qty": "162",
+    "unit_value": "0,42",
+    "line_total": "68,04"
+   }
+  }
+ ],
+ "total_qty": "562",
+ "grand_total": "5778.34",
+ "printed_totals": {
+  "total_qty": "562",
+  "grand_total": "5.778,34"
+ },
+ "error": {
+  "type": "line_total",
+  "row": 2,
+  "field": "line_total",
+  "correct": "28.80",
+  "written": "27.80"
+ }
+}

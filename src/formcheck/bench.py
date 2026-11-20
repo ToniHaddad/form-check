@@ -95,13 +95,17 @@ def score_form(truth, note, flags) -> dict:
     if planted:
         if planted["field"] == "grand_total":
             right = any(f.kind == "total_sum" for f in error_flags)
+            unread = any(f.kind == "unreadable" and "grand_total" in f.cells for f in flags)
         else:
             want = planted["row"]
-            idx = by_no.get(want, want - 1)
-            right = any(f.row == idx + 1 for f in flags if f.kind in ("line", "unreadable")) or (
+            row = by_no.get(want, want - 1) + 1
+            right = any(f.kind == "line" and f.row == row for f in flags) or (
                 planted["field"] == "qty" and any(f.kind == "qty_sum" for f in error_flags))
+            unread = any(f.kind == "unreadable" and f.row == row for f in flags)
         if right:
             outcome = "caught"
+        elif unread:
+            outcome = "unreadable there"
         elif flags:
             outcome = "flagged elsewhere"
         else:
@@ -179,8 +183,9 @@ def _format_level(level: str, r: dict) -> str:
         out.append(f"  {g:<14} {a['correct']:>4}/{a['total']:<4} {_pct(a['correct'], a['total'])}")
     out.append(f"  all fields     {r['all_fields_pct']:5.1f}%")
     pl = r.get("planted", 0)
-    out.append(f"  planted errors {pl}: caught at the right line {r.get('caught', 0)}, "
-               f"flagged elsewhere {r.get('flagged elsewhere', 0)}, missed {r.get('missed', 0)}")
+    out.append(f"  planted errors {pl}: caught by a check at the right spot {r.get('caught', 0)}, "
+               f"marked unreadable at that spot {r.get('unreadable there', 0)}, "
+               f"only other flags {r.get('flagged elsewhere', 0)}, nothing flagged {r.get('missed', 0)}")
     out.append(f"  clean notes {r.get('clean', 0)}: any flag raised on {r.get('clean_flagged', 0)} "
                f"(arithmetic error flag on {r.get('clean_error_flag', 0)})")
     out.append(f"  numbers misread {r.get('misreads', 0)}, of which slipped through every check "
@@ -189,16 +194,17 @@ def _format_level(level: str, r: dict) -> str:
 
 
 def _overall(report: dict) -> dict:
-    keys = ["planted", "caught", "flagged elsewhere", "missed", "clean", "clean_flagged",
+    keys = ["planted", "caught", "unreadable there", "flagged elsewhere", "missed", "clean", "clean_flagged",
             "clean_error_flag", "misreads", "silent_misreads", "forms"]
     return {k: sum(report[lv].get(k, 0) for lv in DIFFICULTIES) for k in keys}
 
 
 def _format_overall(t: dict) -> str:
     return (f"== overall ({t['forms']} forms) ==\n"
-            f"  planted errors {t['planted']}: caught {t['caught']}, flagged elsewhere "
-            f"{t['flagged elsewhere']}, missed {t['missed']}\n"
-            f"  clean notes {t['clean']}: flagged {t['clean_flagged']}\n"
+            f"  planted errors {t['planted']}: caught {t['caught']}, unreadable there {t['unreadable there']}, "
+            f"only other flags {t['flagged elsewhere']}, nothing flagged {t['missed']}\n"
+            f"  clean notes {t['clean']}: any flag {t['clean_flagged']}, "
+            f"arithmetic error flag {t['clean_error_flag']}\n"
             f"  misread numbers that passed every check: {t['silent_misreads']} of {t['misreads']} misreads")
 
 

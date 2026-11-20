@@ -1,0 +1,126 @@
+{
+ "form_id": "medium-6001",
+ "seed": 6001,
+ "difficulty": "medium",
+ "style": "dot",
+ "variant": "price",
+ "synthetic": true,
+ "header": {
+  "waybill": "NR-KE-11111",
+  "date": "21/11/2026",
+  "origin": "Nairobi Logistics Hub",
+  "destination": "Dadaab Field Office",
+  "driver": "Kevin Mwangi"
+ },
+ "rows": [
+  {
+   "no": 1,
+   "item": "Kitchen set",
+   "unit": "set",
+   "qty": "140",
+   "unit_value": "34.70",
+   "line_total": "4858.00",
+   "printed": {
+    "no": "1",
+    "item": "Kitchen set",
+    "unit": "set",
+    "qty": "140",
+    "unit_value": "34.70",
+    "line_total": "4,858.00"
+   }
+  },
+  {
+   "no": 2,
+   "item": "Sunflower oil, 5 L",
+   "unit": "bottle",
+   "qty": "103",
+   "unit_value": "7.05",
+   "line_total": "726.15",
+   "printed": {
+    "no": "2",
+    "item": "Sunflower oil, 5 L",
+    "unit": "bottle",
+    "qty": "103",
+    "unit_value": "7.05",
+    "line_total": "726.15"
+   }
+  },
+  {
+   "no": 3,
+   "item": "Thermal blanket",
+   "unit": "pcs",
+   "qty": "159",
+   "unit_value": "9.40",
+   "line_total": "1494.60",
+   "printed": {
+    "no": "3",
+    "item": "Thermal blanket",
+    "unit": "pcs",
+    "qty": "159",
+    "unit_value": "9.40",
+    "line_total": "1,494.60"
+   }
+  },
+  {
+   "no": 4,
+   "item": "Tarpaulin, 4 x 6 m",
+   "unit": "roll",
+   "qty": "66",
+   "unit_value": "15.60",
+   "line_total": "1029.60",
+   "printed": {
+    "no": "4",
+    "item": "Tarpaulin, 4 x 6 m",
+    "unit": "roll",
+    "qty": "66",
+    "unit_value": "15.60",
+    "line_total": "1,029.60"
+   }
+  },
+  {
+   "no": 5,
+   "item": "Infant formula, 400 g",
+   "unit": "tin",
+   "qty": "178",
+   "unit_value": "7.25",
+   "line_total": "1290.50",
+   "printed": {
+    "no": "5",
+    "item": "Infant formula, 400 g",
+    "unit": "tin",
+    "qty": "178",
+    "unit_value": "7.25",
+    "line_total": "1,290.50"
+   }
+  },
+  {
+   "no": 6,
+   "item": "Water purification tabs",
+   "unit": "box",
+   "qty": "30",
+   "unit_value": "6.75",
+   "line_total": "202.50",
+   "printed": {
+    "no": "6",
+    "item": "Water purification tabs",
+    "unit": "box",
+    "qty": "30",
+    "unit_value": "6.75",
+    "line_total": "202.50"
+   }
+  }
+ ],
+ "total_qty": "676",
+ "grand_total": "4743.35",
+ "printed_totals": {
+  "total_qty": "676",
+  "grand_total": "4,743.35"
+ },
+ "error": {
+  "type": "grand_total",
+  "row": null,
+  "field": "grand_total",
+  "correct": "9601.35",
+  "written": "4743.35"
+ }
+}
