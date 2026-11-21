@@ -356,7 +356,7 @@ PHOTO = {
     #           rot deg, corner jitter, light, blur sigma, noise, jpeg q, out scale
     "easy":   dict(rot=1.5, jitter=0.015, light=0.12, blur=0.6, noise=2.5, jpeg=88, scale=0.95),
     "medium": dict(rot=4.0, jitter=0.040, light=0.30, blur=1.1, noise=5.0, jpeg=65, scale=0.85),
-    "hard":   dict(rot=7.0, jitter=0.070, light=0.45, blur=1.6, noise=8.0, jpeg=45, scale=0.72),
+    "hard":   dict(rot=7.0, jitter=0.070, light=0.45, blur=1.4, noise=8.0, jpeg=50, scale=0.72),
 }
 
 
