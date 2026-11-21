@@ -15,13 +15,17 @@ OUT = Path(__file__).resolve().parents[1] / "src" / "formcheck" / "samples"
 
 SAMPLES = [
     # file, title, difficulty, seed, planted error, photo overrides, description
-    ("clean-easy.jpg", "Clean note", "easy", 30, "none", {}, "Every line adds up. Nothing should be flagged."),
-    ("line-total-easy.jpg", "Wrong line total", "easy", 14, "line_total", {}, "One line total does not match quantity times unit price."),
-    ("digit-medium.jpg", "Changed digit", "medium", 50, "digit_changed", {}, "One digit on the note was changed."),
-    ("skipped-line-medium.jpg", "Line left out of total", "medium", 70, "grand_total", {}, "The grand total leaves one line out."),
-    ("comma-medium.jpg", "Decimal commas", "medium", 94, "line_total", {}, "Numbers written as 1.234,50, with one wrong line total."),
-    ("hard.jpg", "Hard photo", "hard", 113, "digit_changed", {}, "Strong angle, shadow, blur and heavy JPEG."),
-    ("glare-fails.jpg", "Where it fails: glare", "medium", 200, "line_total", {"glare": True},
+    ("clean-waybill.jpg", "Clean waybill", "easy", 100, "none", {}, "Every line adds up. Nothing should be flagged."),
+    ("wrong-total.jpg", "Wrong line total", "easy", 207, "line_total", {},
+     "One line's total pieces does not match boxes x pieces per box + loose."),
+    ("loose-box.jpg", "Loose pieces make a box", "medium", 300, "loose_overflow", {},
+     "Loose pieces add up to a full box or more."),
+    ("expired.jpg", "Expired item", "medium", 403, "expired", {}, "An expiry date already past on the document date."),
+    ("bad-code.jpg", "Malformed item code", "easy", 500, "bad_code", {}, "An item code that does not fit FAM-XXX-000."),
+    ("line-left-out.jpg", "Line left out of total", "medium", 611, "pieces_total", {},
+     "The total pieces leaves one line out."),
+    ("hard.jpg", "Hard photo", "hard", 700, "line_total", {}, "Strong angle, shadow, blur and heavy JPEG."),
+    ("glare-fails.jpg", "Where it fails: glare", "medium", 800, "line_total", {"glare": True},
      "Flash glare washes out part of the table. See the README."),
 ]
 
@@ -35,8 +39,8 @@ def main() -> None:
         photo, corners = photograph(page, level, seed, **over)
         (OUT / file).write_bytes(photo)
         index.append({"file": file, "title": title, "difficulty": level, "description": desc,
-                      "seed": seed, "planted_error": form.error, "style": form.style})
-        print(f"{file}: {level}, style {form.style}, error {form.error}")
+                      "seed": seed, "planted_error": form.error, "doc_type": form.doc_type})
+        print(f"{file}: {level}, {form.doc_type}, error {form.error}")
     (OUT / "samples.json").write_text(json.dumps(index, indent=2), encoding="utf-8")
 
 

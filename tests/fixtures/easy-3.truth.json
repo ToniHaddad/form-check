@@ -1,0 +1,206 @@
+{
+ "form_id": "easy-3",
+ "seed": 3,
+ "difficulty": "easy",
+ "doc_type": "waybill",
+ "thousands_separator": ",",
+ "synthetic": true,
+ "header": {
+  "doc_no": "DSP-2026-01282",
+  "date": "08/03/2026",
+  "warehouse": "WH-22 Jbeil Hills",
+  "project": "INKIND",
+  "party": "Tripoli Centre / Medical",
+  "keeper": "Ziad Nasser"
+ },
+ "rows": [
+  {
+   "no": 1,
+   "code": "HYG-SOA-001",
+   "item": "Bar soap 125 g",
+   "unit": "piece",
+   "ppb": 72,
+   "boxes": 15,
+   "loose": 0,
+   "total": 1080,
+   "expiry": "2027-11-23",
+   "printed": {
+    "no": "1",
+    "code": "HYG-SOA-001",
+    "item": "Bar soap 125 g",
+    "unit": "piece",
+    "ppb": "72",
+    "boxes": "15",
+    "loose": "0",
+    "total": "1,080",
+    "expiry": "23/11/2027"
+   }
+  },
+  {
+   "no": 2,
+   "code": "FOO-MLK-001",
+   "item": "Milk powder 400 g",
+   "unit": "tin",
+   "ppb": 12,
+   "boxes": 25,
+   "loose": 0,
+   "total": 300,
+   "expiry": "2028-04-23",
+   "printed": {
+    "no": "2",
+    "code": "FOO-MLK-001",
+    "item": "Milk powder 400 g",
+    "unit": "tin",
+    "ppb": "12",
+    "boxes": "25",
+    "loose": "0",
+    "total": "300",
+    "expiry": "23/04/2028"
+   }
+  },
+  {
+   "no": 3,
+   "code": "SHE-MAT-002",
+   "item": "Foam mattress",
+   "unit": "piece",
+   "ppb": 4,
+   "boxes": 50,
+   "loose": 0,
+   "total": 200,
+   "expiry": null,
+   "printed": {
+    "no": "3",
+    "code": "SHE-MAT-002",
+    "item": "Foam mattress",
+    "unit": "piece",
+    "ppb": "4",
+    "boxes": "50",
+    "loose": "0",
+    "total": "200",
+    "expiry": "-"
+   }
+  },
+  {
+   "no": 4,
+   "code": "NFI-JER-002",
+   "item": "Jerry can 20 L",
+   "unit": "piece",
+   "ppb": 8,
+   "boxes": 20,
+   "loose": 0,
+   "total": 160,
+   "expiry": null,
+   "printed": {
+    "no": "4",
+    "code": "NFI-JER-002",
+    "item": "Jerry can 20 L",
+    "unit": "piece",
+    "ppb": "8",
+    "boxes": "20",
+    "loose": "0",
+    "total": "160",
+    "expiry": "-"
+   }
+  },
+  {
+   "no": 5,
+   "code": "MED-ORS-002",
+   "item": "Oral rehydration salts",
+   "unit": "sachet",
+   "ppb": 100,
+   "boxes": 53,
+   "loose": 0,
+   "total": 5300,
+   "expiry": "2027-10-03",
+   "printed": {
+    "no": "5",
+    "code": "MED-ORS-002",
+    "item": "Oral rehydration salts",
+    "unit": "sachet",
+    "ppb": "100",
+    "boxes": "53",
+    "loose": "0",
+    "total": "5,300",
+    "expiry": "03/10/2027"
+   }
+  },
+  {
+   "no": 6,
+   "code": "HYG-PAD-001",
+   "item": "Sanitary pads",
+   "unit": "pack",
+   "ppb": 36,
+   "boxes": 39,
+   "loose": 0,
+   "total": 1404,
+   "expiry": null,
+   "printed": {
+    "no": "6",
+    "code": "HYG-PAD-001",
+    "item": "Sanitary pads",
+    "unit": "pack",
+    "ppb": "36",
+    "boxes": "39",
+    "loose": "0",
+    "total": "1,404",
+    "expiry": "-"
+   }
+  },
+  {
+   "no": 7,
+   "code": "MED-GLV-003",
+   "item": "Examination gloves M",
+   "unit": "box",
+   "ppb": 10,
+   "boxes": 57,
+   "loose": 6,
+   "total": 576,
+   "expiry": null,
+   "printed": {
+    "no": "7",
+    "code": "MED-GLV-003",
+    "item": "Examination gloves M",
+    "unit": "box",
+    "ppb": "10",
+    "boxes": "57",
+    "loose": "6",
+    "total": "576",
+    "expiry": "-"
+   }
+  },
+  {
+   "no": 8,
+   "code": "FOO-CHE-004",
+   "item": "Canned cheese 200 g",
+   "unit": "can",
+   "ppb": 24,
+   "boxes": 26,
+   "loose": 0,
+   "total": 604,
+   "expiry": "2028-01-17",
+   "printed": {
+    "no": "8",
+    "code": "FOO-CHE-004",
+    "item": "Canned cheese 200 g",
+    "unit": "can",
+    "ppb": "24",
+    "boxes": "26",
+    "loose": "0",
+    "total": "604",
+    "expiry": "17/01/2028"
+   }
+  }
+ ],
+ "totals": {
+  "lines": 8,
+  "boxes": 285,
+  "pieces": 9624
+ },
+ "error": {
+  "type": "line_total",
+  "row": 8,
+  "field": "total",
+  "correct": 624,
+  "written": 604
+ }
+}

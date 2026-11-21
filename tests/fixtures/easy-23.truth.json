@@ -1,0 +1,162 @@
+{
+ "form_id": "easy-23",
+ "seed": 23,
+ "difficulty": "easy",
+ "doc_type": "grn",
+ "thousands_separator": ".",
+ "synthetic": true,
+ "header": {
+  "doc_no": "RCV-2026-00868",
+  "date": "12/02/2026",
+  "warehouse": "WH-03 Beirut Port Road",
+  "project": "WASH-2026",
+  "party": "Coastline Hygiene Supplies, PO-233",
+  "keeper": "Layla Aoun"
+ },
+ "rows": [
+  {
+   "no": 1,
+   "code": "SHE-TAR-001",
+   "item": "Tarpaulin 4 x 6 m",
+   "unit": "piece",
+   "ppb": 5,
+   "boxes": 6,
+   "loose": 0,
+   "total": 30,
+   "expiry": null,
+   "printed": {
+    "no": "1",
+    "code": "SHE-TAR-001",
+    "item": "Tarpaulin 4 x 6 m",
+    "unit": "piece",
+    "ppb": "5",
+    "boxes": "6",
+    "loose": "0",
+    "total": "30",
+    "expiry": "-"
+   }
+  },
+  {
+   "no": 2,
+   "code": "FOO-RIC-001",
+   "item": "Rice 5 kg bag",
+   "unit": "bag",
+   "ppb": 4,
+   "boxes": 32,
+   "loose": 3,
+   "total": 131,
+   "expiry": "2027-05-15",
+   "printed": {
+    "no": "2",
+    "code": "FOO-RIC-001",
+    "item": "Rice 5 kg bag",
+    "unit": "bag",
+    "ppb": "4",
+    "boxes": "32",
+    "loose": "3",
+    "total": "131",
+    "expiry": "15/05/2027"
+   }
+  },
+  {
+   "no": 3,
+   "code": "HYG-SOA-001",
+   "item": "Bar soap 125 g",
+   "unit": "piece",
+   "ppb": 72,
+   "boxes": 50,
+   "loose": 4,
+   "total": 3604,
+   "expiry": "2028-01-06",
+   "printed": {
+    "no": "3",
+    "code": "HYG-SOA-001",
+    "item": "Bar soap 125 g",
+    "unit": "piece",
+    "ppb": "72",
+    "boxes": "50",
+    "loose": "4",
+    "total": "3.604",
+    "expiry": "06/01/2028"
+   }
+  },
+  {
+   "no": 4,
+   "code": "NFI-LMP-004",
+   "item": "Solar lamp",
+   "unit": "piece",
+   "ppb": 20,
+   "boxes": 24,
+   "loose": 0,
+   "total": 480,
+   "expiry": null,
+   "printed": {
+    "no": "4",
+    "code": "NFI-LMP-004",
+    "item": "Solar lamp",
+    "unit": "piece",
+    "ppb": "20",
+    "boxes": "24",
+    "loose": "0",
+    "total": "480",
+    "expiry": "-"
+   }
+  },
+  {
+   "no": 5,
+   "code": "NF-KIT-003",
+   "item": "Kitchen set",
+   "unit": "set",
+   "ppb": 2,
+   "boxes": 40,
+   "loose": 1,
+   "total": 81,
+   "expiry": null,
+   "printed": {
+    "no": "5",
+    "code": "NF-KIT-003",
+    "item": "Kitchen set",
+    "unit": "set",
+    "ppb": "2",
+    "boxes": "40",
+    "loose": "1",
+    "total": "81",
+    "expiry": "-"
+   }
+  },
+  {
+   "no": 6,
+   "code": "FOO-LEN-002",
+   "item": "Red lentils 1 kg",
+   "unit": "pack",
+   "ppb": 12,
+   "boxes": 37,
+   "loose": 0,
+   "total": 444,
+   "expiry": "2027-05-25",
+   "printed": {
+    "no": "6",
+    "code": "FOO-LEN-002",
+    "item": "Red lentils 1 kg",
+    "unit": "pack",
+    "ppb": "12",
+    "boxes": "37",
+    "loose": "0",
+    "total": "444",
+    "expiry": "25/05/2027"
+   }
+  }
+ ],
+ "totals": {
+  "lines": 6,
+  "boxes": 189,
+  "pieces": 4770
+ },
+ "error": {
+  "type": "bad_code",
+  "row": 5,
+  "field": "code",
+  "correct": "NFI-KIT-003",
+  "written": "NF-KIT-003"
+ }
+}

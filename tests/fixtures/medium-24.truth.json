@@ -1,0 +1,228 @@
+{
+ "form_id": "medium-24",
+ "seed": 24,
+ "difficulty": "medium",
+ "doc_type": "grn",
+ "thousands_separator": ".",
+ "synthetic": true,
+ "header": {
+  "doc_no": "RCV-2026-00398",
+  "date": "04/04/2026",
+  "warehouse": "WH-14 Saida Coastal",
+  "project": "EA-2026",
+  "party": "In-kind: Harbour Rotary Circle",
+  "keeper": "Nadia Saleh"
+ },
+ "rows": [
+  {
+   "no": 1,
+   "code": "FOO-SUG-001",
+   "item": "Sugar 1 kg",
+   "unit": "pack",
+   "ppb": 10,
+   "boxes": 2,
+   "loose": 7,
+   "total": 27,
+   "expiry": "2028-07-28",
+   "printed": {
+    "no": "1",
+    "code": "FOO-SUG-001",
+    "item": "Sugar 1 kg",
+    "unit": "pack",
+    "ppb": "10",
+    "boxes": "2",
+    "loose": "7",
+    "total": "27",
+    "expiry": "28/07/2028"
+   }
+  },
+  {
+   "no": 2,
+   "code": "HYG-DIA-003",
+   "item": "Baby diapers size 4",
+   "unit": "pack",
+   "ppb": 6,
+   "boxes": 55,
+   "loose": 2,
+   "total": 332,
+   "expiry": null,
+   "printed": {
+    "no": "2",
+    "code": "HYG-DIA-003",
+    "item": "Baby diapers size 4",
+    "unit": "pack",
+    "ppb": "6",
+    "boxes": "55",
+    "loose": "2",
+    "total": "332",
+    "expiry": "-"
+   }
+  },
+  {
+   "no": 3,
+   "code": "FOO-RIC-001",
+   "item": "Rice 5 kg bag",
+   "unit": "bag",
+   "ppb": 4,
+   "boxes": 32,
+   "loose": 0,
+   "total": 128,
+   "expiry": "2026-09-28",
+   "printed": {
+    "no": "3",
+    "code": "FOO-RIC-001",
+    "item": "Rice 5 kg bag",
+    "unit": "bag",
+    "ppb": "4",
+    "boxes": "32",
+    "loose": "0",
+    "total": "128",
+    "expiry": "28/09/2026"
+   }
+  },
+  {
+   "no": 4,
+   "code": "SHE-TAR-001",
+   "item": "Tarpaulin 4 x 6 m",
+   "unit": "piece",
+   "ppb": 5,
+   "boxes": 44,
+   "loose": 0,
+   "total": 220,
+   "expiry": null,
+   "printed": {
+    "no": "4",
+    "code": "SHE-TAR-001",
+    "item": "Tarpaulin 4 x 6 m",
+    "unit": "piece",
+    "ppb": "5",
+    "boxes": "44",
+    "loose": "0",
+    "total": "220",
+    "expiry": "-"
+   }
+  },
+  {
+   "no": 5,
+   "code": "NFI-BLK-001",
+   "item": "Thermal blanket",
+   "unit": "piece",
+   "ppb": 10,
+   "boxes": 54,
+   "loose": 0,
+   "total": 540,
+   "expiry": null,
+   "printed": {
+    "no": "5",
+    "code": "NFI-BLK-001",
+    "item": "Thermal blanket",
+    "unit": "piece",
+    "ppb": "10",
+    "boxes": "54",
+    "loose": "0",
+    "total": "540",
+    "expiry": "-"
+   }
+  },
+  {
+   "no": 6,
+   "code": "MED-GLV-003",
+   "item": "Examination gloves M",
+   "unit": "box",
+   "ppb": 10,
+   "boxes": 44,
+   "loose": 4,
+   "total": 444,
+   "expiry": null,
+   "printed": {
+    "no": "6",
+    "code": "MED-GLV-003",
+    "item": "Examination gloves M",
+    "unit": "box",
+    "ppb": "10",
+    "boxes": "44",
+    "loose": "4",
+    "total": "444",
+    "expiry": "-"
+   }
+  },
+  {
+   "no": 7,
+   "code": "MED-PAR-001",
+   "item": "Paracetamol 500 mg",
+   "unit": "box",
+   "ppb": 50,
+   "boxes": 5,
+   "loose": 23,
+   "total": 273,
+   "expiry": "2028-05-09",
+   "printed": {
+    "no": "7",
+    "code": "MED-PAR-001",
+    "item": "Paracetamol 500 mg",
+    "unit": "box",
+    "ppb": "50",
+    "boxes": "5",
+    "loose": "23",
+    "total": "273",
+    "expiry": "09/05/2028"
+   }
+  },
+  {
+   "no": 8,
+   "code": "HYG-PAD-001",
+   "item": "Sanitary pads",
+   "unit": "pack",
+   "ppb": 36,
+   "boxes": 58,
+   "loose": 13,
+   "total": 2101,
+   "expiry": null,
+   "printed": {
+    "no": "8",
+    "code": "HYG-PAD-001",
+    "item": "Sanitary pads",
+    "unit": "pack",
+    "ppb": "36",
+    "boxes": "58",
+    "loose": "13",
+    "total": "2.101",
+    "expiry": "-"
+   }
+  },
+  {
+   "no": 9,
+   "code": "FOO-LEN-002",
+   "item": "Red lentils 1 kg",
+   "unit": "pack",
+   "ppb": 12,
+   "boxes": 21,
+   "loose": 11,
+   "total": 263,
+   "expiry": "2026-09-12",
+   "printed": {
+    "no": "9",
+    "code": "FOO-LEN-002",
+    "item": "Red lentils 1 kg",
+    "unit": "pack",
+    "ppb": "12",
+    "boxes": "21",
+    "loose": "11",
+    "total": "263",
+    "expiry": "12/09/2026"
+   }
+  }
+ ],
+ "totals": {
+  "lines": 9,
+  "boxes": 315,
+  "pieces": 4200
+ },
+ "error": {
+  "type": "pieces_total",
+  "row": null,
+  "field": "pieces",
+  "correct": 4328,
+  "written": 4200
+ }
+}

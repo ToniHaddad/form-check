@@ -1,101 +1,116 @@
 [
   {
-    "file": "clean-easy.jpg",
-    "title": "Clean note",
+    "file": "clean-waybill.jpg",
+    "title": "Clean waybill",
     "difficulty": "easy",
     "description": "Every line adds up. Nothing should be flagged.",
-    "seed": 30,
+    "seed": 100,
     "planted_error": null,
-    "style": "dot"
+    "doc_type": "waybill"
   },
   {
-    "file": "line-total-easy.jpg",
+    "file": "wrong-total.jpg",
     "title": "Wrong line total",
     "difficulty": "easy",
-    "description": "One line total does not match quantity times unit price.",
-    "seed": 14,
+    "description": "One line's total pieces does not match boxes x pieces per box + loose.",
+    "seed": 207,
     "planted_error": {
       "type": "line_total",
-      "row": 2,
-      "field": "line_total",
-      "correct": "19040.40",
-      "written": "24040.40"
+      "row": 4,
+      "field": "total",
+      "correct": 550,
+      "written": 505
     },
-    "style": "dot"
+    "doc_type": "waybill"
   },
   {
-    "file": "digit-medium.jpg",
-    "title": "Changed digit",
+    "file": "loose-box.jpg",
+    "title": "Loose pieces make a box",
     "difficulty": "medium",
-    "description": "One digit on the note was changed.",
-    "seed": 50,
+    "description": "Loose pieces add up to a full box or more.",
+    "seed": 300,
     "planted_error": {
-      "type": "digit_changed",
-      "row": 7,
-      "field": "qty",
-      "correct": "87",
-      "written": "57"
+      "type": "loose_overflow",
+      "row": 5,
+      "field": "loose",
+      "correct": "36 boxes + 8",
+      "written": "35 boxes + 18"
     },
-    "style": "dot"
+    "doc_type": "grn"
   },
   {
-    "file": "skipped-line-medium.jpg",
+    "file": "expired.jpg",
+    "title": "Expired item",
+    "difficulty": "medium",
+    "description": "An expiry date already past on the document date.",
+    "seed": 403,
+    "planted_error": {
+      "type": "expired",
+      "row": 5,
+      "field": "expiry",
+      "correct": "2026-09-26",
+      "written": "2025-08-04"
+    },
+    "doc_type": "waybill"
+  },
+  {
+    "file": "bad-code.jpg",
+    "title": "Malformed item code",
+    "difficulty": "easy",
+    "description": "An item code that does not fit FAM-XXX-000.",
+    "seed": 500,
+    "planted_error": {
+      "type": "bad_code",
+      "row": 5,
+      "field": "code",
+      "correct": "HYG-PAD-001",
+      "written": "HYG-PAD-01"
+    },
+    "doc_type": "grn"
+  },
+  {
+    "file": "line-left-out.jpg",
     "title": "Line left out of total",
     "difficulty": "medium",
-    "description": "The grand total leaves one line out.",
-    "seed": 70,
+    "description": "The total pieces leaves one line out.",
+    "seed": 611,
     "planted_error": {
-      "type": "grand_total",
+      "type": "pieces_total",
       "row": null,
-      "field": "grand_total",
-      "correct": "55235.08",
-      "written": "55186.36"
+      "field": "pieces",
+      "correct": 4924,
+      "written": 4795
     },
-    "style": "comma"
-  },
-  {
-    "file": "comma-medium.jpg",
-    "title": "Decimal commas",
-    "difficulty": "medium",
-    "description": "Numbers written as 1.234,50, with one wrong line total.",
-    "seed": 94,
-    "planted_error": {
-      "type": "line_total",
-      "row": 7,
-      "field": "line_total",
-      "correct": "460.80",
-      "written": "406.80"
-    },
-    "style": "comma"
+    "doc_type": "grn"
   },
   {
     "file": "hard.jpg",
     "title": "Hard photo",
     "difficulty": "hard",
     "description": "Strong angle, shadow, blur and heavy JPEG.",
-    "seed": 113,
+    "seed": 700,
     "planted_error": {
-      "type": "digit_changed",
-      "row": 1,
-      "field": "line_total",
-      "correct": "1277.04",
-      "written": "1227.04"
+      "type": "line_total",
+      "row": 5,
+      "field": "total",
+      "correct": 49,
+      "written": 50
     },
-    "style": "dot"
+    "doc_type": "waybill"
   },
   {
     "file": "glare-fails.jpg",
     "title": "Where it fails: glare",
     "difficulty": "medium",
     "description": "Flash glare washes out part of the table. See the README.",
-    "seed": 200,
+    "seed": 800,
     "planted_error": {
       "type": "line_total",
-      "row": 4,
-      "field": "line_total",
-      "correct": "854.90",
-      "written": "864.90"
+      "row": 6,
+      "field": "total",
+      "correct": 78,
+      "written": 81
     },
-    "style": "dot"
+    "doc_type": "grn"
   }
 ]

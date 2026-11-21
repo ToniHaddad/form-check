@@ -66,3 +66,15 @@ def test_looks_numeric():
     assert looks_numeric("1,250.00")
     assert not looks_numeric("(USD)")
     assert not looks_numeric("Rice")
+
+
+def test_counts():
+    from formcheck.numbers import format_count, parse_count
+    assert parse_count("1,200") == 1200
+    assert parse_count("1.200") == 1200
+    assert parse_count("1 200") == 1200
+    assert parse_count("O") == 0  # a lone letter O in the loose column
+    assert parse_count("1,20") is None
+    assert parse_count("12a") is None
+    assert format_count(12345, ".") == "12.345"
+    assert format_count(12345, "") == "12345"

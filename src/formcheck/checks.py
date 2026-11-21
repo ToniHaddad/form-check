@@ -1,34 +1,43 @@
-"""Arithmetic checks on a rebuilt note, and the flags a reviewer sees.
+"""Checks on a rebuilt waybill or goods received note, and the flags a reviewer sees.
 
 Checks:
 
-* each line: quantity x unit value = line total (to the cent)
-* the quantity column adds up to the printed total quantity
-* the line totals add up to the printed grand total
+* each line: boxes x pieces per box + loose pieces = total pieces
+* loose pieces are fewer than a box (otherwise they should be another box)
+* the expiry date is not already past on the document date
+* the item code has the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI)
+* the number of lines, total boxes and total pieces equal the sums of the lines
 
-A cell that cannot be read as a number gets its own flag, because a check
-that cannot run is not a check that passed.
+A cell that cannot be read gets its own flag, because a check that cannot run
+is not a check that passed.
 """
 
 from __future__ import annotations
 
+import re
 from dataclasses import asdict, dataclass, field
-from decimal import Decimal
+from datetime import date
 
-from .numbers import format_number, parse_number
+from .numbers import format_count, parse_count
 from .table import Note
 
-TOLERANCE = Decimal("0.01")
-NAMES = {"qty": "quantity", "unit_value": "unit value", "line_total": "line total"}
+FAMILIES = ("FOO", "HYG", "MED", "SHE", "NFI")
+CODE_RE = re.compile(r"^(FOO|HYG|MED|SHE|NFI)-[A-Z]{3}-\d{3}$")
+NAMES = {"ppb": "pieces per box", "boxes": "boxes", "loose": "loose pieces", "total": "total pieces"}
+
+# Look-alike characters, fixed only where the code pattern says a letter or a digit belongs.
+_TO_LETTER = str.maketrans({"0": "O", "1": "I", "5": "S", "8": "B", "2": "Z", "6": "G"})
+_TO_DIGIT = str.maketrans({"O": "0", "D": "0", "Q": "0", "I": "1", "L": "1", "|": "1", "S": "5", "B": "8",
+                           "Z": "2", "G": "6"})
 
 
 @dataclass
 class Flag:
     n: int
-    kind: str  # line | qty_sum | total_sum | unreadable
+    kind: str  # line | loose | expired | code | lines_count | boxes_sum | pieces_sum | unreadable
     severity: str  # error | unreadable
     message: str
-    cells: list[str]  # e.g. ["row4.qty", "row4.line_total"]
+    cells: list[str]  # e.g. ["row4.boxes", "row4.total"]
     poly: list[list[float]] | None
     hint: str = ""
     row: int | None = None
@@ -36,6 +45,29 @@ class Flag:
 
     def to_dict(self) -> dict:
         return asdict(self)
+
+
+def normalise_code(text: str) -> str:
+    """Read an item code the way the pattern expects it: letters in the first
+    two groups, digits in the last. "F0O-RlC-0O1" becomes "FOO-RIC-001"; a code
+    with a group missing or too long stays as it is and fails the check."""
+    t = re.sub(r"\s+", "", text.upper())
+    t = re.sub(r"[_.,–—]", "-", t)  # a hyphen read as a dot, a comma or a dash
+    parts = t.split("-")
+    if len(parts) != 3 or len(parts[0]) != 3 or len(parts[1]) != 3 or len(parts[2]) != 3:
+        return t
+    return "-".join([parts[0].translate(_TO_LETTER), parts[1].translate(_TO_LETTER), parts[2].translate(_TO_DIGIT)])
+
+
+def parse_date(text: str) -> date | None:
+    t = text.strip().translate(str.maketrans({"O": "0", "o": "0", "l": "1", "I": "1", "|": "1", "S": "5"}))
+    m = re.fullmatch(r"(\d{1,2})[/.\-](\d{1,2})[/.\-](\d{4})", t.replace(" ", ""))
+    if not m:
+        return None
+    try:
+        return date(int(m.group(3)), int(m.group(2)), int(m.group(1)))
+    except ValueError:
+        return None
 
 
 def _hull(points: list[list[float]]) -> list[list[float]] | None:
@@ -59,113 +91,146 @@ def _hull(points: list[list[float]]) -> list[list[float]] | None:
     return [list(p) for p in lower[:-1] + upper[:-1]]
 
 
-def _one_digit_apart(a: str, b: str) -> bool:
-    da = [c for c in a if c.isdigit()]
-    db = [c for c in b if c.isdigit()]
-    return len(da) == len(db) and sum(x != y for x, y in zip(da, db)) == 1
+def _one_digit_apart(a: int, b: int) -> bool:
+    sa, sb = str(a), str(b)
+    return len(sa) == len(sb) and sum(x != y for x, y in zip(sa, sb)) == 1
 
 
-def _hint(qty: Decimal, uv: Decimal, total: Decimal, style: str) -> str:
-    """Say which single number would make the line add up, if a one-digit change would."""
+def _swapped(a: int, b: int) -> bool:
+    sa, sb = str(a), str(b)
+    return len(sa) == len(sb) and sa != sb and sorted(sa) == sorted(sb)
+
+
+def _hint(boxes: int, ppb: int, loose: int, total: int) -> str:
+    """Say which single number would make the line add up, when one would."""
+    expected = boxes * ppb + loose
     options = []
-    expected_total = (qty * uv).quantize(TOLERANCE)
-    if _one_digit_apart(f"{expected_total:.2f}", f"{total:.2f}"):
-        options.append(f"the line total may be a misread or miswritten {format_number(expected_total, style)}")
-    if uv != 0:
-        q = total / uv
-        if q == q.to_integral_value() and _one_digit_apart(f"{q:.0f}", f"{qty:.0f}"):
-            options.append(f"the quantity may be {format_number(q, style, 0)}")
-    if qty != 0:
-        u = (total / qty)
-        if u == u.quantize(TOLERANCE) and _one_digit_apart(f"{u:.2f}", f"{uv:.2f}"):
-            options.append(f"the unit value may be {format_number(u, style)}")
+    if _one_digit_apart(expected, total):
+        options.append(f"the total may be {format_count(expected)} with one digit misread or miswritten")
+    elif _swapped(expected, total):
+        options.append(f"the total may be {format_count(expected)} with two digits swapped")
+    if ppb and (total - loose) % ppb == 0 and _one_digit_apart((total - loose) // ppb, boxes):
+        options.append(f"the boxes may be {(total - loose) // ppb}")
+    if 0 <= total - boxes * ppb < max(ppb, 1) and _one_digit_apart(total - boxes * ppb, loose):
+        options.append(f"the loose pieces may be {total - boxes * ppb}")
     if not options:
         return ""
-    return "One changed digit would explain it: " + "; or ".join(options) + "."
+    return "Possible reading: " + "; or ".join(options) + "."
 
 
 def run_checks(note: Note) -> list[Flag]:
-    style = note.style
     flags: list[Flag] = []
-
-    def fmt(v: Decimal, dec: int = 2) -> str:
-        return format_number(v, style, dec)
 
     def add(**kw) -> None:
         flags.append(Flag(n=len(flags) + 1, **kw))
 
-    qty_values: list[Decimal] = []
-    line_values: list[Decimal] = []
-    qty_ok = line_ok = True
+    doc_date = parse_date(note.header["date"].text) if "date" in note.header else None
+    sums = {"boxes": [], "total": []}
+    complete = {"boxes": True, "total": True}
+    expiry_skipped = False
 
     for i, row in enumerate(note.rows, start=1):
         label = row["no"].text.strip() if "no" in row and row["no"].text.strip().isdigit() else str(i)
-        vals: dict[str, Decimal | None] = {}
-        for key in ("qty", "unit_value", "line_total"):
+        vals: dict[str, int | None] = {}
+        for key in ("ppb", "boxes", "loose", "total"):
             c = row.get(key)
-            vals[key] = parse_number(c.text, style) if c and c.text.strip() else None
+            vals[key] = parse_count(c.text) if c and c.text.strip() else None
         missing = [k for k, v in vals.items() if v is None]
         if missing:
             polys = [p for k in missing if row.get(k) and row[k].poly for p in row[k].poly]
             row_poly = note.row_polys[i - 1] if i - 1 < len(note.row_polys) else None
-            what = " and ".join(NAMES[k] for k in missing)
             add(kind="unreadable", severity="unreadable", row=i,
-                message=f"Line {label}: could not read the {what}. Check the photo and type it in.",
-                cells=[f"row{i}.{k}" for k in missing],
-                poly=_hull(polys) if polys else row_poly)
-        if vals["qty"] is None:
-            qty_ok = False
-        else:
-            qty_values.append(vals["qty"])
-        if vals["line_total"] is None:
-            line_ok = False
-        else:
-            line_values.append(vals["line_total"])
-        if missing:
-            continue
-        q, u, t = vals["qty"], vals["unit_value"], vals["line_total"]
-        expected = q * u
-        if abs(expected - t) > TOLERANCE:
-            pts = [p for k in ("qty", "unit_value", "line_total") for p in (row[k].poly or [])]
-            add(kind="line", severity="error", row=i,
-                message=f"Line {label}: {fmt(q, 0)} × {fmt(u)} = {fmt(expected)}, the note says {fmt(t)}.",
-                hint=_hint(q, u, t, style),
-                cells=[f"row{i}.qty", f"row{i}.unit_value", f"row{i}.line_total"],
-                poly=_hull(pts),
-                extra={"expected": str(expected.quantize(TOLERANCE)), "written": str(t)})
+                message=f"Line {label}: could not read the {' and '.join(NAMES[k] for k in missing)}. "
+                        "Check the photo and type it in.",
+                cells=[f"row{i}.{k}" for k in missing], poly=_hull(polys) if polys else row_poly)
+        for key in ("boxes", "total"):
+            if vals[key] is None:
+                complete[key] = False
+            else:
+                sums[key].append(vals[key])
 
-    for key, cell, values, ok, dec, what in (
-        ("qty_sum", note.total_qty, qty_values, qty_ok, 0, "quantities"),
-        ("total_sum", note.grand_total, line_values, line_ok, 2, "line totals"),
-    ):
-        ref = "total_qty" if key == "qty_sum" else "grand_total"
-        printed = parse_number(cell.text, style) if cell and cell.text.strip() else None
+        if not missing:
+            b, p, lo, t = vals["boxes"], vals["ppb"], vals["loose"], vals["total"]
+            expected = b * p + lo
+            if expected != t:
+                pts = [q for k in ("ppb", "boxes", "loose", "total") for q in (row[k].poly or [])]
+                add(kind="line", severity="error", row=i,
+                    message=f"Line {label}: {b} boxes × {p} + {lo} = {format_count(expected)} pieces, "
+                            f"the note says {format_count(t)}.",
+                    hint=_hint(b, p, lo, t), poly=_hull(pts),
+                    cells=[f"row{i}.ppb", f"row{i}.boxes", f"row{i}.loose", f"row{i}.total"],
+                    extra={"expected": expected, "written": t})
+            if p > 1 and lo >= p:
+                pts = [q for k in ("ppb", "loose") for q in (row[k].poly or [])]
+                add(kind="loose", severity="error", row=i,
+                    message=f"Line {label}: {lo} loose pieces is a box or more (a box holds {p}). "
+                            f"It should read {b + lo // p} boxes + {lo % p}.",
+                    poly=_hull(pts), cells=[f"row{i}.loose", f"row{i}.boxes"])
+
+        code = row.get("code")
+        if code and code.text.strip():
+            norm = normalise_code(code.text)
+            if not CODE_RE.match(norm):
+                add(kind="code", severity="error", row=i,
+                    message=f"Line {label}: item code \"{code.text.strip()}\" does not have the shape FAM-XXX-000 "
+                            f"(families {', '.join(FAMILIES)}).",
+                    poly=code.poly, cells=[f"row{i}.code"])
+        exp = row.get("expiry")
+        if exp and re.search(r"\d", exp.text):
+            d = parse_date(exp.text)
+            if d is None:
+                add(kind="unreadable", severity="unreadable", row=i,
+                    message=f"Line {label}: could not read the expiry date \"{exp.text.strip()}\".",
+                    poly=exp.poly, cells=[f"row{i}.expiry"])
+            elif doc_date is None:
+                expiry_skipped = True
+            elif d < doc_date:
+                add(kind="expired", severity="error", row=i,
+                    message=f"Line {label}: expiry {d:%d/%m/%Y} is already past on the document date "
+                            f"{doc_date:%d/%m/%Y}.",
+                    poly=exp.poly, cells=[f"row{i}.expiry"])
+    if expiry_skipped:
+        c = note.header.get("date")
+        add(kind="unreadable", severity="unreadable", row=None,
+            message="Could not read the document date, so expiry dates were not checked.",
+            poly=c.poly if c else None, cells=["header.date"])
+
+    labels = {"lines": "number of lines", "boxes": "total boxes", "pieces": "total pieces"}
+    for key, kind in (("lines", "lines_count"), ("boxes", "boxes_sum"), ("pieces", "pieces_sum")):
+        cell = note.totals.get(key)
+        printed = parse_count(cell.text) if cell and cell.text.strip() else None
         if printed is None:
             add(kind="unreadable", severity="unreadable", row=None,
-                message=f"Could not read the printed {'total quantity' if key == 'qty_sum' else 'grand total'}.",
-                cells=[ref], poly=cell.poly if cell else None)
+                message=f"Could not read the printed {labels[key]}.", cells=[f"totals.{key}"],
+                poly=cell.poly if cell else None)
             continue
-        if not ok or not values:
+        if key == "lines":
+            actual, what = len(note.rows), "lines were read"
+            if actual != printed:
+                add(kind=kind, severity="error", row=None, cells=[f"totals.{key}"], poly=cell.poly,
+                    message=f"{actual} {what}, the note says {printed} lines.",
+                    hint="A line may be missing from the photo or the count is wrong.",
+                    extra={"expected": actual, "written": printed})
+            continue
+        col = "boxes" if key == "boxes" else "total"
+        if not complete[col] or not sums[col]:
             continue  # an unreadable line is already flagged; the sum cannot be checked
-        s = sum(values, Decimal(0))
-        if abs(s - printed) > TOLERANCE:
-            diff = printed - s
-            add(kind=key, severity="error", row=None,
-                message=(f"The {what} add up to {fmt(s, dec)}, the note says {fmt(printed, dec)} "
-                         f"({'+' if diff > 0 else '-'}{fmt(abs(diff), dec)})."),
-                hint=_sum_hint(note, diff, key, style),
-                cells=[ref], poly=cell.poly,
-                extra={"expected": str(s), "written": str(printed)})
+        actual = sum(sums[col])
+        if actual != printed:
+            diff = printed - actual
+            add(kind=kind, severity="error", row=None, cells=[f"totals.{key}"], poly=cell.poly,
+                message=(f"The lines add up to {format_count(actual)} {'boxes' if key == 'boxes' else 'pieces'}, "
+                         f"the note says {format_count(printed)} ({'+' if diff > 0 else '-'}{format_count(abs(diff))})."),
+                hint=_sum_hint(note, diff, col),
+                extra={"expected": actual, "written": printed})
     return flags
 
 
-def _sum_hint(note: Note, diff: Decimal, key: str, style: str) -> str:
-    if key != "total_sum":
-        return ""
+def _sum_hint(note: Note, diff: int, col: str) -> str:
     for i, row in enumerate(note.rows, start=1):
-        c = row.get("line_total")
-        v = parse_number(c.text, style) if c else None
-        if v is not None and abs(v + diff) <= TOLERANCE:
+        c = row.get(col)
+        v = parse_count(c.text) if c else None
+        if v is not None and v + diff == 0:
             return f"The difference equals line {i} exactly: it may have been left out of the total."
     return ""
 

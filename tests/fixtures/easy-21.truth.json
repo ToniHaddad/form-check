@@ -1,0 +1,200 @@
+{
+ "form_id": "easy-21",
+ "seed": 21,
+ "difficulty": "easy",
+ "doc_type": "waybill",
+ "thousands_separator": ",",
+ "synthetic": true,
+ "header": {
+  "doc_no": "DSP-2026-00443",
+  "date": "03/08/2026",
+  "warehouse": "WH-19 Baalbek Plain",
+  "project": "INKIND",
+  "party": "Olive Branch Relief Group",
+  "keeper": "Fadi Mansour"
+ },
+ "rows": [
+  {
+   "no": 1,
+   "code": "NFI-BLK-001",
+   "item": "Thermal blanket",
+   "unit": "piece",
+   "ppb": 10,
+   "boxes": 5,
+   "loose": 3,
+   "total": 53,
+   "expiry": null,
+   "printed": {
+    "no": "1",
+    "code": "NFI-BLK-001",
+    "item": "Thermal blanket",
+    "unit": "piece",
+    "ppb": "10",
+    "boxes": "5",
+    "loose": "3",
+    "total": "53",
+    "expiry": "-"
+   }
+  },
+  {
+   "no": 2,
+   "code": "HYG-SOA-001",
+   "item": "Bar soap 125 g",
+   "unit": "piece",
+   "ppb": 72,
+   "boxes": 59,
+   "loose": 5,
+   "total": 4253,
+   "expiry": "2028-01-22",
+   "printed": {
+    "no": "2",
+    "code": "HYG-SOA-001",
+    "item": "Bar soap 125 g",
+    "unit": "piece",
+    "ppb": "72",
+    "boxes": "59",
+    "loose": "5",
+    "total": "4,253",
+    "expiry": "22/01/2028"
+   }
+  },
+  {
+   "no": 3,
+   "code": "FOO-RIC-001",
+   "item": "Rice 5 kg bag",
+   "unit": "bag",
+   "ppb": 4,
+   "boxes": 48,
+   "loose": 0,
+   "total": 192,
+   "expiry": "2027-12-22",
+   "printed": {
+    "no": "3",
+    "code": "FOO-RIC-001",
+    "item": "Rice 5 kg bag",
+    "unit": "bag",
+    "ppb": "4",
+    "boxes": "48",
+    "loose": "0",
+    "total": "192",
+    "expiry": "22/12/2027"
+   }
+  },
+  {
+   "no": 4,
+   "code": "NFI-JER-002",
+   "item": "Jerry can 20 L",
+   "unit": "piece",
+   "ppb": 8,
+   "boxes": 40,
+   "loose": 5,
+   "total": 325,
+   "expiry": null,
+   "printed": {
+    "no": "4",
+    "code": "NFI-JER-002",
+    "item": "Jerry can 20 L",
+    "unit": "piece",
+    "ppb": "8",
+    "boxes": "40",
+    "loose": "5",
+    "total": "325",
+    "expiry": "-"
+   }
+  },
+  {
+   "no": 5,
+   "code": "MED-PAR-001",
+   "item": "Paracetamol 500 mg",
+   "unit": "box",
+   "ppb": 50,
+   "boxes": 35,
+   "loose": 7,
+   "total": 1757,
+   "expiry": "2028-08-26",
+   "printed": {
+    "no": "5",
+    "code": "MED-PAR-001",
+    "item": "Paracetamol 500 mg",
+    "unit": "box",
+    "ppb": "50",
+    "boxes": "35",
+    "loose": "7",
+    "total": "1,757",
+    "expiry": "26/08/2028"
+   }
+  },
+  {
+   "no": 6,
+   "code": "SHE-TAR-001",
+   "item": "Tarpaulin 4 x 6 m",
+   "unit": "piece",
+   "ppb": 5,
+   "boxes": 24,
+   "loose": 0,
+   "total": 120,
+   "expiry": null,
+   "printed": {
+    "no": "6",
+    "code": "SHE-TAR-001",
+    "item": "Tarpaulin 4 x 6 m",
+    "unit": "piece",
+    "ppb": "5",
+    "boxes": "24",
+    "loose": "0",
+    "total": "120",
+    "expiry": "-"
+   }
+  },
+  {
+   "no": 7,
+   "code": "HYG-DIA-003",
+   "item": "Baby diapers size 4",
+   "unit": "pack",
+   "ppb": 6,
+   "boxes": 8,
+   "loose": 0,
+   "total": 48,
+   "expiry": null,
+   "printed": {
+    "no": "7",
+    "code": "HYG-DIA-003",
+    "item": "Baby diapers size 4",
+    "unit": "pack",
+    "ppb": "6",
+    "boxes": "8",
+    "loose": "0",
+    "total": "48",
+    "expiry": "-"
+   }
+  },
+  {
+   "no": 8,
+   "code": "FOO-MLK-001",
+   "item": "Milk powder 400 g",
+   "unit": "tin",
+   "ppb": 12,
+   "boxes": 2,
+   "loose": 8,
+   "total": 32,
+   "expiry": "2028-11-15",
+   "printed": {
+    "no": "8",
+    "code": "FOO-MLK-001",
+    "item": "Milk powder 400 g",
+    "unit": "tin",
+    "ppb": "12",
+    "boxes": "2",
+    "loose": "8",
+    "total": "32",
+    "expiry": "15/11/2028"
+   }
+  }
+ ],
+ "totals": {
+  "lines": 8,
+  "boxes": 221,
+  "pieces": 6780
+ },
+ "error": null
+}

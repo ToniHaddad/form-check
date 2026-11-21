@@ -106,3 +106,22 @@ def format_number(value: Decimal | float | int, style: str = DOT, decimals: int 
     if style == COMMA:
         s = s.replace(",", "\x00").replace(".", ",").replace("\x00", ".")
     return s
+
+
+# ---------------------------------------------------------------- counts
+
+def format_count(value: int, sep: str = ",") -> str:
+    """Write a whole number of pieces with the document's thousands separator."""
+    s = f"{int(value):,}"
+    return s.replace(",", sep)
+
+
+def parse_count(text: str) -> int | None:
+    """Read a whole count of pieces or boxes. Thousands may be grouped with a
+    comma, a dot or a space ("1,200", "1.200", "1 200"); there are no decimals."""
+    t = _clean(text)
+    if len(t) == 1:
+        t = t.translate(_OCR_DIGIT_FIXES)  # a lone "O" in the loose column is a zero
+    if not t or not re.fullmatch(r"\d{1,3}([.,]\d{3})+|\d+", t):
+        return None
+    return int(re.sub(r"[.,]", "", t))

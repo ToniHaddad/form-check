@@ -1,0 +1,140 @@
+{
+ "form_id": "medium-4",
+ "seed": 4,
+ "difficulty": "medium",
+ "doc_type": "waybill",
+ "thousands_separator": ",",
+ "synthetic": true,
+ "header": {
+  "doc_no": "DSP-2026-00185",
+  "date": "22/07/2026",
+  "warehouse": "WH-31 Tyre South",
+  "project": "EA-2026",
+  "party": "Halba Health Centre / Medical",
+  "keeper": "Rami Khoury"
+ },
+ "rows": [
+  {
+   "no": 1,
+   "code": "NFI-BLK-001",
+   "item": "Thermal blanket",
+   "unit": "piece",
+   "ppb": 10,
+   "boxes": 52,
+   "loose": 13,
+   "total": 533,
+   "expiry": null,
+   "printed": {
+    "no": "1",
+    "code": "NFI-BLK-001",
+    "item": "Thermal blanket",
+    "unit": "piece",
+    "ppb": "10",
+    "boxes": "52",
+    "loose": "13",
+    "total": "533",
+    "expiry": "-"
+   }
+  },
+  {
+   "no": 2,
+   "code": "NFI-JER-002",
+   "item": "Jerry can 20 L",
+   "unit": "piece",
+   "ppb": 8,
+   "boxes": 60,
+   "loose": 4,
+   "total": 484,
+   "expiry": null,
+   "printed": {
+    "no": "2",
+    "code": "NFI-JER-002",
+    "item": "Jerry can 20 L",
+    "unit": "piece",
+    "ppb": "8",
+    "boxes": "60",
+    "loose": "4",
+    "total": "484",
+    "expiry": "-"
+   }
+  },
+  {
+   "no": 3,
+   "code": "MED-PAR-001",
+   "item": "Paracetamol 500 mg",
+   "unit": "box",
+   "ppb": 50,
+   "boxes": 52,
+   "loose": 10,
+   "total": 2610,
+   "expiry": "2027-09-02",
+   "printed": {
+    "no": "3",
+    "code": "MED-PAR-001",
+    "item": "Paracetamol 500 mg",
+    "unit": "box",
+    "ppb": "50",
+    "boxes": "52",
+    "loose": "10",
+    "total": "2,610",
+    "expiry": "02/09/2027"
+   }
+  },
+  {
+   "no": 4,
+   "code": "HYG-SHA-002",
+   "item": "Shampoo 400 ml",
+   "unit": "bottle",
+   "ppb": 24,
+   "boxes": 19,
+   "loose": 0,
+   "total": 456,
+   "expiry": "2028-11-07",
+   "printed": {
+    "no": "4",
+    "code": "HYG-SHA-002",
+    "item": "Shampoo 400 ml",
+    "unit": "bottle",
+    "ppb": "24",
+    "boxes": "19",
+    "loose": "0",
+    "total": "456",
+    "expiry": "07/11/2028"
+   }
+  },
+  {
+   "no": 5,
+   "code": "FOO-TUN-002",
+   "item": "Canned tuna 160 g",
+   "unit": "can",
+   "ppb": 48,
+   "boxes": 55,
+   "loose": 0,
+   "total": 2640,
+   "expiry": "2027-11-05",
+   "printed": {
+    "no": "5",
+    "code": "FOO-TUN-002",
+    "item": "Canned tuna 160 g",
+    "unit": "can",
+    "ppb": "48",
+    "boxes": "55",
+    "loose": "0",
+    "total": "2,640",
+    "expiry": "05/11/2027"
+   }
+  }
+ ],
+ "totals": {
+  "lines": 5,
+  "boxes": 238,
+  "pieces": 6723
+ },
+ "error": {
+  "type": "loose_overflow",
+  "row": 1,
+  "field": "loose",
+  "correct": "53 boxes + 3",
+  "written": "52 boxes + 13"
+ }
+}

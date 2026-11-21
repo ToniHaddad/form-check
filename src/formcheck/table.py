@@ -1,4 +1,4 @@
-"""Rebuild the delivery note from OCR word boxes.
+"""Rebuild a waybill or goods received note from OCR word boxes.
 
 Input: word boxes on the flattened page (``OcrPage``). Output: a ``Note`` with
 header fields, a table of rows and columns, and the printed totals, each cell
@@ -8,11 +8,12 @@ The steps:
 
 1. Measure any skew left after flattening from the slope of the long text
    boxes, and rotate box centres so text lines run horizontally.
-2. Find the table header line by its labels (Qty, Unit price, Line total...)
-   and use the header positions as column ranges.
-3. Group the boxes between the header and the totals into rows by height.
-4. Place each box in the column whose range it overlaps most. A box that the
-   OCR merged across two columns is split at its spaces first.
+2. Find the table heading line by its labels (Pcs/box, Boxes, Loose, Total...)
+   and use the heading positions as column ranges.
+3. Chain the boxes between the heading and the totals into lines.
+4. Place each box in the column whose range it overlaps most. Count columns
+   are also found from the numbers themselves (they are right-aligned), and a
+   box that the OCR merged across two columns is split at its spaces first.
 """
 
 from __future__ import annotations
@@ -22,19 +23,26 @@ import re
 from dataclasses import dataclass, field
 from difflib import SequenceMatcher
 
-from decimal import Decimal
-
-from .numbers import DOT, format_number, infer_style, looks_numeric, parse_number
+from .numbers import looks_numeric, parse_count
 from .ocr import OcrPage, Word
 
-COLUMN_KEYS = ["no", "item", "unit", "qty", "unit_value", "line_total"]
-NUMERIC = ("qty", "unit_value", "line_total")
+COLUMN_KEYS = ["no", "code", "item", "unit", "ppb", "boxes", "loose", "total", "expiry"]
+NUMERIC = ("ppb", "boxes", "loose", "total")
 HEADER_FIELDS = {
-    "waybill": ["waybill no.", "waybill no", "waybill"],
+    "doc_no": ["document no.", "document no", "document"],
     "date": ["date"],
-    "driver": ["driver"],
-    "origin": ["origin"],
-    "destination": ["destination"],
+    "project": ["project"],
+    "warehouse": ["warehouse"],
+    "party": ["destination", "supplier / donor", "supplier/donor", "supplier"],
+    "keeper": ["keeper"],
+}
+# Content that names its own column, whatever the headings say.
+_DATE_LIKE = re.compile(r"\d{1,2}[/.\-]\d{1,2}[/.\-]\d{2,4}")
+_CODE_LIKE = re.compile(r"[A-Z0-9]{2,4}[-.,][A-Z0-9]{2,4}[-.,][A-Z0-9]{1,4}", re.I)
+TOTAL_LABELS = {
+    "lines": ["number of lines", "no. of lines"],
+    "boxes": ["total boxes"],
+    "pieces": ["total pieces", "total pcs"],
 }
 
 
@@ -56,22 +64,20 @@ class Cell:
 
 @dataclass
 class Note:
-    style: str
+    doc_type: str  # "waybill", "grn" or "unknown"
     header: dict[str, Cell]
     rows: list[dict[str, Cell]]
-    total_qty: Cell | None
-    grand_total: Cell | None
+    totals: dict[str, Cell]  # "lines", "boxes", "pieces"
     labels: dict[str, str] = field(default_factory=dict)  # printed column names
     row_polys: list[list[list[float]] | None] = field(default_factory=list)
     skew_deg: float = 0.0
 
     def to_dict(self) -> dict:
         return {
-            "style": self.style,
+            "doc_type": self.doc_type,
             "header": {k: c.to_dict() for k, c in self.header.items()},
             "rows": [{k: c.to_dict() for k, c in r.items()} for r in self.rows],
-            "total_qty": self.total_qty.to_dict() if self.total_qty else None,
-            "grand_total": self.grand_total.to_dict() if self.grand_total else None,
+            "totals": {k: c.to_dict() for k, c in self.totals.items()},
             "labels": self.labels,
             "row_polys": self.row_polys,
             "skew_deg": self.skew_deg,
@@ -80,11 +86,10 @@ class Note:
     @classmethod
     def from_dict(cls, d: dict) -> "Note":
         return cls(
-            style=d.get("style", "dot"),
-            header={k: Cell.from_dict(c) for k, c in d.get("header", {}).items()},
+            doc_type=d.get("doc_type", "unknown"),
+            header={k: Cell.from_dict(c) for k, c in d.get("header", {}).items() if c is not None},
             rows=[{k: Cell.from_dict(c) for k, c in r.items() if c is not None} for r in d.get("rows", [])],
-            total_qty=Cell.from_dict(d.get("total_qty")),
-            grand_total=Cell.from_dict(d.get("grand_total")),
+            totals={k: Cell.from_dict(c) for k, c in d.get("totals", {}).items() if c is not None},
             labels=d.get("labels", {}),
             row_polys=d.get("row_polys", []),
             skew_deg=float(d.get("skew_deg", 0.0)),
@@ -190,11 +195,13 @@ def rebuild(page: OcrPage) -> Note:
         if not found:
             continue
         lab, rest = found
+        rest = re.sub(r"^[/\s]*(or\s+)?donor\b[\s:]*", "", rest, flags=re.I)  # rest of "Supplier / donor"
         if len(rest) >= 2:
             header[key] = cell([lab], rest)
             continue
         right = [b for b in boxes if b is not lab and _same_line(lab, b) and b.x0 > lab.x1 - 5
-                 and b.x0 - lab.x1 < 8 * med_h and _norm(b.text) not in _LABEL_LEFTOVERS]
+                 and b.x0 - lab.x1 < 8 * med_h and _norm(b.text) not in _LABEL_LEFTOVERS
+                 and not re.fullmatch(r"[/\s]*(or\s+)?donor", b.text.strip(), flags=re.I)]
         if right:
             nearest = min(right, key=lambda b: b.x0)
             header[key] = cell([nearest])
@@ -203,11 +210,18 @@ def rebuild(page: OcrPage) -> Note:
     columns, labels, head_line = _find_columns(boxes, med_h)
 
     # --- totals
-    total_qty, lab1 = _labelled_value(boxes, ["total quantity", "total qty"], cell)
-    grand_total, lab2 = _labelled_value(boxes, ["grand total", "total weight", "total amount"], cell)
+    totals: dict[str, Cell] = {}
+    total_labels = []
+    for key, variants in TOTAL_LABELS.items():
+        # The line count sits right after its label; do not reach across to the box total.
+        c, lab = _labelled_value(boxes, variants, cell, max_gap=6 * med_h if key == "lines" else None)
+        if c:
+            totals[key] = c
+        if lab:
+            total_labels.append(lab)
 
     # --- rows: everything between the header line and the first totals label
-    stop_y = min([lab.cy for lab in (lab1, lab2) if lab is not None] or [float("inf")])
+    stop_y = min([lab.cy for lab in total_labels] or [float("inf")])
     top_y = head_line if head_line is not None else max(
         [c_y for c_y in (_label_y(boxes, v) for v in HEADER_FIELDS.values()) if c_y is not None] or [0.0])
     body_lines = []
@@ -238,26 +252,66 @@ def rebuild(page: OcrPage) -> Note:
     for line in body_lines:
         assigned: dict[str, list[_Box]] = {}
         for b in line:
-            for part in _split_across(b, columns):
+            for part in (q for piece in _peel(b) for q in _split_across(piece, columns)):
+                compact = part.text.replace(" ", "")
+                if _DATE_LIKE.fullmatch(compact):
+                    assigned.setdefault("expiry", []).append(part)
+                    continue
+                if _CODE_LIKE.fullmatch(compact):
+                    assigned.setdefault("code", []).append(part)
+                    continue
                 numeric = looks_numeric(part.text) and part.x1 > left_limit
                 key = _best_column(part, numeric_cols if numeric and numeric_cols else text_cols)
                 if key:
                     assigned.setdefault(key, []).append(part)
         if not any(k in assigned for k in NUMERIC):
             continue
-        rows.append({k: cell(v) for k, v in assigned.items()})
+        row = {k: cell(v) for k, v in assigned.items()}
+        _fill_blank_loose(row)
+        rows.append(row)
         row_polys.append(cell(line).poly)
 
-    style = infer_style([c.text for r in rows for k, c in r.items() if k in NUMERIC]
-                        + [c.text for c in (total_qty, grand_total) if c])
-    for r in rows:
-        for k in ("unit_value", "line_total"):
-            if k in r:
-                _repair_money(r[k], style)
-    if grand_total:
-        _repair_money(grand_total, style)
-    return Note(style=style, header=header, rows=rows, total_qty=total_qty, grand_total=grand_total,
+    return Note(doc_type=_doc_type(boxes, header), header=header, rows=rows, totals=totals,
                 labels=labels, row_polys=row_polys, skew_deg=round(skew, 2))
+
+
+def _peel(b: _Box) -> list[_Box]:
+    """Split an item code off the front of a box and a date off its end, for
+    when the OCR read "MED-PAR-001 Paracetamol 500 mg" as one box."""
+    toks = _tokens(b)
+    if len(toks) < 2:
+        return [b]
+    out = []
+    if _CODE_LIKE.fullmatch(toks[0].text):
+        out.append(toks.pop(0))
+    tail = toks.pop() if len(toks) > 1 and _DATE_LIKE.fullmatch(toks[-1].text) else None
+    if toks:
+        out.append(_Box(b.word, " ".join(t.text for t in toks), toks[0].x0, toks[-1].x1, b.cy, b.h))
+    if tail:
+        out.append(tail)
+    return out if len(out) > 1 else [b]
+
+
+def _fill_blank_loose(row: dict[str, Cell]) -> None:
+    """The OCR often misses a lone "0" (and a blank loose cell means none). When
+    the loose cell is empty and boxes x pieces per box already equals the total,
+    write 0 there with a low confidence so the cell is tinted for review."""
+    if "loose" in row:
+        return
+    vals = [parse_count(row[k].text) if k in row else None for k in ("ppb", "boxes", "total")]
+    if None not in vals and vals[0] * vals[1] == vals[2]:
+        row["loose"] = Cell("0", 0.5, None)
+
+
+def _doc_type(boxes: list[_Box], header: dict[str, Cell]) -> str:
+    """Waybill or goods received note, from the title or the document number."""
+    text = " ".join(_norm(b.text) for b in boxes)
+    no = header["doc_no"].text.upper() if "doc_no" in header else ""
+    if "waybill" in text or no.startswith("DSP"):
+        return "waybill"
+    if "goods received" in text or "received note" in text or no.startswith("RCV"):
+        return "grn"
+    return "unknown"
 
 
 def _label_y(boxes: list[_Box], variants: list[str]) -> float | None:
@@ -265,25 +319,10 @@ def _label_y(boxes: list[_Box], variants: list[str]) -> float | None:
     return found[0].cy if found else None
 
 
-def _repair_money(c: Cell, style: str) -> None:
-    """Money and weight columns always print two decimals. When the OCR lost the
-    decimal mark ("12,70" read as "1270"), put it back and lower the confidence
-    so the cell is tinted for review. A wrong repair still has to pass the
-    arithmetic, so it cannot hide an error by itself."""
-    dec = "." if style == DOT else ","
-    t = c.text.strip()
-    ok = parse_number(t, style) is not None and dec in t[-3:]
-    digits = re.sub(r"\D", "", t)
-    if ok or len(digits) < 3 or not looks_numeric(t):
-        return
-    c.text = format_number(Decimal(digits) / 100, style)
-    c.conf = round(min(c.conf, 0.8), 4)
-
-
 def _numeric_columns_from_data(lines, columns, left_limit, med_h):
-    """Numbers are right-aligned, so their right edges stack up in clusters.
-    The three rightmost clusters are quantity, unit value and line total. This
-    still works when the OCR garbled a column heading."""
+    """Counts are right-aligned, so their right edges stack up in clusters.
+    The four rightmost clusters are pieces per box, boxes, loose pieces and
+    total pieces. This still works when the OCR garbled a column heading."""
     toks = []
     for line in lines:
         for b in line:
@@ -301,10 +340,11 @@ def _numeric_columns_from_data(lines, columns, left_limit, med_h):
             clusters[-1].append(t)
     strong = [c for c in clusters if len(c) >= max(2, 0.4 * len(lines))]
     hdr = {k: columns[k] for k in NUMERIC if k in columns}
-    if len(strong) == 3 or (not hdr and len(strong) > 3):
-        # The usual case: three clear number columns. Their order settles which
+    n = len(NUMERIC)
+    if len(strong) == n or (not hdr and len(strong) > n):
+        # The usual case: four clear count columns. Their order settles which
         # is which, even when the OCR garbled a heading into another heading.
-        return {**columns, **{k: _span(c) for k, c in zip(NUMERIC, strong[-3:])}}
+        return {**columns, **{k: _span(c) for k, c in zip(NUMERIC, strong[-n:])}}
     if not hdr:
         return columns
 
@@ -361,12 +401,18 @@ def _classify_header(text: str) -> str | None:
     t = _norm(text)
     if not t:
         return None
-    if re.search(r"(price|wt|weight|rate)", t) and ("unit" in t or t.startswith("un")):
-        return "unit_value"
-    if re.search(r"(line|total|amount)", t):
-        return "line_total"
-    if _similar(t, "qty") >= 0.66 or t.startswith("quant"):
-        return "qty"
+    if "code" in t or _similar(t, "item code") >= 0.75:
+        return "code"
+    if re.search(r"(/ ?box|per ?box|pcs ?box|pcsbox|pc/b)", t):
+        return "ppb"
+    if t.startswith("tot") or _similar(t, "total") >= 0.75:
+        return "total"
+    if _similar(t, "boxes") >= 0.8:
+        return "boxes"
+    if _similar(t, "loose") >= 0.75:
+        return "loose"
+    if t.startswith("exp") or _similar(t, "expiry") >= 0.7:
+        return "expiry"
     if _similar(t, "item") >= 0.75 or t.startswith("descr"):
         return "item"
     if _similar(t, "unit") >= 0.75:
@@ -381,9 +427,9 @@ def _find_columns(boxes: list[_Box], med_h: float):
     lines = _group_lines(boxes)
     best = None
     for line in lines:
-        if not any(_classify_header(b.text) == "qty" for b in line):
+        if not any(_classify_header(b.text) in ("boxes", "loose", "ppb") for b in line):
             continue
-        # Two-line headings ("Unit price" over "(USD)") sit a little higher
+        # Two-line headings ("Total" over "pcs") sit a little higher
         # than one-line headings, so take everything near the line's height.
         y = sum(b.cy for b in line) / len(line)
         near = [b for b in boxes if b not in line and abs(b.cy - y) < 0.8 * med_h
@@ -394,7 +440,7 @@ def _find_columns(boxes: list[_Box], med_h: float):
             k = _classify_header(p.text)
             if k and k not in found:
                 found[k] = p
-        if best is None or len(found) > len(best[0]):
+        if len(found) >= 2 and (best is None or len(found) > len(best[0])):
             best = (found, sum(b.cy for b in line) / len(line))
     if not best:
         return {}, {}, None
@@ -405,14 +451,14 @@ def _find_columns(boxes: list[_Box], med_h: float):
 
 
 def _merge_phrases(line: list[_Box], med_h: float) -> list[_Box]:
-    """Join two neighbouring boxes only when together they name a column, e.g. "Unit" + "price"."""
+    """Join two neighbouring boxes only when together they name a column, e.g. "Item" + "code"."""
     out: list[_Box] = []
     for b in line:
         if out and b.x0 - out[-1].x1 < 1.2 * med_h:
             p = out[-1]
             joined = _Box(p.word, f"{p.text} {b.text}", p.x0, b.x1, (p.cy + b.cy) / 2, max(p.h, b.h))
             k = _classify_header(joined.text)
-            if k in ("unit_value", "line_total") and _classify_header(p.text) != k and _classify_header(b.text) != k:
+            if k in ("code", "ppb") and _classify_header(p.text) != k and _classify_header(b.text) != k:
                 out[-1] = joined
                 continue
         out.append(b)
@@ -457,7 +503,7 @@ def _best_column(b: _Box, columns: dict[str, tuple[float, float]]) -> str | None
 
 
 def _split_across(b: _Box, columns: dict[str, tuple[float, float]]) -> list[_Box]:
-    """Split a box the OCR merged across columns, e.g. "bag 1,200" over Unit and Qty."""
+    """Split a box the OCR merged across columns, e.g. "sachet 100" over Unit and Pcs/box."""
     tokens = b.text.split()
     if len(tokens) < 2 or not columns:
         return [b]
@@ -479,7 +525,8 @@ def _split_across(b: _Box, columns: dict[str, tuple[float, float]]) -> list[_Box
     return merged
 
 
-def _labelled_value(boxes: list[_Box], labels: list[str], cell) -> tuple[Cell | None, _Box | None]:
+def _labelled_value(boxes: list[_Box], labels: list[str], cell,
+                    max_gap: float | None = None) -> tuple[Cell | None, _Box | None]:
     found = _find_label(boxes, labels, 0.8)
     if not found:
         return None, None
@@ -490,7 +537,7 @@ def _labelled_value(boxes: list[_Box], labels: list[str], cell) -> tuple[Cell | 
     # Take the nearest box to the right that has a digit in it, even if it does
     # not parse: a misread total should be shown and flagged, not lost.
     right = [b for b in boxes if b is not lab and _same_line(lab, b) and b.x0 > lab.x1 - 5
-             and re.search(r"\d", b.text)]
+             and re.search(r"\d", b.text) and (max_gap is None or b.x0 - lab.x1 < max_gap)]
     if not right:
         return None, lab
     return cell([min(right, key=lambda b: b.x0)]), lab

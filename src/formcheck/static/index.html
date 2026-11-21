@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>form-check</title>
-<meta name="description" content="Reads a photographed delivery note, checks the arithmetic, and shows where on the photo a number does not add up.">
+<meta name="description" content="Reads a photographed waybill or goods received note, checks it, and shows where on the photo a figure is wrong.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='5' y='3' width='22' height='26' rx='3' fill='%23155e66'/%3E%3Crect x='9' y='9' width='14' height='2' fill='%23fff'/%3E%3Crect x='9' y='14' width='9' height='2' fill='%23fff'/%3E%3Ccircle cx='21' cy='22' r='5' fill='%23e8590c'/%3E%3C/svg%3E">
 <style>
 :root {
@@ -132,7 +132,7 @@ button { cursor: pointer; }
 /* ---------- layout */
 main {
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(440px, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(560px, 1fr);
   gap: 22px;
   padding: 22px 24px 40px;
   max-width: 1560px; margin: 0 auto;
@@ -251,12 +251,18 @@ input.cell {
 input.cell:hover { border-color: var(--line-2); }
 input.cell:focus { border-color: var(--accent); background: var(--surface); box-shadow: 0 0 0 3px var(--accent-soft); }
 input.cell.num { font-family: var(--mono); font-size: 14px; text-align: right; font-variant-numeric: tabular-nums; }
+#rows input.cell { padding: 5px 4px; font-size: 14px; }
+#rows input.cell.num { font-size: 13px; }
 input.cell.low { background: var(--warn-soft); }
 input.cell.flagged { background: var(--flag-soft); color: var(--flag-ink); font-weight: 600; }
 input.cell.edited { box-shadow: inset 3px 0 0 var(--accent); }
 
 .table-wrap { overflow-x: auto; margin: 0 -8px; }
-table { border-collapse: collapse; width: 100%; min-width: 520px; table-layout: fixed; }
+table { border-collapse: collapse; width: 100%; min-width: 560px; table-layout: fixed; }
+/* the unit column stays in the data but is not shown: nine columns do not fit */
+col.c-unit { width: 0; }
+th.u, td.u { padding: 0; overflow: hidden; font-size: 0; }
+td.u input { display: none; }
 th { font-size: 12px; font-weight: 600; color: var(--ink-3); text-align: left; padding: 6px 7px; border-bottom: 1px solid var(--line); white-space: nowrap; }
 th.num { text-align: right; }
 td { padding: 3px 1px; border-bottom: 1px solid var(--line); vertical-align: middle; }
@@ -269,7 +275,7 @@ tr.has-flag td.no { color: transparent; }
 tr.has-flag.unr td.no::before { background: var(--warn); }
 tr.total td { border-bottom: none; padding-top: 8px; }
 tr.total .lab { text-align: right; font-weight: 600; font-size: 13px; color: var(--ink-2); padding-right: 8px; }
-col.c-no { width: 32px; } col.c-unit { width: 64px; } col.c-qty { width: 70px; } col.c-uv { width: 86px; } col.c-lt { width: 104px; }
+col.c-no { width: 28px; } col.c-code { width: 118px; } col.c-n { width: 54px; } col.c-tot { width: 66px; } col.c-exp { width: 104px; }
 
 .legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: 12px; color: var(--ink-3); margin-top: 12px; }
 .legend span { display: inline-flex; align-items: center; gap: 6px; }
@@ -290,9 +296,9 @@ col.c-no { width: 32px; } col.c-unit { width: 64px; } col.c-qty { width: 70px; }
   .actions { margin-left: auto; }
 }
 @media (max-width: 520px) {
-  table { min-width: 0; }
+  table { min-width: 560px; }
   .table-wrap { margin: 0 -10px; }
-  col.c-no { width: 24px; } col.c-unit { width: 0; } col.c-qty { width: 56px; } col.c-uv { width: 66px; } col.c-lt { width: 88px; }
+  col.c-no { width: 24px; } col.c-unit { width: 0; }
   th.u, td.u { padding: 0; overflow: hidden; font-size: 0; }
   td.u input { display: none; }
   input.cell { padding: 5px 4px; }
@@ -309,7 +315,7 @@ col.c-no { width: 32px; } col.c-unit { width: 64px; } col.c-qty { width: 70px; }
 <header class="bar">
   <a class="brand" href="/" aria-label="form-check home">
     <svg width="34" height="34" viewBox="0 0 32 32" aria-hidden="true"><rect x="5" y="3" width="22" height="26" rx="3" fill="var(--accent)"/><rect x="9" y="9" width="14" height="2" fill="var(--surface)"/><rect x="9" y="14" width="9" height="2" fill="var(--surface)"/><rect x="9" y="19" width="6" height="2" fill="var(--surface)"/><circle cx="22" cy="23" r="6" fill="var(--flag)"/><path d="M22 20v3.6M22 25.6v.2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
-    <div><b>form-check</b><span>Delivery note arithmetic, checked on the photo</span></div>
+    <div><b>form-check</b><span>Waybills and goods received notes, checked on the photo</span></div>
   </a>
   <nav class="samples" id="samples" aria-label="Sample photos"></nav>
   <div class="actions">
@@ -323,10 +329,10 @@ col.c-no { width: 32px; } col.c-unit { width: 64px; } col.c-qty { width: 70px; }
   <section class="stage-wrap" aria-label="Photo">
     <div class="stage" id="stage">
       <div class="canvas" id="canvas">
-        <img id="photo" alt="Photo of the delivery note">
+        <img id="photo" alt="Photo of the stock document">
         <svg id="overlay" xmlns="http://www.w3.org/2000/svg"></svg>
       </div>
-      <div class="empty" id="empty"><div><b>Drop a photo of a delivery note</b>or pick a sample above</div></div>
+      <div class="empty" id="empty"><div><b>Drop a photo of a waybill or goods received note</b>or pick a sample above</div></div>
       <div class="scan"><span>Reading the note…</span></div>
       <div class="stage-note" id="stage-note" hidden></div>
       <div class="stage-tools">
@@ -347,8 +353,8 @@ col.c-no { width: 32px; } col.c-unit { width: 64px; } col.c-qty { width: 70px; }
       <h2>Lines as read <small>Edit any cell: the checks run again as you type</small></h2>
       <div class="table-wrap">
         <table>
-          <colgroup><col class="c-no"><col><col class="c-unit"><col class="c-qty"><col class="c-uv"><col class="c-lt"></colgroup>
-          <thead><tr><th>No.</th><th>Item</th><th class="u">Unit</th><th class="num">Qty</th><th class="num" id="h-uv">Unit price</th><th class="num" id="h-lt">Line total</th></tr></thead>
+          <colgroup><col class="c-no"><col class="c-code"><col><col class="c-unit"><col class="c-n"><col class="c-n"><col class="c-n"><col class="c-tot"><col class="c-exp"></colgroup>
+          <thead><tr><th>No.</th><th>Item code</th><th>Item</th><th class="u">Unit</th><th class="num">Per box</th><th class="num">Boxes</th><th class="num">Loose</th><th class="num">Total</th><th class="num">Expiry</th></tr></thead>
           <tbody id="rows"></tbody>
         </table>
       </div>
@@ -363,7 +369,7 @@ col.c-no { width: 32px; } col.c-unit { width: 64px; } col.c-qty { width: 70px; }
       <div class="fields" id="fields"></div>
     </div>
     <div class="meta" id="meta"></div>
-    <p class="foot">Runs on this machine with a local OCR model. The sample notes are synthetic: Northbridge Relief is a fictional organisation.</p>
+    <p class="foot">Runs on this machine with a local OCR model. The sample documents are synthetic: every code, name and figure is invented.</p>
   </section>
 </main>
 <div class="drop-veil" id="veil"><div>Drop the photo to check it</div></div>
@@ -373,7 +379,7 @@ col.c-no { width: 32px; } col.c-unit { width: 64px; } col.c-qty { width: 70px; }
   const $ = (id) => document.getElementById(id);
   const stage = $("stage"), canvas = $("canvas"), img = $("photo"), svg = $("overlay");
   const NS = "http://www.w3.org/2000/svg";
-  const HEADER = [["waybill", "Waybill No."], ["date", "Date"], ["origin", "Origin"], ["destination", "Destination"], ["driver", "Driver"]];
+  const HEADER = [["doc_no", "Document No."], ["date", "Date"], ["warehouse", "Warehouse"], ["project", "Project"], ["party", "Destination"], ["keeper", "Keeper"]];
   let state = null;          // last result from the server
   let active = null;         // active flag number
   let view = { s: 1, x: 0, y: 0 };
@@ -542,16 +548,16 @@ col.c-no { width: 32px; } col.c-unit { width: 64px; } col.c-qty { width: 70px; }
     v.className = "panel verdict " + (s.errors ? "bad" : s.unreadable ? "warn" : "good");
     const n = state.note.rows.length;
     if (s.errors) {
-      $("v-title").textContent = s.errors === 1 ? "1 number does not add up" : `${s.errors} numbers do not add up`;
-      $("v-sub").textContent = `Checked ${n} lines and both totals. Click a flag to see the spot on the photo.`;
+      $("v-title").textContent = s.errors === 1 ? "1 problem on this document" : `${s.errors} problems on this document`;
+      $("v-sub").textContent = `Checked ${n} lines and the three totals. Click a flag to see the spot on the photo.`;
       $("mark").innerHTML = '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 7v6M12 17v.2"/><circle cx="12" cy="12" r="10"/></svg>';
     } else if (s.unreadable) {
       $("v-title").textContent = s.unreadable === 1 ? "1 number could not be read" : `${s.unreadable} numbers could not be read`;
       $("v-sub").textContent = "Type the value from the photo into the table and the checks will run.";
       $("mark").innerHTML = '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17.5v.2"/><circle cx="12" cy="12" r="10"/></svg>';
     } else {
-      $("v-title").textContent = "Every line and total adds up";
-      $("v-sub").textContent = `Checked ${n} lines: quantity × unit value, the quantity total and the grand total.`;
+      $("v-title").textContent = "Every line and total checks out";
+      $("v-sub").textContent = `Checked ${n} lines: boxes × pieces per box + loose, loose under a box, expiry dates, item codes and the three totals.`;
       $("mark").innerHTML = '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
     }
   }
@@ -608,7 +614,7 @@ col.c-no { width: 32px; } col.c-unit { width: 64px; } col.c-qty { width: 70px; }
     i.setAttribute("aria-label", ref);
     i.spellcheck = false;
     i.oninput = () => {
-      const target = row === "total" ? (state.note[key] = state.note[key] || { text: "", conf: 1, poly: null })
+      const target = row === "total" ? (state.note.totals[key] = state.note.totals[key] || { text: "", conf: 1, poly: null })
         : row === "header" ? (state.note.header[key] = state.note.header[key] || { text: "", conf: 1, poly: null })
         : (state.note.rows[row][key] = state.note.rows[row][key] || { text: "", conf: 1, poly: null });
       target.text = i.value;
@@ -627,17 +633,14 @@ col.c-no { width: 32px; } col.c-unit { width: 64px; } col.c-qty { width: 70px; }
 
   function renderTable() {
     $("table-card").hidden = false;
-    const labels = state.note.labels || {};
-    const weight = /wt|weight|kg/i.test((labels.unit_value || "") + (labels.line_total || ""));
-    $("h-uv").textContent = weight ? "Unit kg" : "Unit price";
-    $("h-lt").textContent = weight ? "Line kg" : "Line total";
     const tb = $("rows"); tb.innerHTML = "";
+    const cols = [["code", false], ["item", false], ["unit", false], ["ppb", true], ["boxes", true], ["loose", true], ["total", true], ["expiry", true]];
     state.note.rows.forEach((row, i) => {
       const tr = document.createElement("tr");
       const tdn = document.createElement("td"); tdn.className = "no";
       tdn.textContent = row.no ? row.no.text : i + 1;
       tr.appendChild(tdn);
-      [["item", false], ["unit", false], ["qty", true], ["unit_value", true], ["line_total", true]].forEach(([k, num]) => {
+      cols.forEach(([k, num]) => {
         const td = document.createElement("td");
         if (k === "unit") td.className = "u";
         td.appendChild(input(`row${i + 1}.${k}`, row[k], num, i, k));
@@ -645,15 +648,16 @@ col.c-no { width: 32px; } col.c-unit { width: 64px; } col.c-qty { width: 70px; }
       });
       tb.appendChild(tr);
     });
-    const tq = document.createElement("tr"); tq.className = "total";
-    tq.innerHTML = `<td></td><td colspan="2" class="lab">Total quantity</td>`;
-    const tqd = document.createElement("td"); tqd.appendChild(input("total_qty", state.note.total_qty, true, "total", "total_qty"));
-    tq.appendChild(tqd); tq.appendChild(document.createElement("td")); tq.appendChild(document.createElement("td"));
-    tb.appendChild(tq);
-    const gt = document.createElement("tr"); gt.className = "total";
-    gt.innerHTML = `<td></td><td colspan="4" class="lab">Grand total</td>`;
-    const gtd = document.createElement("td"); gtd.appendChild(input("grand_total", state.note.grand_total, true, "total", "grand_total"));
-    gt.appendChild(gtd); tb.appendChild(gt);
+    // label spans up to the column where the value sits; 9 columns in all
+    [["boxes", "Total boxes", 5], ["pieces", "Total pieces", 7], ["lines", "Number of lines", 7]].forEach(([k, label, span]) => {
+      const tr = document.createElement("tr"); tr.className = "total";
+      tr.innerHTML = `<td colspan="${span}" class="lab">${label}</td>`;
+      const td = document.createElement("td");
+      td.appendChild(input(`totals.${k}`, state.note.totals[k], true, "total", k));
+      tr.appendChild(td);
+      for (let c = span + 1; c < 9; c++) tr.appendChild(document.createElement("td"));
+      tb.appendChild(tr);
+    });
     paintCells();
   }
 
@@ -677,7 +681,8 @@ col.c-no { width: 32px; } col.c-unit { width: 64px; } col.c-qty { width: 70px; }
   }
 
   function refCell(ref) {
-    if (ref === "total_qty" || ref === "grand_total") return state.note[ref];
+    const t = /^totals\.(\w+)$/.exec(ref);
+    if (t) return state.note.totals[t[1]];
     const m = /^row(\d+)\.(\w+)$/.exec(ref);
     if (m) return state.note.rows[+m[1] - 1]?.[m[2]];
     const h = /^header\.(\w+)$/.exec(ref);
@@ -688,6 +693,7 @@ col.c-no { width: 32px; } col.c-unit { width: 64px; } col.c-qty { width: 70px; }
     $("head-card").hidden = false;
     const box = $("fields"); box.innerHTML = "";
     HEADER.forEach(([k, label]) => {
+      if (k === "party" && state.note.doc_type === "grn") label = "Supplier / donor";
       const d = document.createElement("div"); d.className = "field";
       d.innerHTML = `<label>${label}</label>`;
       d.appendChild(input(`header.${k}`, state.note.header[k], false, "header", k));
@@ -698,7 +704,7 @@ col.c-no { width: 32px; } col.c-unit { width: 64px; } col.c-qty { width: 70px; }
   function renderMeta() {
     const t = state.timings || {}, n = state.note;
     const parts = [
-      `<span>Numbers written as <b>${n.style === "comma" ? "1.234,50" : "1,234.50"}</b></span>`,
+      `<span>Document <b>${{ waybill: "waybill (dispatch)", grn: "goods received note" }[n.doc_type] || "not recognised"}</b></span>`,
       `<span>Sheet edge <b>${state.page_corners ? "found and flattened" : "not found, read as is"}</b></span>`,
     ];
     if (Math.abs(n.skew_deg) >= 0.1) parts.push(`<span>Leftover skew <b>${n.skew_deg.toFixed(1)}°</b></span>`);
@@ -722,7 +728,7 @@ col.c-no { width: 32px; } col.c-unit { width: 64px; } col.c-qty { width: 70px; }
       const cells = [];
       Object.values(state.note.header).forEach(c => c && cells.push(c));
       state.note.rows.forEach(r => Object.values(r).forEach(c => c && cells.push(c)));
-      [state.note.total_qty, state.note.grand_total].forEach(c => c && cells.push(c));
+      Object.values(state.note.totals || {}).forEach(c => c && cells.push(c));
       cells.forEach(c => c.poly && svg.appendChild(poly(c.poly, "cell-box" + (c.conf < state.low_conf ? " low" : ""))));
     }
     state.flags.forEach(f => {
