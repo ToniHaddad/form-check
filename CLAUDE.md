@@ -11,7 +11,7 @@ synthetic (fictional NGO "Northbridge Relief").
 python -m venv .venv && .venv/Scripts/pip install -e ".[dev]"   # bin/ on Linux
 formcheck serve                 # review screen on http://127.0.0.1:8103
 formcheck check photo.jpg       # exit 1 when a check fails or a number is unreadable
-formcheck bench --per-level 30  # writes docs/benchmark.json and .txt (about 5 min)
+formcheck bench --per-level 25  # writes docs/benchmark.json and .txt (15 to 25 min on CPU)
 python scripts/make_samples.py  # rebuilds the bundled sample photos
 pytest -q
 ```

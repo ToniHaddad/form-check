@@ -1,0 +1,23 @@
+$ formcheck check src/formcheck/samples/line-total-easy.jpg
+Waybill      NR-LB-45535    Date 24/05/2026
+Route        BeirutCentral Warehouse -> SaidaDistributionPoint
+Driver       WalidKhoury
+Numbers      1,234.50 style
+
+ No  Item                        Unit         Qty    Unit price    Line total
+-----------------------------------------------------------------------------
+  1  Chlorinesolution,1L         bottle        82          2.05        168.10
+  2  Sugar,10kg                  bag        2,214          8.60     24,040.40
+  3  Jerrycan,20                 pcs          171          3.85        658.35
+  4  Kitchen set                 set          386         26.85     10,364.10
+  5  Thermal blanket             pcs           23          8.20        188.60
+  6  Solarlamp                   pcs           99         11.85      1,173.15
+  7  Wheatflour,50kg             sack         114         43.45      4,953.30
+  8  Plastic sheeting            roll         556         80.25     44,619.00
+  9  Sunfloweroil5L              bottle        95          7.70        731.50
+                            Total quantity  3,740
+                                                      Grand total   86,896.50
+
+1 flag:
+  [1] Line 2: 2,214 × 8.60 = 19,040.40, the note says 24,040.40.
+exit code: 1
