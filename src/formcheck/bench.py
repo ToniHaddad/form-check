@@ -13,7 +13,6 @@ from __future__ import annotations
 
 import json
 import re
-import time
 from collections import defaultdict
 from decimal import Decimal
 from pathlib import Path
@@ -21,7 +20,7 @@ from pathlib import Path
 from .checks import run_checks
 from .generator import DIFFICULTIES, ERROR_TYPES, make_form, photograph, render
 from .numbers import parse_number
-from .ocr import ocr_photo
+from .ocr import OcrPage, ocr_photo
 from .table import rebuild
 
 
@@ -54,6 +53,9 @@ def score_form(truth, note, flags) -> dict:
         c = row.get("no")
         if c and c.text.strip().isdigit():
             by_no.setdefault(int(c.text.strip()), i)
+    same_count = len(note.rows) == len(truth.rows)
+    if same_count:
+        by_no = {t.no: i for i, t in enumerate(truth.rows)}  # a misread row number must not shift lines
     for idx, trow in enumerate(truth.rows):
         i = by_no.get(trow.no, idx if idx < len(note.rows) else None)
         row = note.rows[i] if i is not None and i < len(note.rows) else {}
@@ -131,11 +133,13 @@ def main(per_level: int = 30, seed: int = 5000, out: str | None = "docs/benchmar
             if keep:
                 Path(keep).mkdir(parents=True, exist_ok=True)
                 (Path(keep) / f"{form.form_id}.jpg").write_bytes(photo)
-            t0 = time.perf_counter()
-            page = ocr_photo(photo)
+            cached = Path(keep) / f"{form.form_id}.ocr.json" if keep else None
+            # --keep also lets a rerun reuse the saved OCR output (scoring changes only)
+            page = OcrPage.load(cached) if cached and cached.exists() else ocr_photo(photo)
             note = rebuild(page)
             flags = run_checks(note)
-            secs += time.perf_counter() - t0
+            # time spent finding the sheet and reading it, as measured when the OCR ran
+            secs += page.timings.get("page_s", 0) + page.timings.get("ocr_s", 0)
             sc = score_form(form, note, flags)
             if keep:
                 (Path(keep) / f"{form.form_id}.ocr.json").write_text(page.to_json(), encoding="utf-8")

@@ -1,0 +1,1037 @@
+{
+  "easy": {
+    "forms": 25,
+    "seconds_per_form": 12.31,
+    "field_accuracy": {
+      "header": {
+        "correct": 124,
+        "total": 125,
+        "pct": 99.2
+      },
+      "text cells": {
+        "correct": 313,
+        "total": 328,
+        "pct": 95.4
+      },
+      "number cells": {
+        "correct": 489,
+        "total": 492,
+        "pct": 99.4
+      },
+      "totals": {
+        "correct": 50,
+        "total": 50,
+        "pct": 100.0
+      },
+      "rows found": {
+        "correct": 25,
+        "total": 25,
+        "pct": 100.0
+      }
+    },
+    "all_fields_pct": 98.1,
+    "silent_misreads": 0,
+    "misreads": 3,
+    "planted": 10,
+    "caught": 10,
+    "clean": 15,
+    "clean_flagged": 0,
+    "clean_error_flag": 0
+  },
+  "medium": {
+    "forms": 25,
+    "seconds_per_form": 4.35,
+    "field_accuracy": {
+      "header": {
+        "correct": 108,
+        "total": 125,
+        "pct": 86.4
+      },
+      "text cells": {
+        "correct": 246,
+        "total": 328,
+        "pct": 75.0
+      },
+      "number cells": {
+        "correct": 491,
+        "total": 492,
+        "pct": 99.8
+      },
+      "totals": {
+        "correct": 45,
+        "total": 50,
+        "pct": 90.0
+      },
+      "rows found": {
+        "correct": 25,
+        "total": 25,
+        "pct": 100.0
+      }
+    },
+    "all_fields_pct": 89.4,
+    "silent_misreads": 0,
+    "misreads": 6,
+    "planted": 10,
+    "caught": 10,
+    "clean": 15,
+    "clean_flagged": 3,
+    "clean_error_flag": 3
+  },
+  "hard": {
+    "forms": 25,
+    "seconds_per_form": 4.73,
+    "field_accuracy": {
+      "header": {
+        "correct": 34,
+        "total": 125,
+        "pct": 27.2
+      },
+      "text cells": {
+        "correct": 33,
+        "total": 304,
+        "pct": 10.9
+      },
+      "number cells": {
+        "correct": 393,
+        "total": 456,
+        "pct": 86.2
+      },
+      "totals": {
+        "correct": 23,
+        "total": 50,
+        "pct": 46.0
+      },
+      "rows found": {
+        "correct": 25,
+        "total": 25,
+        "pct": 100.0
+      }
+    },
+    "all_fields_pct": 51.7,
+    "silent_misreads": 3,
+    "misreads": 80,
+    "planted": 10,
+    "caught": 8,
+    "clean": 15,
+    "clean_flagged": 15,
+    "clean_error_flag": 15,
+    "unreadable there": 2
+  },
+  "overall": {
+    "planted": 30,
+    "caught": 28,
+    "unreadable there": 2,
+    "flagged elsewhere": 0,
+    "missed": 0,
+    "clean": 45,
+    "clean_flagged": 18,
+    "clean_error_flag": 18,
+    "misreads": 89,
+    "silent_misreads": 3,
+    "forms": 75
+  },
+  "forms": [
+    {
+      "form": "easy-5000",
+      "planted": {
+        "type": "line_total",
+        "row": 2,
+        "field": "line_total",
+        "correct": "28.80",
+        "written": "27.80"
+      },
+      "outcome": "caught",
+      "flags": [
+        "Line 2: 8 \u00d7 3,60 = 28,80, the note says 27,80."
+      ],
+      "silent_misreads": []
+    },
+    {
+      "form": "easy-5001",
+      "planted": {
+        "type": "grand_total",
+        "row": null,
+        "field": "grand_total",
+        "correct": "4323.95",
+        "written": "4001.55"
+      },
+      "outcome": "caught",
+      "flags": [
+        "The line totals add up to 4.323,95, the note says 4.001,55 (-322,40)."
+      ],
+      "silent_misreads": []
+    },
+    {
+      "form": "easy-5002",
+      "planted": null,
+      "outcome": null,
+      "flags": [],
+      "silent_misreads": []
+    },
+    {
+      "form": "easy-5003",
+      "planted": null,
+      "outcome": null,
+      "flags": [],
+      "silent_misreads": []
+    },
+    {
+      "form": "easy-5004",
+      "planted": null,
+      "outcome": null,
+      "flags": [],
+      "silent_misreads": []
+    },
+    {
+      "form": "easy-5005",
+      "planted": {
+        "type": "digit_changed",
+        "row": 3,
+        "field": "qty",
+        "correct": "1213",
+        "written": "3213"
+      },
+      "outcome": "caught",
+      "flags": [
+        "Line 3: 3.213 \u00d7 1,80 = 5.783,40, the note says 2.183,40.",
+        "Line 5: 6 \u00d7 10,10 = 60,60, the note says 909,00.",
+        "The quantities add up to 3.423, the note says 1.507 (-1.916)."
+      ],
+      "silent_misreads": []
+    },
+    {
+      "form": "easy-5006",
+      "planted": {
+        "type": "line_total",
+        "row": 7,
+        "field": "line_total",
+        "correct": "16230.90",
+        "written": "16320.90"
+      },
+      "outcome": "caught",
+      "flags": [
+        "Line 7: 177 \u00d7 91.70 = 16,230.90, the note says 16,320.90."
+      ],
+      "silent_misreads": []
+    },
+    {
+      "form": "easy-5007",
+      "planted": null,
+      "outcome": null,
+      "flags": [],
+      "silent_misreads": []
+    },
+    {
+      "form": "easy-5008",
+      "planted": null,
+      "outcome": null,
+      "flags": [],
+      "silent_misreads": []
+    },
+    {
+      "form": "easy-5009",
+      "planted": null,
+      "outcome": null,
+      "flags": [],
+      "silent_misreads": []
+    },
+    {
+      "form": "easy-5010",
+      "planted": {
+        "type": "grand_total",
+        "row": null,
+        "field": "grand_total",
+        "correct": "82059.95",
+        "written": "46716.95"
+      },
+      "outcome": "caught",
+      "flags": [
+        "The line totals add up to 82.059,95, the note says 46.716,95 (-35.343,00)."
+      ],
+      "silent_misreads": []
+    },
+    {
+      "form": "easy-5011",
+      "planted": {
+        "type": "digit_changed",
+        "row": 1,
+        "field": "unit_value",
+        "correct": "9.15",
+        "written": "9.17"
+      },
+      "outcome": "caught",
+      "flags": [
+        "Line 1: 86 \u00d7 9,17 = 788,62, the note says 786,90."
+      ],
+      "silent_misreads": []
+    },
+    {
+      "form": "easy-5012",
+      "planted": null,
+      "outcome": null,
+      "flags": [],
+      "silent_misreads": []
+    },
+    {
+      "form": "easy-5013",
+      "planted": null,
+      "outcome": null,
+      "flags": [],
+      "silent_misreads": []
+    },
+    {
+      "form": "easy-5014",
+      "planted": null,
+      "outcome": null,
+      "flags": [],
+      "silent_misreads": []
+    },
+    {
+      "form": "easy-5015",
+      "planted": {
+        "type": "line_total",
+        "row": 5,
+        "field": "line_total",
+        "correct": "338.00",
+        "written": "368.00"
+      },
+      "outcome": "caught",
+      "flags": [
+        "Line 5: 169 \u00d7 2.00 = 338.00, the note says 368.00."
+      ],
+      "silent_misreads": []
+    },
+    {
+      "form": "easy-5016",
+      "planted": {
+        "type": "grand_total",
+        "row": null,
+        "field": "grand_total",
+        "correct": "87998.10",
+        "written": "89998.10"
+      },
+      "outcome": "caught",
+      "flags": [
+        "The line totals add up to 87.998,10, the note says 89.998,10 (+2.000,00)."
+      ],
+      "silent_misreads": []
+    },
+    {
+      "form": "easy-5017",
+      "planted": null,
+      "outcome": null,
+      "flags": [],
+      "silent_misreads": []
+    },
+    {
+      "form": "easy-5018",
+      "planted": null,
+      "outcome": null,
+      "flags": [],
+      "silent_misreads": []
+    },
+    {
+      "form": "easy-5019",
+      "planted": null,
+      "outcome": null,
+      "flags": [],
+      "silent_misreads": []
+    },
+    {
+      "form": "easy-5020",
+      "planted": {
+        "type": "digit_changed",
+        "row": 6,
+        "field": "qty",
+        "correct": "19",
+        "written": "18"
+      },
+      "outcome": "caught",
+      "flags": [
+        "Line 3: 66 \u00d7 3.60 = 237.60, the note says 356.40.",
+        "Line 6: 18 \u00d7 1.85 = 33.30, the note says 35.15.",
+        "The quantities add up to 2,342, the note says 2,376 (+34)."
+      ],
+      "silent_misreads": []
+    },
+    {
+      "form": "easy-5021",
+      "planted": {
+        "type": "line_total",
+        "row": 6,
+        "field": "line_total",
+        "correct": "1814.40",
+        "written": "1014.40"
+      },
+      "outcome": "caught",
+      "flags": [
+        "Line 5: 6 \u00d7 1,85 = 11,10, the note says 166,50.",
+        "Line 6: 72 \u00d7 25,20 = 1.814,40, the note says 1.014,40.",
+        "The quantities add up to 1.340, the note says 1.424 (+84)."
+      ],
+      "silent_misreads": []
+    },
+    {
+      "form": "easy-5022",
+      "planted": null,
+      "outcome": null,
+      "flags": [],
+      "silent_misreads": []
+    },
+    {
+      "form": "easy-5023",
+      "planted": null,
+      "outcome": null,
+      "flags": [],
+      "silent_misreads": []
+    },
+    {
+      "form": "easy-5024",
+      "planted": null,
+      "outcome": null,
+      "flags": [],
+      "silent_misreads": []
+    },
+    {
+      "form": "medium-6000",
+      "planted": {
+        "type": "line_total",
+        "row": 7,
+        "field": "line_total",
+        "correct": "5055.00",
+        "written": "4555.00"
+      },
+      "outcome": "caught",
+      "flags": [
+        "Line 6: 173 \u00d7 10,80 = 1.868,40, the note says 1.888,40.",
+        "Line 7: 150 \u00d7 33,70 = 5.055,00, the note says 4.555,00.",
+        "The line totals add up to 54.614,70, the note says 54.594,70 (-20,00)."
+      ],
+      "silent_misreads": []
+    },
+    {
+      "form": "medium-6001",
+      "planted": {
+        "type": "grand_total",
+        "row": null,
+        "field": "grand_total",
+        "correct": "9601.35",
+        "written": "4743.35"
+      },
+      "outcome": "caught",
+      "flags": [
+        "The line totals add up to 9,601.35, the note says 4,743.35 (-4,858.00)."
+      ],
+      "silent_misreads": []
+    },
+    {
+      "form": "medium-6002",
+      "planted": null,
+      "outcome": null,
+      "flags": [],
+      "silent_misreads": []
+    },
+    {
+      "form": "medium-6003",
+      "planted": null,
+      "outcome": null,
+      "flags": [],
+      "silent_misreads": []
+    },
+    {
+      "form": "medium-6004",
+      "planted": null,
+      "outcome": null,
+      "flags": [],
+      "silent_misreads": []
+    },
+    {
+      "form": "medium-6005",
+      "planted": {
+        "type": "digit_changed",
+        "row": 6,
+        "field": "unit_value",
+        "correct": "1.85",
+        "written": "1.84"
+      },
+      "outcome": "caught",
+      "flags": [
+        "Line 6: 619 \u00d7 1,84 = 1.138,96, the note says 1.145,15.",
+        "The line totals add up to 69.629,53, the note says 69.029,53 (-600,00)."
+      ],
+      "silent_misreads": []
+    },
+    {
+      "form": "medium-6006",
+      "planted": {
+        "type": "line_total",
+        "row": 3,
+        "field": "line_total",
+        "correct": "872.00",
+        "written": "882.00"
+      },
+      "outcome": "caught",
+      "flags": [
+        "Line 3: 109 \u00d7 8,00 = 872,00, the note says 882,00."
+      ],
+      "silent_misreads": []
+    },
+    {
+      "form": "medium-6007",
+      "planted": null,
+      "outcome": null,
+      "flags": [],
+      "silent_misreads": []
+    },
+    {
+      "form": "medium-6008",
+      "planted": null,
+      "outcome": null,
+      "flags": [
+        "The quantities add up to 613, the note says 13 (-600)."
+      ],
+      "silent_misreads": []
+    },
+    {
+      "form": "medium-6009",
+      "planted": null,
+      "outcome": null,
+      "flags": [
+        "The quantities add up to 4,696, the note says 4,090 (-606)."
+      ],
+      "silent_misreads": []
+    },
+    {
+      "form": "medium-6010",
+      "planted": {
+        "type": "grand_total",
+        "row": null,
+        "field": "grand_total",
+        "correct": "30740.30",
+        "written": "30470.30"
+      },
+      "outcome": "caught",
+      "flags": [
+        "The line totals add up to 30,740.30, the note says 30,470.30 (-270.00)."
+      ],
+      "silent_misreads": []
+    },
+    {
+      "form": "medium-6011",
+      "planted": {
+        "type": "digit_changed",
+        "row": 3,
+        "field": "line_total",
+        "correct": "53.04",
+        "written": "56.04"
+      },
+      "outcome": "caught",
+      "flags": [
+        "Line 3: 52 \u00d7 1.02 = 53.04, the note says 56.04.",
+        "The line totals add up to 26,785.91, the note says 26,782.91 (-3.00)."
+      ],
+      "silent_misreads": []
+    },
+    {
+      "form": "medium-6012",
+      "planted": null,
+      "outcome": null,
+      "flags": [],
+      "silent_misreads": []
+    },
+    {
+      "form": "medium-6013",
+      "planted": null,
+      "outcome": null,
+      "flags": [],
+      "silent_misreads": []
+    },
+    {
+      "form": "medium-6014",
+      "planted": null,
+      "outcome": null,
+      "flags": [],
+      "silent_misreads": []
+    },
+    {
+      "form": "medium-6015",
+      "planted": {
+        "type": "line_total",
+        "row": 2,
+        "field": "line_total",
+        "correct": "8980.20",
+        "written": "9280.20"
+      },
+      "outcome": "caught",
+      "flags": [
+        "Line 2: 108 \u00d7 83,15 = 8.980,20, the note says 9.280,20.",
+        "The quantities add up to 2.566, the note says 2.500 (-66)."
+      ],
+      "silent_misreads": []
+    },
+    {
+      "form": "medium-6016",
+      "planted": {
+        "type": "grand_total",
+        "row": null,
+        "field": "grand_total",
+        "correct": "50741.55",
+        "written": "48926.55"
+      },
+      "outcome": "caught",
+      "flags": [
+        "The line totals add up to 50.741,55, the note says 48.926,55 (-1.815,00)."
+      ],
+      "silent_misreads": []
+    },
+    {
+      "form": "medium-6017",
+      "planted": null,
+      "outcome": null,
+      "flags": [],
+      "silent_misreads": []
+    },
+    {
+      "form": "medium-6018",
+      "planted": null,
+      "outcome": null,
+      "flags": [
+        "The quantities add up to 697, the note says 97 (-600)."
+      ],
+      "silent_misreads": []
+    },
+    {
+      "form": "medium-6019",
+      "planted": null,
+      "outcome": null,
+      "flags": [],
+      "silent_misreads": []
+    },
+    {
+      "form": "medium-6020",
+      "planted": {
+        "type": "digit_changed",
+        "row": 1,
+        "field": "qty",
+        "correct": "124",
+        "written": "824"
+      },
+      "outcome": "caught",
+      "flags": [
+        "Line 1: 824 \u00d7 4.70 = 3,872.80, the note says 582.80.",
+        "The quantities add up to 3,213, the note says 2,513 (-700)."
+      ],
+      "silent_misreads": []
+    },
+    {
+      "form": "medium-6021",
+      "planted": {
+        "type": "line_total",
+        "row": 2,
+        "field": "line_total",
+        "correct": "1054.50",
+        "written": "554.50"
+      },
+      "outcome": "caught",
+      "flags": [
+        "Line 2: 57 \u00d7 18,50 = 1.054,50, the note says 554,50."
+      ],
+      "silent_misreads": []
+    },
+    {
+      "form": "medium-6022",
+      "planted": null,
+      "outcome": null,
+      "flags": [],
+      "silent_misreads": []
+    },
+    {
+      "form": "medium-6023",
+      "planted": null,
+      "outcome": null,
+      "flags": [],
+      "silent_misreads": []
+    },
+    {
+      "form": "medium-6024",
+      "planted": null,
+      "outcome": null,
+      "flags": [],
+      "silent_misreads": []
+    },
+    {
+      "form": "hard-7000",
+      "planted": {
+        "type": "line_total",
+        "row": 4,
+        "field": "line_total",
+        "correct": "1111.80",
+        "written": "1011.80"
+      },
+      "outcome": "caught",
+      "flags": [
+        "Line 1: 155 \u00d7 31.35 = 4,859.25, the note says 4,850.25.",
+        "Line 4: 109 \u00d7 10.20 = 1,111.80, the note says 1,011.80.",
+        "Line 6: 42 \u00d7 0.00 = 0.00, the note says 378.00.",
+        "Line 7: 89 \u00d7 25.50 = 2,269.50, the note says 2,280.50.",
+        "The line totals add up to 90,249.25, the note says 90,247.25 (-2.00)."
+      ],
+      "silent_misreads": []
+    },
+    {
+      "form": "hard-7001",
+      "planted": {
+        "type": "grand_total",
+        "row": null,
+        "field": "grand_total",
+        "correct": "3009.87",
+        "written": "2972.07"
+      },
+      "outcome": "caught",
+      "flags": [
+        "The quantities add up to 1,495, the note says 1,405 (-90).",
+        "The line totals add up to 3,009.87, the note says 2,972.07 (-37.80)."
+      ],
+      "silent_misreads": []
+    },
+    {
+      "form": "hard-7002",
+      "planted": null,
+      "outcome": null,
+      "flags": [
+        "Line 2: 71 \u00d7 8.85 = 628.35, the note says 28.35.",
+        "Line 3: 25 \u00d7 10.10 = 252.50, the note says 477.50.",
+        "Line 4: 131 \u00d7 24.60 = 3,222.60, the note says 3,222.00.",
+        "The line totals add up to 5,905.85, the note says 506.45 (-5,399.40)."
+      ],
+      "silent_misreads": []
+    },
+    {
+      "form": "hard-7003",
+      "planted": null,
+      "outcome": null,
+      "flags": [
+        "Line 1: could not read the line total. Check the photo and type it in.",
+        "Line 4: 40 \u00d7 10.10 = 404.00, the note says 464.60.",
+        "Line 5: 62 \u00d7 1.08 = 66.96, the note says 5.90.",
+        "The quantities add up to 1,774, the note says 1,780 (+6)."
+      ],
+      "silent_misreads": [
+        {
+          "cell": "grand_total",
+          "read": "15,500.10",
+          "printed": "15599.16"
+        }
+      ]
+    },
+    {
+      "form": "hard-7004",
+      "planted": null,
+      "outcome": null,
+      "flags": [
+        "Line 1: 1,090 \u00d7 3.30 = 3,597.00, the note says 3,507.00.",
+        "The quantities add up to 1,907, the note says 1,007 (-900).",
+        "The line totals add up to 27,965.75, the note says 28,055.76 (+90.01)."
+      ],
+      "silent_misreads": []
+    },
+    {
+      "form": "hard-7005",
+      "planted": {
+        "type": "digit_changed",
+        "row": 6,
+        "field": "qty",
+        "correct": "45",
+        "written": "47"
+      },
+      "outcome": "caught",
+      "flags": [
+        "Line 1: 93 \u00d7 10.05 = 934.65, the note says 1,827.45.",
+        "Line 5: 1 \u00d7 11.10 = 12.22, the note says 12,221.10.",
+        "Line 6: 47 \u00d7 7.10 = 333.70, the note says 310.50.",
+        "The quantities add up to 359, the note says 1,457 (+1,098).",
+        "The line totals add up to 25,218.50, the note says 25,227.50 (+9.00)."
+      ],
+      "silent_misreads": []
+    },
+    {
+      "form": "hard-7006",
+      "planted": {
+        "type": "line_total",
+        "row": 5,
+        "field": "line_total",
+        "correct": "38.40",
+        "written": "41.40"
+      },
+      "outcome": "unreadable there",
+      "flags": [
+        "Line 5: could not read the quantity. Check the photo and type it in.",
+        "The line totals add up to 25,416.74, the note says 25,410.74 (-6.00)."
+      ],
+      "silent_misreads": []
+    },
+    {
+      "form": "hard-7007",
+      "planted": null,
+      "outcome": null,
+      "flags": [
+        "Line 1: 2 \u00d7 18.50 = 36.76, the note says 36,750.50.",
+        "Line 3: 2 \u00d7 1.85 = 3.64, the note says 3,640.80.",
+        "Line 4: 130 \u00d7 0.95 = 123.50, the note says 129.20.",
+        "Line 5: 2 \u00d7 1.02 = 2.37, the note says 2,372.52.",
+        "The quantities add up to 257, the note says 1 (-257).",
+        "The line totals add up to 43,594.82, the note says 43,603.82 (+9.00)."
+      ],
+      "silent_misreads": []
+    },
+    {
+      "form": "hard-7008",
+      "planted": null,
+      "outcome": null,
+      "flags": [
+        "Line 1: 1,094 \u00d7 0.95 = 1,039.30, the note says 1,809.30.",
+        "The quantities add up to 1,991, the note says 2,601 (+610).",
+        "Could not read the printed grand total."
+      ],
+      "silent_misreads": []
+    },
+    {
+      "form": "hard-7009",
+      "planted": null,
+      "outcome": null,
+      "flags": [
+        "Line 3: 278 \u00d7 1.02 = 283.56, the note says 283.50.",
+        "Line 6: 145 \u00d7 0.42 = 60.90, the note says 60.00.",
+        "Line 7: could not read the quantity. Check the photo and type it in.",
+        "The line totals add up to 73,064.96, the note says 73,005.92 (-59.04)."
+      ],
+      "silent_misreads": [
+        {
+          "cell": "total_qty",
+          "read": "2.150",
+          "printed": "2150"
+        }
+      ]
+    },
+    {
+      "form": "hard-7010",
+      "planted": {
+        "type": "grand_total",
+        "row": null,
+        "field": "grand_total",
+        "correct": "10590.44",
+        "written": "10190.84"
+      },
+      "outcome": "caught",
+      "flags": [
+        "Line 1: 104 \u00d7 25.20 = 2,620.80, the note says 2,020.80.",
+        "Line 4: 2,016 \u00d7 1.02 = 2,056.32, the note says 2,050.32.",
+        "Line 5: 123 \u00d7 0.42 = 51.66, the note says 51.68.",
+        "Line 7: 59 \u00d7 50.30 = 2,967.70, the note says 2,057.70.",
+        "Line 9: 111 \u00d7 2.60 = 288.60, the note says 350.00.",
+        "The quantities add up to 2,790, the note says 2,700 (-90).",
+        "The line totals add up to 9,024.86, the note says 10,100.84 (+1,075.98)."
+      ],
+      "silent_misreads": []
+    },
+    {
+      "form": "hard-7011",
+      "planted": {
+        "type": "digit_changed",
+        "row": 8,
+        "field": "line_total",
+        "correct": "714.15",
+        "written": "724.15"
+      },
+      "outcome": "caught",
+      "flags": [
+        "Line 1: 611 \u00d7 27.35 = 16,710.85, the note says 10,710.85.",
+        "Line 4: could not read the quantity. Check the photo and type it in.",
+        "Line 5: 172 \u00d7 30.25 = 5,203.00, the note says 6,751.00.",
+        "Line 8: 69 \u00d7 10.35 = 714.15, the note says 724.15.",
+        "The line totals add up to 35,251.51, the note says 41,241.50 (+5,989.99)."
+      ],
+      "silent_misreads": [
+        {
+          "cell": "total_qty",
+          "read": "2,001",
+          "printed": "2091"
+        }
+      ]
+    },
+    {
+      "form": "hard-7012",
+      "planted": null,
+      "outcome": null,
+      "flags": [
+        "Line 1: 78 \u00d7 0.95 = 74.10, the note says 776.10.",
+        "Line 4: 52 \u00d7 70.55 = 3,668.60, the note says 3,068.60.",
+        "The quantities add up to 552, the note says 562 (+10).",
+        "Could not read the printed grand total."
+      ],
+      "silent_misreads": []
+    },
+    {
+      "form": "hard-7013",
+      "planted": null,
+      "outcome": null,
+      "flags": [
+        "Line 3: 1,107 \u00d7 3.10 = 3,431.70, the note says 3,710.70.",
+        "Line 8: 148 \u00d7 1.02 = 150.96, the note says 150.90.",
+        "The quantities add up to 5,677, the note says 5,707 (+30).",
+        "Could not read the printed grand total."
+      ],
+      "silent_misreads": []
+    },
+    {
+      "form": "hard-7014",
+      "planted": null,
+      "outcome": null,
+      "flags": [
+        "Line 3: 149 \u00d7 1.02 = 151.98, the note says 151.08.",
+        "The line totals add up to 923.70, the note says 924.00 (+0.30)."
+      ],
+      "silent_misreads": []
+    },
+    {
+      "form": "hard-7015",
+      "planted": {
+        "type": "line_total",
+        "row": 6,
+        "field": "line_total",
+        "correct": "1107.50",
+        "written": "807.50"
+      },
+      "outcome": "caught",
+      "flags": [
+        "Line 2: could not read the quantity. Check the photo and type it in.",
+        "Line 6: 9 \u00d7 22.15 = 199.35, the note says 807.50.",
+        "The line totals add up to 7,562.70, the note says 7,502.70 (-60.00)."
+      ],
+      "silent_misreads": []
+    },
+    {
+      "form": "hard-7016",
+      "planted": {
+        "type": "grand_total",
+        "row": null,
+        "field": "grand_total",
+        "correct": "1341.45",
+        "written": "1221.20"
+      },
+      "outcome": "caught",
+      "flags": [
+        "Line 1: 20 \u00d7 4.70 = 94.00, the note says 4.00.",
+        "Line 3: 50 \u00d7 3.00 = 150.00, the note says 180.00.",
+        "Line 4: 148 \u00d7 0.40 = 59.20, the note says 947.20.",
+        "The line totals add up to 1,251.45, the note says 1,221.20 (-30.25)."
+      ],
+      "silent_misreads": []
+    },
+    {
+      "form": "hard-7017",
+      "planted": null,
+      "outcome": null,
+      "flags": [
+        "Line 2: 2 \u00d7 0.40 = 0.88, the note says 14,048.00.",
+        "Line 3: 81 \u00d7 18.50 = 1,498.50, the note says 1,408.50.",
+        "Line 4: 2 \u00d7 0.52 = 1.04, the note says 469.04.",
+        "The quantities add up to 395, the note says 3 (-392).",
+        "The line totals add up to 17,886.54, the note says 17,976.54 (+90.00)."
+      ],
+      "silent_misreads": []
+    },
+    {
+      "form": "hard-7018",
+      "planted": null,
+      "outcome": null,
+      "flags": [
+        "Line 1: 32 \u00d7 31.55 = 1,009.60, the note says 1,009.00.",
+        "Line 6: 704 \u00d7 8.90 = 6,265.60, the note says 6,205.60.",
+        "The line totals add up to 16,745.45, the note says 10,806.05 (-5,939.40)."
+      ],
+      "silent_misreads": []
+    },
+    {
+      "form": "hard-7019",
+      "planted": null,
+      "outcome": null,
+      "flags": [
+        "The quantities add up to 468, the note says 408 (-60)."
+      ],
+      "silent_misreads": []
+    },
+    {
+      "form": "hard-7020",
+      "planted": {
+        "type": "digit_changed",
+        "row": 4,
+        "field": "qty",
+        "correct": "482",
+        "written": "488"
+      },
+      "outcome": "caught",
+      "flags": [
+        "Line 1: 38 \u00d7 35.90 = 1,364.20, the note says 1,292.40.",
+        "Line 4: 488 \u00d7 2.05 = 1,000.40, the note says 988.10.",
+        "Line 6: 120 \u00d7 13.75 = 1,650.00, the note says 1,732.50.",
+        "The quantities add up to 2,296, the note says 2,294 (-2).",
+        "The line totals add up to 16,692.80, the note says 10,002.80 (-6,690.00)."
+      ],
+      "silent_misreads": []
+    },
+    {
+      "form": "hard-7021",
+      "planted": {
+        "type": "line_total",
+        "row": 6,
+        "field": "line_total",
+        "correct": "276.15",
+        "written": "267.15"
+      },
+      "outcome": "unreadable there",
+      "flags": [
+        "Line 2: 108 \u00d7 8.05 = 869.40, the note says 934.20.",
+        "Line 3: could not read the unit value. Check the photo and type it in.",
+        "Line 5: 133 \u00d7 7.05 = 937.65, the note says 1,017.45.",
+        "Line 6: could not read the quantity. Check the photo and type it in.",
+        "The line totals add up to 19,163.00, the note says 18,163.00 (-1,000.00)."
+      ],
+      "silent_misreads": []
+    },
+    {
+      "form": "hard-7022",
+      "planted": null,
+      "outcome": null,
+      "flags": [
+        "Line 2: 96 \u00d7 17,10 = 1.641,60, the note says 1.641,00.",
+        "Line 5: 50 \u00d7 34,40 = 1.720,00, the note says 22.566,40.",
+        "Line 8: 170 \u00d7 43,26 = 7.354,20, the note says 7.352,50.",
+        "The quantities add up to 1.664, the note says 2.270 (+606).",
+        "The line totals add up to 49.579,60, the note says 40.580,20 (-8.999,40)."
+      ],
+      "silent_misreads": []
+    },
+    {
+      "form": "hard-7023",
+      "planted": null,
+      "outcome": null,
+      "flags": [
+        "Line 2: 2,156 \u00d7 12.10 = 26,087.60, the note says 26,075.50.",
+        "The quantities add up to 2,426, the note says 2,425 (-1)."
+      ],
+      "silent_misreads": []
+    },
+    {
+      "form": "hard-7024",
+      "planted": null,
+      "outcome": null,
+      "flags": [
+        "Line 2: 103 \u00d7 8,05 = 829,15, the note says 890,95.",
+        "Line 5: 15 \u00d7 22,00 = 330,00, the note says 339,00.",
+        "The quantities add up to 1.036, the note says 1.030 (-6)."
+      ],
+      "silent_misreads": []
+    }
+  ]
+}

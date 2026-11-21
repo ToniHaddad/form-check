@@ -1,0 +1,34 @@
+== easy (25 forms, 12.31 s/form) ==
+  header          124/125   99.2%
+  text cells      313/328   95.4%
+  number cells    489/492   99.4%
+  totals           50/50   100.0%
+  rows found       25/25   100.0%
+  all fields      98.1%
+  planted errors 10: caught by a check at the right spot 10, marked unreadable at that spot 0, only other flags 0, nothing flagged 0
+  clean notes 15: any flag raised on 0 (arithmetic error flag on 0)
+  numbers misread 3, of which slipped through every check 0
+== medium (25 forms, 4.35 s/form) ==
+  header          108/125   86.4%
+  text cells      246/328   75.0%
+  number cells    491/492   99.8%
+  totals           45/50    90.0%
+  rows found       25/25   100.0%
+  all fields      89.4%
+  planted errors 10: caught by a check at the right spot 10, marked unreadable at that spot 0, only other flags 0, nothing flagged 0
+  clean notes 15: any flag raised on 3 (arithmetic error flag on 3)
+  numbers misread 6, of which slipped through every check 0
+== hard (25 forms, 4.73 s/form) ==
+  header           34/125   27.2%
+  text cells       33/304   10.9%
+  number cells    393/456   86.2%
+  totals           23/50    46.0%
+  rows found       25/25   100.0%
+  all fields      51.7%
+  planted errors 10: caught by a check at the right spot 8, marked unreadable at that spot 2, only other flags 0, nothing flagged 0
+  clean notes 15: any flag raised on 15 (arithmetic error flag on 15)
+  numbers misread 80, of which slipped through every check 3
+== overall (75 forms) ==
+  planted errors 30: caught 28, unreadable there 2, only other flags 0, nothing flagged 0
+  clean notes 45: any flag 18, arithmetic error flag 18
+  misread numbers that passed every check: 3 of 89 misreads
