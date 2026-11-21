@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "formcheck"
 version = "0.1.0"
-description = "Reads a photographed delivery note, checks the arithmetic, and shows where on the photo a number does not add up."
+description = "Reads a photographed waybill or goods received note, checks it, and shows where on the photo a figure is wrong."
 readme = "README.md"
 license = { text = "MIT" }
 requires-python = ">=3.10"

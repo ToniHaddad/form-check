@@ -1,133 +1,264 @@
 {
   "easy": {
     "forms": 25,
-    "seconds_per_form": 12.31,
+    "seconds_per_form": 16.2,
     "field_accuracy": {
       "header": {
-        "correct": 124,
-        "total": 125,
-        "pct": 99.2
+        "correct": 148,
+        "total": 150,
+        "pct": 98.7
+      },
+      "item codes": {
+        "correct": 173,
+        "total": 173,
+        "pct": 100.0
       },
       "text cells": {
         "correct": 313,
-        "total": 328,
-        "pct": 95.4
+        "total": 346,
+        "pct": 90.5
       },
-      "number cells": {
-        "correct": 489,
-        "total": 492,
-        "pct": 99.4
+      "count cells": {
+        "correct": 689,
+        "total": 692,
+        "pct": 99.6
+      },
+      "expiry dates": {
+        "correct": 107,
+        "total": 107,
+        "pct": 100.0
       },
       "totals": {
-        "correct": 50,
-        "total": 50,
-        "pct": 100.0
+        "correct": 72,
+        "total": 75,
+        "pct": 96.0
       },
       "rows found": {
         "correct": 25,
         "total": 25,
         "pct": 100.0
+      },
+      "item codes, raw OCR": {
+        "correct": 173,
+        "total": 173,
+        "pct": 100.0
       }
     },
-    "all_fields_pct": 98.1,
+    "all_fields_pct": 97.3,
+    "planted_by_type": {
+      "line_total": {
+        "caught": 2
+      },
+      "digit_changed": {
+        "caught": 2
+      },
+      "pieces_total": {
+        "caught": 2
+      },
+      "boxes_total": {
+        "caught": 2
+      },
+      "line_count": {
+        "caught": 2
+      },
+      "loose_overflow": {
+        "caught": 1
+      },
+      "expired": {
+        "caught": 1
+      },
+      "bad_code": {
+        "caught": 1
+      }
+    },
     "silent_misreads": 0,
-    "misreads": 3,
-    "planted": 10,
-    "caught": 10,
-    "clean": 15,
-    "clean_flagged": 0,
-    "clean_error_flag": 0
+    "silent_codes": 0,
+    "misreads": 2,
+    "planted": 13,
+    "caught": 13,
+    "clean": 12,
+    "clean_flagged": 3,
+    "clean_error_flag": 1
   },
   "medium": {
     "forms": 25,
-    "seconds_per_form": 4.35,
+    "seconds_per_form": 9.75,
     "field_accuracy": {
       "header": {
-        "correct": 108,
-        "total": 125,
-        "pct": 86.4
+        "correct": 120,
+        "total": 150,
+        "pct": 80.0
+      },
+      "item codes": {
+        "correct": 153,
+        "total": 168,
+        "pct": 91.1
       },
       "text cells": {
-        "correct": 246,
-        "total": 328,
-        "pct": 75.0
+        "correct": 236,
+        "total": 336,
+        "pct": 70.2
       },
-      "number cells": {
-        "correct": 491,
-        "total": 492,
-        "pct": 99.8
+      "count cells": {
+        "correct": 654,
+        "total": 672,
+        "pct": 97.3
+      },
+      "expiry dates": {
+        "correct": 92,
+        "total": 99,
+        "pct": 92.9
       },
       "totals": {
-        "correct": 45,
-        "total": 50,
-        "pct": 90.0
+        "correct": 59,
+        "total": 75,
+        "pct": 78.7
       },
       "rows found": {
         "correct": 25,
         "total": 25,
         "pct": 100.0
+      },
+      "item codes, raw OCR": {
+        "correct": 145,
+        "total": 168,
+        "pct": 86.3
       }
     },
-    "all_fields_pct": 89.4,
+    "all_fields_pct": 87.6,
+    "planted_by_type": {
+      "line_total": {
+        "caught": 2
+      },
+      "digit_changed": {
+        "caught": 2
+      },
+      "pieces_total": {
+        "caught": 2
+      },
+      "boxes_total": {
+        "caught": 2
+      },
+      "line_count": {
+        "caught": 2
+      },
+      "loose_overflow": {
+        "caught": 1
+      },
+      "expired": {
+        "flagged elsewhere": 1
+      },
+      "bad_code": {
+        "caught": 1
+      }
+    },
     "silent_misreads": 0,
-    "misreads": 6,
-    "planted": 10,
-    "caught": 10,
-    "clean": 15,
-    "clean_flagged": 3,
-    "clean_error_flag": 3
+    "silent_codes": 0,
+    "misreads": 11,
+    "planted": 13,
+    "caught": 12,
+    "clean": 12,
+    "clean_flagged": 11,
+    "clean_error_flag": 9,
+    "flagged elsewhere": 1
   },
   "hard": {
     "forms": 25,
-    "seconds_per_form": 4.73,
+    "seconds_per_form": 9.43,
     "field_accuracy": {
       "header": {
-        "correct": 34,
-        "total": 125,
-        "pct": 27.2
+        "correct": 18,
+        "total": 150,
+        "pct": 12.0
+      },
+      "item codes": {
+        "correct": 20,
+        "total": 142,
+        "pct": 14.1
       },
       "text cells": {
-        "correct": 33,
-        "total": 304,
-        "pct": 10.9
+        "correct": 17,
+        "total": 284,
+        "pct": 6.0
       },
-      "number cells": {
-        "correct": 393,
-        "total": 456,
-        "pct": 86.2
+      "count cells": {
+        "correct": 404,
+        "total": 568,
+        "pct": 71.1
+      },
+      "expiry dates": {
+        "correct": 21,
+        "total": 80,
+        "pct": 26.2
       },
       "totals": {
-        "correct": 23,
-        "total": 50,
-        "pct": 46.0
+        "correct": 32,
+        "total": 75,
+        "pct": 42.7
       },
       "rows found": {
-        "correct": 25,
+        "correct": 21,
         "total": 25,
-        "pct": 100.0
+        "pct": 84.0
+      },
+      "item codes, raw OCR": {
+        "correct": 14,
+        "total": 142,
+        "pct": 9.9
       }
     },
-    "all_fields_pct": 51.7,
-    "silent_misreads": 3,
-    "misreads": 80,
-    "planted": 10,
-    "caught": 8,
-    "clean": 15,
-    "clean_flagged": 15,
-    "clean_error_flag": 15,
-    "unreadable there": 2
+    "all_fields_pct": 39.4,
+    "planted_by_type": {
+      "line_total": {
+        "caught": 1,
+        "unreadable there": 1
+      },
+      "digit_changed": {
+        "caught": 1,
+        "unreadable there": 1
+      },
+      "pieces_total": {
+        "unreadable there": 2
+      },
+      "boxes_total": {
+        "caught": 2
+      },
+      "line_count": {
+        "unreadable there": 2
+      },
+      "loose_overflow": {
+        "flagged elsewhere": 1
+      },
+      "expired": {
+        "flagged elsewhere": 1
+      },
+      "bad_code": {
+        "flagged elsewhere": 1
+      }
+    },
+    "silent_misreads": 2,
+    "silent_codes": 7,
+    "misreads": 57,
+    "planted": 13,
+    "caught": 4,
+    "clean": 12,
+    "clean_flagged": 12,
+    "clean_error_flag": 11,
+    "unreadable there": 6,
+    "flagged elsewhere": 3
   },
   "overall": {
-    "planted": 30,
-    "caught": 28,
-    "unreadable there": 2,
-    "flagged elsewhere": 0,
+    "planted": 39,
+    "caught": 29,
+    "unreadable there": 6,
+    "flagged elsewhere": 4,
     "missed": 0,
-    "clean": 45,
-    "clean_flagged": 18,
-    "clean_error_flag": 18,
-    "misreads": 89,
-    "silent_misreads": 3,
+    "clean": 36,
+    "clean_flagged": 26,
+    "clean_error_flag": 21,
+    "misreads": 70,
+    "silent_misreads": 2,
+    "silent_codes": 7,
     "forms": 75
   },
   "forms": [
@@ -135,903 +266,1228 @@
       "form": "easy-5000",
       "planted": {
         "type": "line_total",
-        "row": 2,
-        "field": "line_total",
-        "correct": "28.80",
-        "written": "27.80"
+        "row": 4,
+        "field": "total",
+        "correct": 480,
+        "written": 500
       },
       "outcome": "caught",
       "flags": [
-        "Line 2: 8 \u00d7 3,60 = 28,80, the note says 27,80."
+        "Line 4: 60 boxes \u00d7 8 + 0 = 480 pieces, the note says 500."
       ],
-      "silent_misreads": []
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "easy-5001",
-      "planted": {
-        "type": "grand_total",
-        "row": null,
-        "field": "grand_total",
-        "correct": "4323.95",
-        "written": "4001.55"
-      },
-      "outcome": "caught",
-      "flags": [
-        "The line totals add up to 4.323,95, the note says 4.001,55 (-322,40)."
-      ],
-      "silent_misreads": []
-    },
-    {
-      "form": "easy-5002",
       "planted": null,
       "outcome": null,
       "flags": [],
-      "silent_misreads": []
+      "silent_misreads": [],
+      "silent_codes": []
+    },
+    {
+      "form": "easy-5002",
+      "planted": {
+        "type": "digit_changed",
+        "row": 7,
+        "field": "total",
+        "correct": 1600,
+        "written": 1650
+      },
+      "outcome": "caught",
+      "flags": [
+        "Line 5: could not read the boxes. Check the photo and type it in.",
+        "Line 7: 32 boxes \u00d7 50 + 0 = 1,600 pieces, the note says 1,650.",
+        "The lines add up to 2,988 pieces, the note says 2,938 (-50)."
+      ],
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "easy-5003",
       "planted": null,
       "outcome": null,
       "flags": [],
-      "silent_misreads": []
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "easy-5004",
-      "planted": null,
-      "outcome": null,
-      "flags": [],
-      "silent_misreads": []
-    },
-    {
-      "form": "easy-5005",
       "planted": {
-        "type": "digit_changed",
-        "row": 3,
-        "field": "qty",
-        "correct": "1213",
-        "written": "3213"
+        "type": "pieces_total",
+        "row": null,
+        "field": "pieces",
+        "correct": 6948,
+        "written": 6851
       },
       "outcome": "caught",
       "flags": [
-        "Line 3: 3.213 \u00d7 1,80 = 5.783,40, the note says 2.183,40.",
-        "Line 5: 6 \u00d7 10,10 = 60,60, the note says 909,00.",
-        "The quantities add up to 3.423, the note says 1.507 (-1.916)."
+        "Line 5: 6 boxes \u00d7 10 + 7 = 67 pieces, the note says 97.",
+        "The lines add up to 191 boxes, the note says 194 (+3).",
+        "The lines add up to 6,948 pieces, the note says 6,851 (-97)."
       ],
-      "silent_misreads": []
+      "silent_misreads": [],
+      "silent_codes": []
+    },
+    {
+      "form": "easy-5005",
+      "planted": null,
+      "outcome": null,
+      "flags": [],
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "easy-5006",
       "planted": {
-        "type": "line_total",
-        "row": 7,
-        "field": "line_total",
-        "correct": "16230.90",
-        "written": "16320.90"
+        "type": "boxes_total",
+        "row": null,
+        "field": "boxes",
+        "correct": 259,
+        "written": 309
       },
       "outcome": "caught",
       "flags": [
-        "Line 7: 177 \u00d7 91.70 = 16,230.90, the note says 16,320.90."
+        "The lines add up to 259 boxes, the note says 309 (+50)."
       ],
-      "silent_misreads": []
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "easy-5007",
       "planted": null,
       "outcome": null,
       "flags": [],
-      "silent_misreads": []
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "easy-5008",
-      "planted": null,
-      "outcome": null,
-      "flags": [],
-      "silent_misreads": []
+      "planted": {
+        "type": "line_count",
+        "row": null,
+        "field": "lines",
+        "correct": 8,
+        "written": 10
+      },
+      "outcome": "caught",
+      "flags": [
+        "8 lines were read, the note says 10 lines."
+      ],
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "easy-5009",
       "planted": null,
       "outcome": null,
       "flags": [],
-      "silent_misreads": []
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "easy-5010",
       "planted": {
-        "type": "grand_total",
-        "row": null,
-        "field": "grand_total",
-        "correct": "82059.95",
-        "written": "46716.95"
+        "type": "loose_overflow",
+        "row": 4,
+        "field": "loose",
+        "correct": "2 boxes + 16",
+        "written": "1 boxes + 88"
       },
       "outcome": "caught",
       "flags": [
-        "The line totals add up to 82.059,95, the note says 46.716,95 (-35.343,00)."
+        "Line 4: 88 loose pieces is a box or more (a box holds 72). It should read 2 boxes + 16."
       ],
-      "silent_misreads": []
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "easy-5011",
-      "planted": {
-        "type": "digit_changed",
-        "row": 1,
-        "field": "unit_value",
-        "correct": "9.15",
-        "written": "9.17"
-      },
-      "outcome": "caught",
-      "flags": [
-        "Line 1: 86 \u00d7 9,17 = 788,62, the note says 786,90."
-      ],
-      "silent_misreads": []
-    },
-    {
-      "form": "easy-5012",
       "planted": null,
       "outcome": null,
       "flags": [],
-      "silent_misreads": []
+      "silent_misreads": [],
+      "silent_codes": []
+    },
+    {
+      "form": "easy-5012",
+      "planted": {
+        "type": "expired",
+        "row": 3,
+        "field": "expiry",
+        "correct": "2027-06-15",
+        "written": "2025-08-28"
+      },
+      "outcome": "caught",
+      "flags": [
+        "Line 3: expiry 28/08/2025 is already past on the document date 17/02/2026.",
+        "Could not read the printed number of lines."
+      ],
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "easy-5013",
       "planted": null,
       "outcome": null,
       "flags": [],
-      "silent_misreads": []
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "easy-5014",
-      "planted": null,
-      "outcome": null,
-      "flags": [],
-      "silent_misreads": []
-    },
-    {
-      "form": "easy-5015",
       "planted": {
-        "type": "line_total",
+        "type": "bad_code",
         "row": 5,
-        "field": "line_total",
-        "correct": "338.00",
-        "written": "368.00"
+        "field": "code",
+        "correct": "SHE-TAR-001",
+        "written": "SHE-TAR-0015"
       },
       "outcome": "caught",
       "flags": [
-        "Line 5: 169 \u00d7 2.00 = 338.00, the note says 368.00."
+        "Line 5: item code \"SHE-TAR-0015\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI)."
       ],
-      "silent_misreads": []
+      "silent_misreads": [],
+      "silent_codes": []
+    },
+    {
+      "form": "easy-5015",
+      "planted": null,
+      "outcome": null,
+      "flags": [],
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "easy-5016",
       "planted": {
-        "type": "grand_total",
-        "row": null,
-        "field": "grand_total",
-        "correct": "87998.10",
-        "written": "89998.10"
+        "type": "line_total",
+        "row": 5,
+        "field": "total",
+        "correct": 541,
+        "written": 571
       },
       "outcome": "caught",
       "flags": [
-        "The line totals add up to 87.998,10, the note says 89.998,10 (+2.000,00)."
+        "Line 5: 54 boxes \u00d7 10 + 1 = 541 pieces, the note says 571."
       ],
-      "silent_misreads": []
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "easy-5017",
       "planted": null,
       "outcome": null,
-      "flags": [],
-      "silent_misreads": []
+      "flags": [
+        "9 lines were read, the note says 6 lines."
+      ],
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "easy-5018",
-      "planted": null,
-      "outcome": null,
-      "flags": [],
-      "silent_misreads": []
+      "planted": {
+        "type": "digit_changed",
+        "row": 5,
+        "field": "boxes",
+        "correct": 8,
+        "written": 0
+      },
+      "outcome": "caught",
+      "flags": [
+        "Line 5: 0 boxes \u00d7 48 + 27 = 27 pieces, the note says 411.",
+        "The lines add up to 100 boxes, the note says 108 (+8)."
+      ],
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "easy-5019",
       "planted": null,
       "outcome": null,
-      "flags": [],
-      "silent_misreads": []
+      "flags": [
+        "Could not read the printed number of lines."
+      ],
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "easy-5020",
       "planted": {
-        "type": "digit_changed",
-        "row": 6,
-        "field": "qty",
-        "correct": "19",
-        "written": "18"
+        "type": "pieces_total",
+        "row": null,
+        "field": "pieces",
+        "correct": 9818,
+        "written": 7226
       },
       "outcome": "caught",
       "flags": [
-        "Line 3: 66 \u00d7 3.60 = 237.60, the note says 356.40.",
-        "Line 6: 18 \u00d7 1.85 = 33.30, the note says 35.15.",
-        "The quantities add up to 2,342, the note says 2,376 (+34)."
+        "The lines add up to 9,818 pieces, the note says 7,226 (-2,592)."
       ],
-      "silent_misreads": []
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "easy-5021",
-      "planted": {
-        "type": "line_total",
-        "row": 6,
-        "field": "line_total",
-        "correct": "1814.40",
-        "written": "1014.40"
-      },
-      "outcome": "caught",
-      "flags": [
-        "Line 5: 6 \u00d7 1,85 = 11,10, the note says 166,50.",
-        "Line 6: 72 \u00d7 25,20 = 1.814,40, the note says 1.014,40.",
-        "The quantities add up to 1.340, the note says 1.424 (+84)."
-      ],
-      "silent_misreads": []
-    },
-    {
-      "form": "easy-5022",
       "planted": null,
       "outcome": null,
       "flags": [],
-      "silent_misreads": []
+      "silent_misreads": [],
+      "silent_codes": []
+    },
+    {
+      "form": "easy-5022",
+      "planted": {
+        "type": "boxes_total",
+        "row": null,
+        "field": "boxes",
+        "correct": 173,
+        "written": 223
+      },
+      "outcome": "caught",
+      "flags": [
+        "The lines add up to 173 boxes, the note says 223 (+50)."
+      ],
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "easy-5023",
       "planted": null,
       "outcome": null,
-      "flags": [],
-      "silent_misreads": []
+      "flags": [
+        "Line 5: could not read the boxes. Check the photo and type it in."
+      ],
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "easy-5024",
-      "planted": null,
-      "outcome": null,
-      "flags": [],
-      "silent_misreads": []
+      "planted": {
+        "type": "line_count",
+        "row": null,
+        "field": "lines",
+        "correct": 7,
+        "written": 8
+      },
+      "outcome": "caught",
+      "flags": [
+        "7 lines were read, the note says 8 lines."
+      ],
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "medium-6000",
       "planted": {
         "type": "line_total",
         "row": 7,
-        "field": "line_total",
-        "correct": "5055.00",
-        "written": "4555.00"
+        "field": "total",
+        "correct": 188,
+        "written": 218
       },
       "outcome": "caught",
       "flags": [
-        "Line 6: 173 \u00d7 10,80 = 1.868,40, the note says 1.888,40.",
-        "Line 7: 150 \u00d7 33,70 = 5.055,00, the note says 4.555,00.",
-        "The line totals add up to 54.614,70, the note says 54.594,70 (-20,00)."
+        "Line 6: could not read the loose pieces. Check the photo and type it in.",
+        "Line 7: 47 boxes \u00d7 4 + 0 = 188 pieces, the note says 218.",
+        "Line 9: could not read the loose pieces. Check the photo and type it in.",
+        "Line 9: item code \"NF-KIT-003\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI)."
       ],
-      "silent_misreads": []
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "medium-6001",
-      "planted": {
-        "type": "grand_total",
-        "row": null,
-        "field": "grand_total",
-        "correct": "9601.35",
-        "written": "4743.35"
-      },
-      "outcome": "caught",
+      "planted": null,
+      "outcome": null,
       "flags": [
-        "The line totals add up to 9,601.35, the note says 4,743.35 (-4,858.00)."
+        "Line 3: item code \"NFIJER-002\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI)."
       ],
-      "silent_misreads": []
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "medium-6002",
-      "planted": null,
-      "outcome": null,
-      "flags": [],
-      "silent_misreads": []
+      "planted": {
+        "type": "digit_changed",
+        "row": 2,
+        "field": "boxes",
+        "correct": 30,
+        "written": 39
+      },
+      "outcome": "caught",
+      "flags": [
+        "Line 2: 39 boxes \u00d7 48 + 0 = 1,872 pieces, the note says 1,440.",
+        "Could not read the printed number of lines.",
+        "The lines add up to 224 boxes, the note says 215 (-9).",
+        "The lines add up to 7,951 pieces, the note says 7,961 (+10)."
+      ],
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "medium-6003",
       "planted": null,
       "outcome": null,
-      "flags": [],
-      "silent_misreads": []
+      "flags": [
+        "Line 2: could not read the expiry date \"25/00/2027\".",
+        "Line 4: could not read the boxes. Check the photo and type it in.",
+        "Line 6: could not read the boxes. Check the photo and type it in.",
+        "Line 7: item code \"HYG\u00b7SHA-002\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI)."
+      ],
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "medium-6004",
-      "planted": null,
-      "outcome": null,
-      "flags": [],
-      "silent_misreads": []
-    },
-    {
-      "form": "medium-6005",
       "planted": {
-        "type": "digit_changed",
-        "row": 6,
-        "field": "unit_value",
-        "correct": "1.85",
-        "written": "1.84"
+        "type": "pieces_total",
+        "row": null,
+        "field": "pieces",
+        "correct": 3582,
+        "written": 3382
       },
       "outcome": "caught",
       "flags": [
-        "Line 6: 619 \u00d7 1,84 = 1.138,96, the note says 1.145,15.",
-        "The line totals add up to 69.629,53, the note says 69.029,53 (-600,00)."
+        "Line 5: could not read the pieces per box. Check the photo and type it in.",
+        "Could not read the printed number of lines.",
+        "The lines add up to 3,582 pieces, the note says 3,382 (-200)."
       ],
-      "silent_misreads": []
+      "silent_misreads": [],
+      "silent_codes": []
+    },
+    {
+      "form": "medium-6005",
+      "planted": null,
+      "outcome": null,
+      "flags": [],
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "medium-6006",
       "planted": {
-        "type": "line_total",
-        "row": 3,
-        "field": "line_total",
-        "correct": "872.00",
-        "written": "882.00"
+        "type": "boxes_total",
+        "row": null,
+        "field": "boxes",
+        "correct": 193,
+        "written": 139
       },
       "outcome": "caught",
       "flags": [
-        "Line 3: 109 \u00d7 8,00 = 872,00, the note says 882,00."
+        "Line 1: item code \"NFHBLK001\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI).",
+        "Line 2: item code \"FOO SUG-001\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI).",
+        "Could not read the document date, so expiry dates were not checked.",
+        "The lines add up to 193 boxes, the note says 139 (-54).",
+        "The lines add up to 9,271 pieces, the note says 8,271 (-1,000)."
       ],
-      "silent_misreads": []
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "medium-6007",
       "planted": null,
       "outcome": null,
-      "flags": [],
-      "silent_misreads": []
+      "flags": [
+        "Could not read the printed number of lines.",
+        "The lines add up to 4,369 pieces, the note says 4,389 (+20)."
+      ],
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "medium-6008",
-      "planted": null,
-      "outcome": null,
+      "planted": {
+        "type": "line_count",
+        "row": null,
+        "field": "lines",
+        "correct": 7,
+        "written": 8
+      },
+      "outcome": "caught",
       "flags": [
-        "The quantities add up to 613, the note says 13 (-600)."
+        "Line 6: item code \"HYQ-SOA-001\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI).",
+        "Could not read the document date, so expiry dates were not checked.",
+        "7 lines were read, the note says 8 lines.",
+        "The lines add up to 269 boxes, the note says 209 (-60)."
       ],
-      "silent_misreads": []
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "medium-6009",
       "planted": null,
       "outcome": null,
       "flags": [
-        "The quantities add up to 4,696, the note says 4,090 (-606)."
+        "Line 6: could not read the loose pieces. Check the photo and type it in.",
+        "Could not read the printed number of lines."
       ],
-      "silent_misreads": []
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "medium-6010",
       "planted": {
-        "type": "grand_total",
-        "row": null,
-        "field": "grand_total",
-        "correct": "30740.30",
-        "written": "30470.30"
+        "type": "loose_overflow",
+        "row": 5,
+        "field": "loose",
+        "correct": "24 boxes + 26",
+        "written": "23 boxes + 76"
       },
       "outcome": "caught",
       "flags": [
-        "The line totals add up to 30,740.30, the note says 30,470.30 (-270.00)."
+        "Line 5: 76 loose pieces is a box or more (a box holds 50). It should read 24 boxes + 26.",
+        "Line 5: could not read the expiry date \"00/07/2027\"."
       ],
-      "silent_misreads": []
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "medium-6011",
-      "planted": {
-        "type": "digit_changed",
-        "row": 3,
-        "field": "line_total",
-        "correct": "53.04",
-        "written": "56.04"
-      },
-      "outcome": "caught",
+      "planted": null,
+      "outcome": null,
       "flags": [
-        "Line 3: 52 \u00d7 1.02 = 53.04, the note says 56.04.",
-        "The line totals add up to 26,785.91, the note says 26,782.91 (-3.00)."
+        "Line 3: 24 boxes \u00d7 12 + 5 = 293 pieces, the note says 203.",
+        "Line 5: could not read the pieces per box. Check the photo and type it in.",
+        "Could not read the document date, so expiry dates were not checked.",
+        "The lines add up to 5,555 pieces, the note says 5,645 (+90)."
       ],
-      "silent_misreads": []
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "medium-6012",
-      "planted": null,
-      "outcome": null,
-      "flags": [],
-      "silent_misreads": []
+      "planted": {
+        "type": "expired",
+        "row": 4,
+        "field": "expiry",
+        "correct": "2027-12-10",
+        "written": "2025-08-24"
+      },
+      "outcome": "flagged elsewhere",
+      "flags": [
+        "Line 1: could not read the expiry date \"00/06/2028\".",
+        "Could not read the document date, so expiry dates were not checked.",
+        "Could not read the printed number of lines."
+      ],
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "medium-6013",
       "planted": null,
       "outcome": null,
-      "flags": [],
-      "silent_misreads": []
+      "flags": [
+        "Line 3: could not read the pieces per box. Check the photo and type it in.",
+        "The lines add up to 6,496 pieces, the note says 6,406 (-90)."
+      ],
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "medium-6014",
-      "planted": null,
-      "outcome": null,
-      "flags": [],
-      "silent_misreads": []
-    },
-    {
-      "form": "medium-6015",
       "planted": {
-        "type": "line_total",
-        "row": 2,
-        "field": "line_total",
-        "correct": "8980.20",
-        "written": "9280.20"
+        "type": "bad_code",
+        "row": 1,
+        "field": "code",
+        "correct": "HYG-SHA-002",
+        "written": "HYG-SHA-02"
       },
       "outcome": "caught",
       "flags": [
-        "Line 2: 108 \u00d7 83,15 = 8.980,20, the note says 9.280,20.",
-        "The quantities add up to 2.566, the note says 2.500 (-66)."
+        "Line 1: item code \"HYG-SHA-02\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI).",
+        "Line 4: item code \"NFIJER-002\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI).",
+        "Line 6: item code \"FOO\u00b7MLK-001\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI).",
+        "Could not read the document date, so expiry dates were not checked."
       ],
-      "silent_misreads": []
+      "silent_misreads": [],
+      "silent_codes": []
+    },
+    {
+      "form": "medium-6015",
+      "planted": null,
+      "outcome": null,
+      "flags": [
+        "Line 3: item code \"MED GLV-003\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI).",
+        "Line 5: 6 boxes \u00d7 100 + 0 = 600 pieces, the note says 900.",
+        "Line 7: could not read the loose pieces. Check the photo and type it in.",
+        "Line 8: item code \"NF-LMP-004\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI).",
+        "The lines add up to 125 boxes, the note says 128 (+3)."
+      ],
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "medium-6016",
       "planted": {
-        "type": "grand_total",
-        "row": null,
-        "field": "grand_total",
-        "correct": "50741.55",
-        "written": "48926.55"
+        "type": "line_total",
+        "row": 1,
+        "field": "total",
+        "correct": 2957,
+        "written": 3157
       },
       "outcome": "caught",
       "flags": [
-        "The line totals add up to 50.741,55, the note says 48.926,55 (-1.815,00)."
+        "Line 1: 59 boxes \u00d7 50 + 7 = 2,957 pieces, the note says 3,157.",
+        "Line 8: could not read the pieces per box. Check the photo and type it in."
       ],
-      "silent_misreads": []
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "medium-6017",
       "planted": null,
       "outcome": null,
-      "flags": [],
-      "silent_misreads": []
+      "flags": [
+        "Line 1: could not read the loose pieces and total pieces. Check the photo and type it in.",
+        "Line 3: item code \"NFIJER-002\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI)."
+      ],
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "medium-6018",
-      "planted": null,
-      "outcome": null,
+      "planted": {
+        "type": "digit_changed",
+        "row": 2,
+        "field": "boxes",
+        "correct": 31,
+        "written": 34
+      },
+      "outcome": "caught",
       "flags": [
-        "The quantities add up to 697, the note says 97 (-600)."
+        "Line 1: item code \"HYG-SHA:002\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI).",
+        "Line 2: 34 boxes \u00d7 4 + 0 = 136 pieces, the note says 124.",
+        "Line 4: item code \"FOO LEN-002\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI).",
+        "The lines add up to 178 boxes, the note says 175 (-3)."
       ],
-      "silent_misreads": []
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "medium-6019",
       "planted": null,
       "outcome": null,
-      "flags": [],
-      "silent_misreads": []
+      "flags": [
+        "Line 3: could not read the boxes. Check the photo and type it in.",
+        "Could not read the printed number of lines."
+      ],
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "medium-6020",
       "planted": {
-        "type": "digit_changed",
-        "row": 1,
-        "field": "qty",
-        "correct": "124",
-        "written": "824"
+        "type": "pieces_total",
+        "row": null,
+        "field": "pieces",
+        "correct": 875,
+        "written": 925
       },
       "outcome": "caught",
       "flags": [
-        "Line 1: 824 \u00d7 4.70 = 3,872.80, the note says 582.80.",
-        "The quantities add up to 3,213, the note says 2,513 (-700)."
+        "Could not read the printed number of lines.",
+        "The lines add up to 875 pieces, the note says 925 (+50)."
       ],
-      "silent_misreads": []
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "medium-6021",
-      "planted": {
-        "type": "line_total",
-        "row": 2,
-        "field": "line_total",
-        "correct": "1054.50",
-        "written": "554.50"
-      },
-      "outcome": "caught",
+      "planted": null,
+      "outcome": null,
       "flags": [
-        "Line 2: 57 \u00d7 18,50 = 1.054,50, the note says 554,50."
+        "Line 8: could not read the loose pieces. Check the photo and type it in.",
+        "The lines add up to 6,781 pieces, the note says 8,781 (+2,000)."
       ],
-      "silent_misreads": []
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "medium-6022",
-      "planted": null,
-      "outcome": null,
-      "flags": [],
-      "silent_misreads": []
+      "planted": {
+        "type": "boxes_total",
+        "row": null,
+        "field": "boxes",
+        "correct": 120,
+        "written": 210
+      },
+      "outcome": "caught",
+      "flags": [
+        "Line 1: could not read the loose pieces. Check the photo and type it in.",
+        "Line 1: item code \"NFHKIT-003\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI).",
+        "Line 3: item code \"ZOO-VHS-DAH\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI).",
+        "Could not read the document date, so expiry dates were not checked.",
+        "Could not read the printed number of lines.",
+        "The lines add up to 120 boxes, the note says 210 (+90)."
+      ],
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "medium-6023",
       "planted": null,
       "outcome": null,
-      "flags": [],
-      "silent_misreads": []
+      "flags": [
+        "Line 2: 48 boxes \u00d7 24 + 16 = 1,168 pieces, the note says 1,120.",
+        "5 lines were read, the note says 6 lines.",
+        "The lines add up to 136 boxes, the note says 134 (-2).",
+        "The lines add up to 3,166 pieces, the note says 3,100 (-66)."
+      ],
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "medium-6024",
-      "planted": null,
-      "outcome": null,
-      "flags": [],
-      "silent_misreads": []
+      "planted": {
+        "type": "line_count",
+        "row": null,
+        "field": "lines",
+        "correct": 7,
+        "written": 8
+      },
+      "outcome": "caught",
+      "flags": [
+        "7 lines were read, the note says 8 lines."
+      ],
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "hard-7000",
       "planted": {
         "type": "line_total",
-        "row": 4,
-        "field": "line_total",
-        "correct": "1111.80",
-        "written": "1011.80"
+        "row": 7,
+        "field": "total",
+        "correct": 264,
+        "written": 246
       },
       "outcome": "caught",
       "flags": [
-        "Line 1: 155 \u00d7 31.35 = 4,859.25, the note says 4,850.25.",
-        "Line 4: 109 \u00d7 10.20 = 1,111.80, the note says 1,011.80.",
-        "Line 6: 42 \u00d7 0.00 = 0.00, the note says 378.00.",
-        "Line 7: 89 \u00d7 25.50 = 2,269.50, the note says 2,280.50.",
-        "The line totals add up to 90,249.25, the note says 90,247.25 (-2.00)."
+        "Line 1: could not read the loose pieces. Check the photo and type it in.",
+        "Line 2: could not read the pieces per box and loose pieces. Check the photo and type it in.",
+        "Line 2: item code \"THE-TAR-COI\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI).",
+        "Line 4: 2 boxes \u00d7 24 + 0 = 48 pieces, the note says 414,962,007.",
+        "Line 5: could not read the loose pieces. Check the photo and type it in.",
+        "Line 6: could not read the loose pieces. Check the photo and type it in.",
+        "Line 6: item code \"FO0-04L-005\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI).",
+        "Line 7: 22 boxes \u00d7 12 + 0 = 264 pieces, the note says 248.",
+        "Line 8: could not read the pieces per box and loose pieces. Check the photo and type it in.",
+        "Could not read the printed number of lines.",
+        "The lines add up to 38,339,005,047 pieces, the note says 1,438 (-38,339,003,609)."
       ],
-      "silent_misreads": []
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "hard-7001",
-      "planted": {
-        "type": "grand_total",
-        "row": null,
-        "field": "grand_total",
-        "correct": "3009.87",
-        "written": "2972.07"
-      },
-      "outcome": "caught",
-      "flags": [
-        "The quantities add up to 1,495, the note says 1,405 (-90).",
-        "The line totals add up to 3,009.87, the note says 2,972.07 (-37.80)."
-      ],
-      "silent_misreads": []
-    },
-    {
-      "form": "hard-7002",
       "planted": null,
       "outcome": null,
       "flags": [
-        "Line 2: 71 \u00d7 8.85 = 628.35, the note says 28.35.",
-        "Line 3: 25 \u00d7 10.10 = 252.50, the note says 477.50.",
-        "Line 4: 131 \u00d7 24.60 = 3,222.60, the note says 3,222.00.",
-        "The line totals add up to 5,905.85, the note says 506.45 (-5,399.40)."
+        "Line 2: could not read the pieces per box. Check the photo and type it in.",
+        "Line 3: 18 boxes \u00d7 72 + 66 = 1,362 pieces, the note says 1,302.",
+        "Line 3: item code \"HYG-30A-001\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI).",
+        "Line 4: could not read the loose pieces. Check the photo and type it in.",
+        "Line 5: could not read the boxes. Check the photo and type it in.",
+        "Line 6: could not read the loose pieces. Check the photo and type it in.",
+        "Line 7: 20 boxes \u00d7 24 + 16 = 496 pieces, the note says 406.",
+        "Line 8: could not read the pieces per box and loose pieces. Check the photo and type it in.",
+        "Could not read the document date, so expiry dates were not checked.",
+        "Could not read the printed number of lines.",
+        "Could not read the printed total pieces."
       ],
-      "silent_misreads": []
+      "silent_misreads": [],
+      "silent_codes": [
+        {
+          "cell": "row8.code",
+          "read": "SHE-MAT-007",
+          "printed": "SHE-MAT-002"
+        }
+      ]
+    },
+    {
+      "form": "hard-7002",
+      "planted": {
+        "type": "digit_changed",
+        "row": 5,
+        "field": "loose",
+        "correct": 11,
+        "written": 14
+      },
+      "outcome": "caught",
+      "flags": [
+        "Line 2: item code \"NA-KIT-000\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI).",
+        "Line 3: 27 boxes \u00d7 30 + 10 = 820 pieces, the note says 982.",
+        "Line 5: 40 boxes \u00d7 24 + 14 = 974 pieces, the note says 971.",
+        "Line 6: 69 boxes \u00d7 48 + 0 = 3,312 pieces, the note says 2,832.",
+        "Could not read the printed number of lines.",
+        "The lines add up to 187 boxes, the note says 177 (-10)."
+      ],
+      "silent_misreads": [],
+      "silent_codes": [
+        {
+          "cell": "row1.code",
+          "read": "NFI-OLK-GO1",
+          "printed": "NFI-BLK-001"
+        },
+        {
+          "cell": "row4.code",
+          "read": "MED-ORS-000",
+          "printed": "MED-ORS-002"
+        }
+      ]
     },
     {
       "form": "hard-7003",
       "planted": null,
       "outcome": null,
       "flags": [
-        "Line 1: could not read the line total. Check the photo and type it in.",
-        "Line 4: 40 \u00d7 10.10 = 404.00, the note says 464.60.",
-        "Line 5: 62 \u00d7 1.08 = 66.96, the note says 5.90.",
-        "The quantities add up to 1,774, the note says 1,780 (+6)."
+        "Line 1: item code \"HG-5HA-002\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI).",
+        "Line 2: could not read the total pieces. Check the photo and type it in.",
+        "Line 2: item code \"FOO-CH-004\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI).",
+        "Line 2: could not read the expiry date \"04/12/209\".",
+        "Line 3: could not read the boxes. Check the photo and type it in.",
+        "Line 4: could not read the loose pieces. Check the photo and type it in.",
+        "Line 4: item code \"YG-PAD-001\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI).",
+        "Line 5: could not read the pieces per box. Check the photo and type it in.",
+        "Could not read the printed number of lines.",
+        "Could not read the printed total boxes."
       ],
       "silent_misreads": [
         {
-          "cell": "grand_total",
-          "read": "15,500.10",
-          "printed": "15599.16"
+          "cell": "totals.pieces",
+          "read": "1.800",
+          "printed": 1860
+        }
+      ],
+      "silent_codes": []
+    },
+    {
+      "form": "hard-7004",
+      "planted": {
+        "type": "pieces_total",
+        "row": null,
+        "field": "pieces",
+        "correct": 4150,
+        "written": 3950
+      },
+      "outcome": "unreadable there",
+      "flags": [
+        "Line 3: 25 boxes \u00d7 100 + 87 = 2,587 pieces, the note says 258,717,112,020.",
+        "Line 3: item code \"MED-ORS.CCQ\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI).",
+        "Line 4: could not read the pieces per box and loose pieces. Check the photo and type it in.",
+        "Could not read the printed number of lines.",
+        "Could not read the printed total boxes.",
+        "Could not read the printed total pieces."
+      ],
+      "silent_misreads": [],
+      "silent_codes": []
+    },
+    {
+      "form": "hard-7005",
+      "planted": null,
+      "outcome": null,
+      "flags": [
+        "Line 1: could not read the pieces per box. Check the photo and type it in.",
+        "Line 1: item code \"HVG-DIA-003\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI).",
+        "Line 2: could not read the loose pieces and total pieces. Check the photo and type it in.",
+        "Line 3: could not read the loose pieces. Check the photo and type it in.",
+        "Line 4: could not read the loose pieces. Check the photo and type it in.",
+        "Line 4: item code \"FOO-SG-001\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI).",
+        "Line 6: 51 boxes \u00d7 70 + 0 = 3,570 pieces, the note says 10.",
+        "Could not read the printed number of lines."
+      ],
+      "silent_misreads": [],
+      "silent_codes": [
+        {
+          "cell": "row6.code",
+          "read": "MED-0LV-003",
+          "printed": "MED-GLV-003"
         }
       ]
     },
     {
-      "form": "hard-7004",
-      "planted": null,
-      "outcome": null,
-      "flags": [
-        "Line 1: 1,090 \u00d7 3.30 = 3,597.00, the note says 3,507.00.",
-        "The quantities add up to 1,907, the note says 1,007 (-900).",
-        "The line totals add up to 27,965.75, the note says 28,055.76 (+90.01)."
-      ],
-      "silent_misreads": []
-    },
-    {
-      "form": "hard-7005",
+      "form": "hard-7006",
       "planted": {
-        "type": "digit_changed",
-        "row": 6,
-        "field": "qty",
-        "correct": "45",
-        "written": "47"
+        "type": "boxes_total",
+        "row": null,
+        "field": "boxes",
+        "correct": 194,
+        "written": 204
       },
       "outcome": "caught",
       "flags": [
-        "Line 1: 93 \u00d7 10.05 = 934.65, the note says 1,827.45.",
-        "Line 5: 1 \u00d7 11.10 = 12.22, the note says 12,221.10.",
-        "Line 6: 47 \u00d7 7.10 = 333.70, the note says 310.50.",
-        "The quantities add up to 359, the note says 1,457 (+1,098).",
-        "The line totals add up to 25,218.50, the note says 25,227.50 (+9.00)."
+        "Line 1: item code \"UEO-PAR-0O1\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI).",
+        "Line 3: item code \"MED-OS-002\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI).",
+        "Could not read the printed number of lines.",
+        "The lines add up to 194 boxes, the note says 204 (+10).",
+        "Could not read the printed total pieces."
       ],
-      "silent_misreads": []
-    },
-    {
-      "form": "hard-7006",
-      "planted": {
-        "type": "line_total",
-        "row": 5,
-        "field": "line_total",
-        "correct": "38.40",
-        "written": "41.40"
-      },
-      "outcome": "unreadable there",
-      "flags": [
-        "Line 5: could not read the quantity. Check the photo and type it in.",
-        "The line totals add up to 25,416.74, the note says 25,410.74 (-6.00)."
-      ],
-      "silent_misreads": []
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "hard-7007",
       "planted": null,
       "outcome": null,
       "flags": [
-        "Line 1: 2 \u00d7 18.50 = 36.76, the note says 36,750.50.",
-        "Line 3: 2 \u00d7 1.85 = 3.64, the note says 3,640.80.",
-        "Line 4: 130 \u00d7 0.95 = 123.50, the note says 129.20.",
-        "Line 5: 2 \u00d7 1.02 = 2.37, the note says 2,372.52.",
-        "The quantities add up to 257, the note says 1 (-257).",
-        "The line totals add up to 43,594.82, the note says 43,603.82 (+9.00)."
+        "Line 1: could not read the loose pieces. Check the photo and type it in.",
+        "Line 2: could not read the boxes and loose pieces. Check the photo and type it in.",
+        "Line 2: item code \"HYO-SA-002\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI).",
+        "Line 3: 60 boxes \u00d7 6 + 0 = 360 pieces, the note says 300.",
+        "Line 4: could not read the boxes. Check the photo and type it in.",
+        "Line 5: could not read the pieces per box. Check the photo and type it in.",
+        "Line 6: item code \"1O0-90G-081\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI).",
+        "Line 7: could not read the expiry date \"22/02-202\".",
+        "Could not read the document date, so expiry dates were not checked.",
+        "Could not read the printed number of lines.",
+        "Could not read the printed total pieces."
       ],
-      "silent_misreads": []
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "hard-7008",
-      "planted": null,
-      "outcome": null,
+      "planted": {
+        "type": "line_count",
+        "row": null,
+        "field": "lines",
+        "correct": 5,
+        "written": 4
+      },
+      "outcome": "unreadable there",
       "flags": [
-        "Line 1: 1,094 \u00d7 0.95 = 1,039.30, the note says 1,809.30.",
-        "The quantities add up to 1,991, the note says 2,601 (+610).",
-        "Could not read the printed grand total."
+        "Line 1: could not read the expiry date \"2905/2028\".",
+        "Line 2: could not read the loose pieces. Check the photo and type it in.",
+        "Line 2: item code \"HO-824-001\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI).",
+        "Line 2: could not read the expiry date \"2501/2028\".",
+        "Line 4: could not read the loose pieces. Check the photo and type it in.",
+        "Line 4: could not read the expiry date \"1106/2027\".",
+        "Could not read the document date, so expiry dates were not checked.",
+        "Could not read the printed number of lines.",
+        "The lines add up to 142 boxes, the note says 151 (+9)."
       ],
-      "silent_misreads": []
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "hard-7009",
       "planted": null,
       "outcome": null,
       "flags": [
-        "Line 3: 278 \u00d7 1.02 = 283.56, the note says 283.50.",
-        "Line 6: 145 \u00d7 0.42 = 60.90, the note says 60.00.",
-        "Line 7: could not read the quantity. Check the photo and type it in.",
-        "The line totals add up to 73,064.96, the note says 73,005.92 (-59.04)."
+        "Line 1: item code \"100.5UG-001\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI).",
+        "Could not read the printed number of lines.",
+        "Could not read the printed total pieces."
       ],
-      "silent_misreads": [
-        {
-          "cell": "total_qty",
-          "read": "2.150",
-          "printed": "2150"
-        }
-      ]
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "hard-7010",
       "planted": {
-        "type": "grand_total",
-        "row": null,
-        "field": "grand_total",
-        "correct": "10590.44",
-        "written": "10190.84"
+        "type": "loose_overflow",
+        "row": 4,
+        "field": "loose",
+        "correct": "3 boxes + 7",
+        "written": "2 boxes + 17"
       },
-      "outcome": "caught",
+      "outcome": "flagged elsewhere",
       "flags": [
-        "Line 1: 104 \u00d7 25.20 = 2,620.80, the note says 2,020.80.",
-        "Line 4: 2,016 \u00d7 1.02 = 2,056.32, the note says 2,050.32.",
-        "Line 5: 123 \u00d7 0.42 = 51.66, the note says 51.68.",
-        "Line 7: 59 \u00d7 50.30 = 2,967.70, the note says 2,057.70.",
-        "Line 9: 111 \u00d7 2.60 = 288.60, the note says 350.00.",
-        "The quantities add up to 2,790, the note says 2,700 (-90).",
-        "The line totals add up to 9,024.86, the note says 10,100.84 (+1,075.98)."
+        "Could not read the printed number of lines.",
+        "Could not read the printed total pieces."
       ],
-      "silent_misreads": []
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "hard-7011",
-      "planted": {
-        "type": "digit_changed",
-        "row": 8,
-        "field": "line_total",
-        "correct": "714.15",
-        "written": "724.15"
-      },
-      "outcome": "caught",
-      "flags": [
-        "Line 1: 611 \u00d7 27.35 = 16,710.85, the note says 10,710.85.",
-        "Line 4: could not read the quantity. Check the photo and type it in.",
-        "Line 5: 172 \u00d7 30.25 = 5,203.00, the note says 6,751.00.",
-        "Line 8: 69 \u00d7 10.35 = 714.15, the note says 724.15.",
-        "The line totals add up to 35,251.51, the note says 41,241.50 (+5,989.99)."
-      ],
-      "silent_misreads": [
-        {
-          "cell": "total_qty",
-          "read": "2,001",
-          "printed": "2091"
-        }
-      ]
-    },
-    {
-      "form": "hard-7012",
       "planted": null,
       "outcome": null,
       "flags": [
-        "Line 1: 78 \u00d7 0.95 = 74.10, the note says 776.10.",
-        "Line 4: 52 \u00d7 70.55 = 3,668.60, the note says 3,068.60.",
-        "The quantities add up to 552, the note says 562 (+10).",
-        "Could not read the printed grand total."
+        "Could not read the printed number of lines."
       ],
-      "silent_misreads": []
+      "silent_misreads": [
+        {
+          "cell": "totals.pieces",
+          "read": "0.903",
+          "printed": 6903
+        }
+      ],
+      "silent_codes": []
+    },
+    {
+      "form": "hard-7012",
+      "planted": {
+        "type": "expired",
+        "row": 4,
+        "field": "expiry",
+        "correct": "2028-05-04",
+        "written": "2026-05-06"
+      },
+      "outcome": "flagged elsewhere",
+      "flags": [
+        "Line 2: item code \"HYG-S4-000\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI).",
+        "Line 2: could not read the expiry date \"00/05/2029\".",
+        "Line 3: could not read the pieces per box. Check the photo and type it in.",
+        "Line 4: 4 boxes \u00d7 72 + 38 = 326 pieces, the note says 3,334.",
+        "Line 5: could not read the pieces per box. Check the photo and type it in.",
+        "Line 5: item code \"HNG-DIA-COS\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI).",
+        "Could not read the printed number of lines.",
+        "The lines add up to 93 boxes, the note says 132 (+39).",
+        "The lines add up to 4,013 pieces, the note says 3,813 (-200)."
+      ],
+      "silent_misreads": [],
+      "silent_codes": [
+        {
+          "cell": "row1.code",
+          "read": "MED-GLV.007",
+          "printed": "MED-GLV-003"
+        }
+      ]
     },
     {
       "form": "hard-7013",
       "planted": null,
       "outcome": null,
       "flags": [
-        "Line 3: 1,107 \u00d7 3.10 = 3,431.70, the note says 3,710.70.",
-        "Line 8: 148 \u00d7 1.02 = 150.96, the note says 150.90.",
-        "The quantities add up to 5,677, the note says 5,707 (+30).",
-        "Could not read the printed grand total."
+        "Line 1: item code \"FOD-SUG-001\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI).",
+        "Line 2: could not read the boxes. Check the photo and type it in.",
+        "Line 3: could not read the expiry date \"28/0/2028\".",
+        "Line 5: 19 boxes \u00d7 24 + 0 = 456 pieces, the note says 450.",
+        "Line 5: item code \"FOO-CH-004\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI).",
+        "Could not read the document date, so expiry dates were not checked.",
+        "Could not read the printed total boxes.",
+        "The lines add up to 1,137 pieces, the note says 1,143 (+6)."
       ],
-      "silent_misreads": []
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "hard-7014",
-      "planted": null,
-      "outcome": null,
+      "planted": {
+        "type": "bad_code",
+        "row": 2,
+        "field": "code",
+        "correct": "NFI-BLK-001",
+        "written": "NFIBLK-001"
+      },
+      "outcome": "flagged elsewhere",
       "flags": [
-        "Line 3: 149 \u00d7 1.02 = 151.98, the note says 151.08.",
-        "The line totals add up to 923.70, the note says 924.00 (+0.30)."
+        "Line 1: could not read the pieces per box. Check the photo and type it in.",
+        "Line 3: could not read the loose pieces. Check the photo and type it in.",
+        "Line 6: could not read the pieces per box and loose pieces. Check the photo and type it in.",
+        "Could not read the document date, so expiry dates were not checked.",
+        "Could not read the printed number of lines.",
+        "The lines add up to 67,201,103,280 pieces, the note says 1,024 (-67,201,102,256)."
       ],
-      "silent_misreads": []
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "hard-7015",
-      "planted": {
-        "type": "line_total",
-        "row": 6,
-        "field": "line_total",
-        "correct": "1107.50",
-        "written": "807.50"
-      },
-      "outcome": "caught",
+      "planted": null,
+      "outcome": null,
       "flags": [
-        "Line 2: could not read the quantity. Check the photo and type it in.",
-        "Line 6: 9 \u00d7 22.15 = 199.35, the note says 807.50.",
-        "The line totals add up to 7,562.70, the note says 7,502.70 (-60.00)."
+        "Line 1: could not read the boxes. Check the photo and type it in.",
+        "Line 2: item code \"F00-01-003\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI).",
+        "Could not read the document date, so expiry dates were not checked.",
+        "Could not read the printed number of lines.",
+        "Could not read the printed total boxes.",
+        "Could not read the printed total pieces."
       ],
-      "silent_misreads": []
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "hard-7016",
       "planted": {
-        "type": "grand_total",
-        "row": null,
-        "field": "grand_total",
-        "correct": "1341.45",
-        "written": "1221.20"
+        "type": "line_total",
+        "row": 3,
+        "field": "total",
+        "correct": 1584,
+        "written": 2084
       },
-      "outcome": "caught",
+      "outcome": "unreadable there",
       "flags": [
-        "Line 1: 20 \u00d7 4.70 = 94.00, the note says 4.00.",
-        "Line 3: 50 \u00d7 3.00 = 150.00, the note says 180.00.",
-        "Line 4: 148 \u00d7 0.40 = 59.20, the note says 947.20.",
-        "The line totals add up to 1,251.45, the note says 1,221.20 (-30.25)."
+        "Line 3: could not read the loose pieces. Check the photo and type it in.",
+        "Line 3: item code \"HYG-SO-001\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI).",
+        "Line 4: could not read the boxes. Check the photo and type it in.",
+        "Line 0: could not read the pieces per box. Check the photo and type it in.",
+        "The lines add up to 212,316,016,991 pieces, the note says 7,180 (-212,316,009,811)."
       ],
-      "silent_misreads": []
+      "silent_misreads": [],
+      "silent_codes": [
+        {
+          "cell": "row6.code",
+          "read": "FOO-TUN-007",
+          "printed": "FOO-TUN-002"
+        }
+      ]
     },
     {
       "form": "hard-7017",
       "planted": null,
       "outcome": null,
       "flags": [
-        "Line 2: 2 \u00d7 0.40 = 0.88, the note says 14,048.00.",
-        "Line 3: 81 \u00d7 18.50 = 1,498.50, the note says 1,408.50.",
-        "Line 4: 2 \u00d7 0.52 = 1.04, the note says 469.04.",
-        "The quantities add up to 395, the note says 3 (-392).",
-        "The line totals add up to 17,886.54, the note says 17,976.54 (+90.00)."
+        "Line 1: could not read the pieces per box. Check the photo and type it in.",
+        "Line 2: could not read the expiry date \"27/03/202\".",
+        "Line 4: could not read the pieces per box. Check the photo and type it in.",
+        "Line 5: 36 boxes \u00d7 12 + 0 = 432 pieces, the note says 43,282,029.",
+        "Could not read the printed number of lines.",
+        "Could not read the printed total boxes.",
+        "The lines add up to 43,283,894 pieces, the note says 2,307 (-43,281,587)."
       ],
-      "silent_misreads": []
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "hard-7018",
-      "planted": null,
-      "outcome": null,
+      "planted": {
+        "type": "digit_changed",
+        "row": 1,
+        "field": "total",
+        "correct": 105,
+        "written": 165
+      },
+      "outcome": "unreadable there",
       "flags": [
-        "Line 1: 32 \u00d7 31.55 = 1,009.60, the note says 1,009.00.",
-        "Line 6: 704 \u00d7 8.90 = 6,265.60, the note says 6,205.60.",
-        "The line totals add up to 16,745.45, the note says 10,806.05 (-5,939.40)."
+        "Line 1: could not read the boxes and total pieces. Check the photo and type it in.",
+        "Line 2: could not read the boxes. Check the photo and type it in.",
+        "Line 2: item code \"HYG-30A-001\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI).",
+        "Line 3: 10 boxes \u00d7 12 + 5 = 125 pieces, the note says 12,513,072,027.",
+        "Line 4: could not read the loose pieces. Check the photo and type it in.",
+        "Line 4: item code \"MEO.PAR-0O1\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI).",
+        "Line 5: could not read the loose pieces. Check the photo and type it in.",
+        "Could not read the document date, so expiry dates were not checked.",
+        "Could not read the printed total boxes.",
+        "Could not read the printed total pieces."
       ],
-      "silent_misreads": []
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "hard-7019",
       "planted": null,
       "outcome": null,
       "flags": [
-        "The quantities add up to 468, the note says 408 (-60)."
+        "Line 1: item code \"MED-PAROG1\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI).",
+        "Line 2: item code \"FOO-MX001\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI).",
+        "Line 2: could not read the expiry date \"00/12/2078\".",
+        "Line 3: 26 boxes \u00d7 24 + 0 = 624 pieces, the note says 600.",
+        "Line 4: item code \"FFHKIT-003\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI).",
+        "Line 5: could not read the pieces per box. Check the photo and type it in.",
+        "Could not read the document date, so expiry dates were not checked.",
+        "Could not read the printed total boxes."
       ],
-      "silent_misreads": []
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "hard-7020",
       "planted": {
-        "type": "digit_changed",
-        "row": 4,
-        "field": "qty",
-        "correct": "482",
-        "written": "488"
-      },
-      "outcome": "caught",
-      "flags": [
-        "Line 1: 38 \u00d7 35.90 = 1,364.20, the note says 1,292.40.",
-        "Line 4: 488 \u00d7 2.05 = 1,000.40, the note says 988.10.",
-        "Line 6: 120 \u00d7 13.75 = 1,650.00, the note says 1,732.50.",
-        "The quantities add up to 2,296, the note says 2,294 (-2).",
-        "The line totals add up to 16,692.80, the note says 10,002.80 (-6,690.00)."
-      ],
-      "silent_misreads": []
-    },
-    {
-      "form": "hard-7021",
-      "planted": {
-        "type": "line_total",
-        "row": 6,
-        "field": "line_total",
-        "correct": "276.15",
-        "written": "267.15"
+        "type": "pieces_total",
+        "row": null,
+        "field": "pieces",
+        "correct": 1495,
+        "written": 1795
       },
       "outcome": "unreadable there",
       "flags": [
-        "Line 2: 108 \u00d7 8.05 = 869.40, the note says 934.20.",
-        "Line 3: could not read the unit value. Check the photo and type it in.",
-        "Line 5: 133 \u00d7 7.05 = 937.65, the note says 1,017.45.",
-        "Line 6: could not read the quantity. Check the photo and type it in.",
-        "The line totals add up to 19,163.00, the note says 18,163.00 (-1,000.00)."
+        "Line 2: item code \"HO-S0A-001\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI).",
+        "Line 3: could not read the pieces per box and loose pieces. Check the photo and type it in.",
+        "Line 3: item code \"SHE-MAT\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI).",
+        "Could not read the document date, so expiry dates were not checked.",
+        "Could not read the printed number of lines.",
+        "Could not read the printed total pieces."
       ],
-      "silent_misreads": []
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
-      "form": "hard-7022",
+      "form": "hard-7021",
       "planted": null,
       "outcome": null,
       "flags": [
-        "Line 2: 96 \u00d7 17,10 = 1.641,60, the note says 1.641,00.",
-        "Line 5: 50 \u00d7 34,40 = 1.720,00, the note says 22.566,40.",
-        "Line 8: 170 \u00d7 43,26 = 7.354,20, the note says 7.352,50.",
-        "The quantities add up to 1.664, the note says 2.270 (+606).",
-        "The line totals add up to 49.579,60, the note says 40.580,20 (-8.999,40)."
+        "Line 1: could not read the expiry date \"04/002027\".",
+        "Line 3: 62 boxes \u00d7 12 + 8 = 752 pieces, the note says 632.",
+        "Line 3: item code \"F00-0E-000\" does not have the shape FAM-XXX-000 (families FOO, HYG, MED, SHE, NFI).",
+        "Line 3: could not read the expiry date \"06:10/2027\".",
+        "Line 4: could not read the loose pieces. Check the photo and type it in.",
+        "Line 5: could not read the boxes and total pieces. Check the photo and type it in.",
+        "Line 5: could not read the expiry date \"A065 1700/20\".",
+        "Line 6: could not read the expiry date \"02:00/2020\".",
+        "Could not read the document date, so expiry dates were not checked.",
+        "Could not read the printed number of lines.",
+        "Could not read the printed total pieces."
       ],
-      "silent_misreads": []
+      "silent_misreads": [],
+      "silent_codes": []
+    },
+    {
+      "form": "hard-7022",
+      "planted": {
+        "type": "boxes_total",
+        "row": null,
+        "field": "boxes",
+        "correct": 153,
+        "written": 135
+      },
+      "outcome": "caught",
+      "flags": [
+        "Line 1: 19 boxes \u00d7 50 + 0 = 950 pieces, the note says 0.",
+        "Line 2: could not read the pieces per box. Check the photo and type it in.",
+        "Line 4: could not read the pieces per box. Check the photo and type it in.",
+        "Could not read the document date, so expiry dates were not checked.",
+        "Could not read the printed number of lines.",
+        "The lines add up to 153 boxes, the note says 135 (-18).",
+        "The lines add up to 2,448 pieces, the note says 3,438 (+990)."
+      ],
+      "silent_misreads": [],
+      "silent_codes": []
     },
     {
       "form": "hard-7023",
       "planted": null,
       "outcome": null,
       "flags": [
-        "Line 2: 2,156 \u00d7 12.10 = 26,087.60, the note says 26,075.50.",
-        "The quantities add up to 2,426, the note says 2,425 (-1)."
+        "Line 1: could not read the pieces per box. Check the photo and type it in.",
+        "Line 3: could not read the pieces per box and loose pieces. Check the photo and type it in.",
+        "Line 7: could not read the pieces per box and boxes. Check the photo and type it in.",
+        "Line 8: 20 boxes \u00d7 24 + 0 = 480 pieces, the note says 696.",
+        "Could not read the printed number of lines.",
+        "Could not read the printed total pieces."
       ],
-      "silent_misreads": []
+      "silent_misreads": [],
+      "silent_codes": [
+        {
+          "cell": "row3.code",
+          "read": "HYG-DIA-0G3",
+          "printed": "HYG-DIA-003"
+        }
+      ]
     },
     {
       "form": "hard-7024",
-      "planted": null,
-      "outcome": null,
+      "planted": {
+        "type": "line_count",
+        "row": null,
+        "field": "lines",
+        "correct": 5,
+        "written": 4
+      },
+      "outcome": "unreadable there",
       "flags": [
-        "Line 2: 103 \u00d7 8,05 = 829,15, the note says 890,95.",
-        "Line 5: 15 \u00d7 22,00 = 330,00, the note says 339,00.",
-        "The quantities add up to 1.036, the note says 1.030 (-6)."
+        "Line 1: could not read the boxes and total pieces. Check the photo and type it in.",
+        "Line 2: could not read the loose pieces. Check the photo and type it in.",
+        "Line 5: could not read the pieces per box. Check the photo and type it in.",
+        "Line 6: could not read the pieces per box and loose pieces and total pieces. Check the photo and type it in.",
+        "Could not read the document date, so expiry dates were not checked.",
+        "Could not read the printed number of lines.",
+        "Could not read the printed total boxes."
       ],
-      "silent_misreads": []
+      "silent_misreads": [],
+      "silent_codes": []
     }
   ]
 }

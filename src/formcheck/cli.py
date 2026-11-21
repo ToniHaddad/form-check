@@ -27,7 +27,7 @@ def _print_note(res: dict, out=sys.stdout) -> None:
         cells = []
         for key, _, width, al in cols:
             c = row.get(key)
-            t = c["text"] if c else "?"
+            t = c["text"] if c else ("-" if key == "expiry" else "?")
             cells.append(f"{t[:width]:{al}{width}}")
         w("  ".join(cells) + "\n")
     t = {k: (note["totals"].get(k) or {}).get("text", "?") for k in ("lines", "boxes", "pieces")}

@@ -1,4 +1,4 @@
-"""Parse numbers the way they are written on delivery notes.
+"""Parse numbers and counts the way they are written on stock documents.
 
 Two writing styles appear on the same kind of paper:
 

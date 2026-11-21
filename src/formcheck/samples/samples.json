@@ -85,9 +85,9 @@
   },
   {
     "file": "hard.jpg",
-    "title": "Hard photo",
+    "title": "Where it fails: hard photo",
     "difficulty": "hard",
-    "description": "Strong angle, shadow, blur and heavy JPEG.",
+    "description": "Strong angle, shadow, blur and heavy JPEG. See the README.",
     "seed": 700,
     "planted_error": {
       "type": "line_total",
@@ -99,10 +99,10 @@
     "doc_type": "waybill"
   },
   {
-    "file": "glare-fails.jpg",
-    "title": "Where it fails: glare",
+    "file": "glare.jpg",
+    "title": "Flash glare",
     "difficulty": "medium",
-    "description": "Flash glare washes out part of the table. See the README.",
+    "description": "Flash glare over part of the sheet.",
     "seed": 800,
     "planted_error": {
       "type": "line_total",

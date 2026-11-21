@@ -24,9 +24,9 @@ SAMPLES = [
     ("bad-code.jpg", "Malformed item code", "easy", 500, "bad_code", {}, "An item code that does not fit FAM-XXX-000."),
     ("line-left-out.jpg", "Line left out of total", "medium", 611, "pieces_total", {},
      "The total pieces leaves one line out."),
-    ("hard.jpg", "Hard photo", "hard", 700, "line_total", {}, "Strong angle, shadow, blur and heavy JPEG."),
-    ("glare-fails.jpg", "Where it fails: glare", "medium", 800, "line_total", {"glare": True},
-     "Flash glare washes out part of the table. See the README."),
+    ("hard.jpg", "Where it fails: hard photo", "hard", 700, "line_total", {}, "Strong angle, shadow, blur and heavy JPEG. See the README."),
+    ("glare.jpg", "Flash glare", "medium", 800, "line_total", {"glare": True},
+     "Flash glare over part of the sheet."),
 ]
 
 
